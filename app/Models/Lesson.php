@@ -24,7 +24,7 @@ class Lesson extends Model
      */
     public function locations(): HasManyThrough
     {
-        return $this->hasManyThrough(Location::class, 'lesson_time_locations', '');
+        return $this->hasManyThrough(Location::class, 'lesson_time_locations');
     }
 
 }

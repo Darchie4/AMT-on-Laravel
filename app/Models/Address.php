@@ -11,6 +11,13 @@ class Address extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'street_number',
+        'street_name',
+        'zip_code',
+        'city',
+        'country',
+    ];
     /**
      * Get all the locations at this address
      */
