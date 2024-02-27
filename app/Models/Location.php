@@ -12,8 +12,8 @@ class Location extends Model
     /**
      * Get the address of this location
      */
-    public function phone(): HasOne
+    public function address(): HasOne
     {
-        return $this->hasOne(Location::class);
+        return $this->hasOne(Address::class);
     }
 }

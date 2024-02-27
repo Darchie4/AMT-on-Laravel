@@ -13,7 +13,7 @@ class LessonTimeLocation extends Model
     /**
      * Get the lesson
      */
-    public function phone(): HasOne
+    public function lesson(): HasOne
     {
         return $this->hasOne(Lesson::class);
     }

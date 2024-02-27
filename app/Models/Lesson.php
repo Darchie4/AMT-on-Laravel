@@ -14,17 +14,17 @@ class Lesson extends Model
     /**
      * Get the location(s) and time(s) of the lesson
      */
-    public function phone(): HasMany
+    public function lessonTimeLocation(): HasMany
     {
         return $this->hasMany(LessonTimeLocation::class);
     }
 
     /**
-     * Get all of the deployments for the project.
+     * Get all the deployments for the project.
      */
-    public function deployments(): HasManyThrough
+    public function locations(): HasManyThrough
     {
-        return $this->hasManyThrough(Location::class, LessonTimeLocation::class);
+        return $this->hasManyThrough(Location::class, 'lesson_time_locations', '');
     }
 
 }
