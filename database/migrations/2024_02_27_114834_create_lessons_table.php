@@ -22,7 +22,10 @@ return new class extends Migration
             $table->integer("age_min");
             $table->integer("age_max");
             $table->decimal("price");
-            $table->string("cover_img_path");
+            $table->string("cover_img_path")->unique();
+
+            $table->foreignId("dance_style_id");
+            $table->foreignId("difficulty_id");
 
             $table->timestamps();
         });

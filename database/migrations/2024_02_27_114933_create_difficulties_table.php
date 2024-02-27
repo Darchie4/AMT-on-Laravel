@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('difficulties', function (Blueprint $table) {
             $table->id();
 
-            $table->string("name");
-            $table->integer("sorting_index");
+            $table->string("name")->unique();
+            $table->integer("sorting_index")->unique();
 
             $table->timestamps();
         });

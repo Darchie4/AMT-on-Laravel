@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
 
-            $table->string("alias");
-            $table->string("permission");
+            $table->string("alias")->unique();
+            $table->string("permission")->unique();
 
             $table->timestamps();
         });
