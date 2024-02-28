@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DanceStyle;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class DanceStyleSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DanceStyle::factory()->times(50);
     }
 }

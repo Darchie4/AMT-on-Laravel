@@ -12,6 +12,6 @@ class LessonSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        LessonSeeder::factory()->times(50);
     }
 }
