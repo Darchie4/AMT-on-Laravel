@@ -13,6 +13,6 @@ class DifficultySeeder extends Seeder
      */
     public function run(): void
     {
-        Difficulty::factory()->times(50);
+        Difficulty::factory()->times(5)->create();
     }
 }

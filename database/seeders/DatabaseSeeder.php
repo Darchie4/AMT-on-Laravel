@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             LocationSeeder::class,
             InstructorInfoSeeder::class,
+            LessonSeeder::class,
             LessonTimeLocationSeeder::class,
         ]);
 

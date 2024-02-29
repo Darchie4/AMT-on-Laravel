@@ -13,6 +13,6 @@ class LessonTimeLocationSeeder extends Seeder
      */
     public function run(): void
     {
-        LessonTimeLocation::factory()->times(75);
+        LessonTimeLocation::factory()->times(75)->create();
     }
 }

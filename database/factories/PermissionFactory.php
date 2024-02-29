@@ -17,8 +17,8 @@ class PermissionFactory extends Factory
     public function definition(): array
     {
         return [
-            'alias' => fake()->colorName(),
-            'permission' => fake()->domainName()
+            'alias' => fake()->unique()->colorName(),
+            'permission' => fake()->unique()->domainName()
         ];
     }
 }

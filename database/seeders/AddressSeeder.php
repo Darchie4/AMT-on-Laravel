@@ -13,6 +13,6 @@ class AddressSeeder extends Seeder
      */
     public function run(): void
     {
-        Address::factory()->times(50);
+        Address::factory()->times(50)->create();
     }
 }
