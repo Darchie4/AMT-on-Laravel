@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Difficulty;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class DifficultyFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->safeColorName()
+            'name' => fake()->unique()->safeColorName(),
+            'sorting_index' => fake()->unique()->numberBetween(1,20),
         ];
     }
 }

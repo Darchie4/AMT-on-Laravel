@@ -13,6 +13,6 @@ class DanceStyleSeeder extends Seeder
      */
     public function run(): void
     {
-        DanceStyle::factory()->times(50);
+        DanceStyle::factory()->times(10)->create();
     }
 }

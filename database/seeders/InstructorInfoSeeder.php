@@ -13,6 +13,6 @@ class InstructorInfoSeeder extends Seeder
      */
     public function run(): void
     {
-        InstructorInfo::factory()->times(5);
+        InstructorInfo::factory()->times(5)->create();
     }
 }

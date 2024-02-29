@@ -21,7 +21,7 @@ class InstructorInfoFactory extends Factory
         return [
             'short_description' => fake()->sentence(6),
             'long_description' => fake()->randomHtml(),
-            'cover_img_path' => fake()->filePath(),
+            'profile_img_path' => fake()->unique()->filePath(),
             'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
