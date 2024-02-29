@@ -25,6 +25,11 @@ class DatabaseSeeder extends Seeder
             InstructorInfoSeeder::class,
             LessonSeeder::class,
             LessonTimeLocationSeeder::class,
+            DanceStyleLessonSeeder::class,
+            DifficultyLessonSeeder::class,
+            InstructorInfoLessonSeeder::class,
+            RolePermissionSeeder::class,
+            RoleUserSeeder::class
         ]);
 
 
