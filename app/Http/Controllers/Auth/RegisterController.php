@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'back()';
 
     /**
      * Create a new controller instance.
@@ -50,8 +50,12 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'date'],
+            'gender' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
 
@@ -63,9 +67,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //Getting genders for dropdown. To be used when gender table exists
+        //$genders = Gender::pluck('name','id');
+
         return User::create([
-            'name' => $data['name'],
+            'name' => $data['firstname'],
+            'lname' => $data['lname'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
+            'birthday' => $data['birthday'],
+            'gender' => $data['gender'],
+
+            //'genders' => $genders,
+
             'password' => Hash::make($data['password']),
         ]);
     }
