@@ -116,7 +116,7 @@
                             <!--Submit-->
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-3">
-                                    <button type="submit" class="form-control btn btn-success rounded submit px-3">
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">
                                         {{ __('customLabels.Register') }}
                                     </button>
                                 </div>
@@ -126,7 +126,7 @@
                             <div class="row my-2">
                                 <div class="col-md-6 offset-md-3 text-center">
                                     <p>{{__('customLabels.existing-user')}}
-                                        <a class="link-success" href="{{route('login')}}">{{__('customLabels.login-here')}}</a></p>
+                                        <a href="{{route('login')}}">{{__('customLabels.login-here')}}</a></p>
                                 </div>
                             </div>
                         </form>

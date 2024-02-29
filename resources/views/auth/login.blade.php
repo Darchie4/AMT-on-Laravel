@@ -52,14 +52,14 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-3">
-                                    <button type="submit" class="form-control btn btn-success rounded submit px-3">
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">
                                         {{ __('customLabels.login') }}
                                     </button>
                                 </div>
                             </div>
                             <div class="row my-2 col-md-6 offset-md-3">
                                 @if (Route::has('password.request'))
-                                    <a class="link-success" href="{{ route('password.request') }}">
+                                    <a href="{{ route('password.request') }}">
                                         {{ __('customLabels.forgot-password') }}
                                     </a>
                                 @endif
