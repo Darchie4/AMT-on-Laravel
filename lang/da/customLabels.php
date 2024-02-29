@@ -9,6 +9,8 @@ return [
     */
     //Standard
     'Welcome' => 'Velkommen til!',
+
+    //Register/login
     'Register' => 'Opret profil',
     'firstname' => 'Fornavn',
     'lastname' => 'Efternavn',
@@ -21,6 +23,9 @@ return [
     'password-confirm' => 'Bekræft adgangskode',
     'existing-user' => 'Har du allerede en bruger?',
     'login-here' => 'Log ind her',
+    'login' => 'Log ind',
+    'remember-me' => 'Husk mig',
+    'forgot-password' => 'Har du glemt din adgangskode?',
     //Change to match genders in table Gender
     'male' => 'Mand',
     'female' => 'Kvinde',
