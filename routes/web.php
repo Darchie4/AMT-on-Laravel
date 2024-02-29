@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LessonController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +22,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('/admin')->group(function () {
+    Route::prefix('/lesson')->group(function(){
+        Route::get('index', [LessonController::class, 'adminIndex'])->name('admin.lesson.index');
+        Route::get('create', [LessonController::class, 'adminCreate'])->name('admin.lesson.create');
+        Route::post('doCreate', [LessonController::class, 'adminDoCreate'])->name('admin.lesson.doCreate');
+    });
+});
