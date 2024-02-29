@@ -2,12 +2,21 @@
 
 @section('content')
     <div class="container">
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card card-4">
                     <div class="card-body">
                         <h2 class="card-title">{{ __('customLabels.Register') }}</h2>
-                        <div method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
 
                             <!--Firstname + lastname-->
@@ -73,9 +82,9 @@
                                     <select class="form-select" name="gender"
                                             required @error('gender') is-invalid @enderror>
                                         <option selected>{{ __('customLabels.choose')}}</option>
-                                        <option value="1">{{__('customLabels.male')}}</option>
-                                        <option value="2">{{__('customLabels.female')}}</option>
-                                        <option value="3">{{__('customLabels.other')}}</option>
+                                        <option value="male">{{__('customLabels.male')}}</option>
+                                        <option value="female">{{__('customLabels.female')}}</option>
+                                        <option value="other">{{__('customLabels.other')}}</option>
 
                                         {{-- Implement when gender table exists (remember controller)
                                         @foreach($genders as $id => $gender)
@@ -105,10 +114,10 @@
                                     @enderror
                                 </div>
                                 <div class="col-6">
-                                    <label for="password-confirm"
+                                    <label for="password_confirmation"
                                            class="form-label">{{ __('customLabels.password-confirm') }}</label>
-                                    <input class="form-control" type="password" name="password-confirm"
-                                           id="password-confirm"
+                                    <input class="form-control" type="password" name="password_confirmation"
+                                           id="password_confirmation"
                                            required autocomplete="new-password">
                                 </div>
                             </div>

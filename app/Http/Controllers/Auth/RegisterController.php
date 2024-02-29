@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'back()';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -71,7 +71,7 @@ class RegisterController extends Controller
         //$genders = Gender::pluck('name','id');
 
         return User::create([
-            'name' => $data['firstname'],
+            'name' => $data['name'],
             'lname' => $data['lname'],
             'email' => $data['email'],
             'phone' => $data['phone'],
