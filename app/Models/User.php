@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -62,17 +63,17 @@ class User extends Authenticatable
     /**
      * Get the Roles for the user.
      */
-    public function roles(): BelongsToMany
+    /*public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
     /**
      * Get all permissions of a user
-     */
+     *//*
     public function permissions(): HasManyThrough
     {
         return $this->hasManyThrough(Permission::class, Role::class);
-    }
+    }*/
 
 }

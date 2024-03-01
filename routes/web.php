@@ -20,3 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => ['permission:lessons_can_crud']], function () {
+    Route::get('/test', [App\Http\Controllers\TestController::class, 'index'])->name('test');
+});
