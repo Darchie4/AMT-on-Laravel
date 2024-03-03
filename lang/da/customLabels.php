@@ -26,6 +26,9 @@ return [
     'login' => 'Log ind',
     'remember-me' => 'Husk mig',
     'forgot-password' => 'Har du glemt din adgangskode?',
+    'users' => 'Brugere',
+    'all_users' => 'Alle brugere',
+
     //Change to match genders in table Gender
     'male' => 'Mand',
     'female' => 'Kvinde',
@@ -38,6 +41,7 @@ return [
     'permissions' => 'Tilladelser',
     'see_permissions'=>'Se tilladelser',
     'permission_name' => 'Tilladelsesnavn',
+    'assign'=>'Tildel',
 
     //CRUD
     'edit' => 'Rediger',
