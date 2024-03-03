@@ -52,6 +52,11 @@ class RoleController extends Controller
         return redirect()->route('admin.roles.index')->with('success', 'Role updated successfully');
     }
 
+    public function destroy(Role $role){
+        $role->delete();
+        return back()->with('message','Role deleted');
+    }
+
     //Assign a permission to the role
     public function assignPermission(Request $request, Role $role)
     {

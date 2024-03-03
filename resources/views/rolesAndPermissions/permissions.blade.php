@@ -22,7 +22,7 @@
                             <td>{{$permission->id}}</td>
                             <td>{{$permission->name}}</td>
                             <td>
-                                <a href="{{route('admin.permissions.edit', $permission->id)}}">{{__('customLabels.edit')}}</a>
+                                <a role="button" class="btn btn-outline-primary" href="{{route('admin.permissions.edit', $permission->id)}}">{{__('customLabels.edit')}}</a>
                                 <a href="#">{{__('customLabels.delete')}}</a>
                             </td>
                         </tr>

@@ -20,11 +20,15 @@
                     @foreach($roles as $role)
                         <tr>
                             <td>{{$role->id}}</td>
-                            <td>{{$role->name}}</td>
+                            <td><a href="#">{{$role->name}}</a></td>
                             <td>
-                                <a href="{{route('admin.roles.edit', $role->id)}}">{{__('customLabels.edit')}}</a>
-                                <a href="#">{{__('customLabels.delete')}}</a>
-                                <a href="#">{{__('customLabels.see_permissions')}}</a>
+                                <a role="button" class="btn btn-outline-primary" href="{{route('admin.roles.edit', $role->id)}}">{{__('customLabels.edit')}}</a>
+                                <form class="d-inline-flex" method="post" action="{{route('admin.roles.destroy',$role->id)}}"
+                                      onsubmit="return confirm('{{__('customLabels.confirm')}}')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">{{__('customLabels.delete')}}</button>
+                                </form>
                             </td>
                         </tr>
                     </tbody>
