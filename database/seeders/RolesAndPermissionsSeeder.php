@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -37,5 +38,16 @@ class RolesAndPermissionsSeeder extends Seeder
             'password' => static::$password ??= Hash::make('password'),
         ]);
         $user->assignRole($role1);
+
+        $super = Role::create(['name'=>'SuperAdmin']);
+        $superuser = User::factory()->create([
+            'name' => 'Super',
+            'lname'=> 'Admin',
+            'email' => 'superadmin@example.com',
+            'email_verified_at' => now(),
+            'password' => static::$password ??= Hash::make('password'),
+            'remember_token' => Str::random(10),
+        ]);
+        $superuser ->assignRole($super);
     }
 }
