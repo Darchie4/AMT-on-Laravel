@@ -52,7 +52,7 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-3">
-                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">
+                                    <button type="submit" class="form-control btn btn-primary submit px-3">
                                         {{ __('customLabels.login') }}
                                     </button>
                                 </div>

@@ -3,6 +3,9 @@
 @section('admin_content')
     <div class="container">
         <h2>{{__('customLabels.permissions')}}</h2>
+        <div class="d-grid d-md-flex justify-content-md-end"> <br>
+            <a class="btn btn-outline-primary mb-2" role="button" href="{{route('admin.permissions.create')}}">{{__('customLabels.create')}}</a>
+        </div>
         <div class="row justify-content-center">
             <div>
                 <table class="table table-bordered border-primary">
