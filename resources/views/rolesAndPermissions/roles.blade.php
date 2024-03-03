@@ -22,7 +22,7 @@
                             <td>{{$role->id}}</td>
                             <td>{{$role->name}}</td>
                             <td>
-                                <a href="#">{{__('customLabels.edit')}}</a>
+                                <a href="{{route('admin.roles.edit', $role->id)}}">{{__('customLabels.edit')}}</a>
                                 <a href="#">{{__('customLabels.delete')}}</a>
                                 <a href="#">{{__('customLabels.see_permissions')}}</a>
                             </td>

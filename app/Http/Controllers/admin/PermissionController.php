@@ -31,4 +31,19 @@ class PermissionController extends Controller
 
         return redirect()->route('admin.permissions.index')->with('success','Permission created successfully');
     }
+
+    //Get edit view
+    public function edit(Permission $permission){
+        return view('rolesAndPermissions.permissionsEdit',compact('permission'));
+    }
+
+    //PUT for edit
+    public function update(Request $request, Permission $permission){
+        $data = $request->validate([
+            'name' => 'required|string|min:2',
+        ]);
+        $permission->update($data);
+        return redirect()->route('admin.permissions.index')->with('success','Permission updated successfully');
+
+    }
 }

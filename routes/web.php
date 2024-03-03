@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +29,10 @@ Route::group(['middleware' => ['permission:lessons_can_crud']], function () {
 Route::middleware('permission:admin_panel') -> name('admin.')
     ->prefix('admin')-> group(function () {
         Route::get('/',[\App\Http\Controllers\admin\IndexController::class, 'index'])->name('index');
-        Route::resource('/roles',\App\Http\Controllers\admin\RoleController::class);
-        Route::resource('/permissions',\App\Http\Controllers\admin\PermissionController::class);
+        Route::resource('/roles',RoleController::class);
+        Route::post('/roles/{role}/permissions',[RoleController::class, 'assignPermission'])->name('roles.permission.assign');
+        Route::delete('/roles/{role}/permissions/{permission}',[RoleController::class, 'removePermission'])->name('roles.permission.remove');
+
+        Route::resource('/permissions',PermissionController::class);
     });
 
