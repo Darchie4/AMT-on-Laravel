@@ -40,7 +40,8 @@ class LessonController extends Controller
     /**
      * Show the view for creating a new Lesson
      *
-     * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector
      */
     public function adminDoCreate(Request $request): Application|RedirectResponse|Redirector
     {
@@ -104,7 +105,7 @@ class LessonController extends Controller
             $lesson->lessonTimeLocations()->save($lessonTimeLocation);
         }
 
-        return redirect('admin.lesson.index')->with('success', 'Lesson and timeslots created successfully!');
+        return redirect()->route('admin.lesson.index')->with('success', 'Lesson and timeslots created successfully!');
     }
 
 }
