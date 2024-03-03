@@ -37,6 +37,7 @@ return [
     'roles' => 'Roller',
     'permissions' => 'Tilladelser',
     'see_permissions'=>'Se tilladelser',
+    'permission_name' => 'Tilladelsesnavn',
 
     //CRUD
     'edit' => 'Rediger',
