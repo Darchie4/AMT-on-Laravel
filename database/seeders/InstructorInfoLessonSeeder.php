@@ -19,10 +19,7 @@ class InstructorInfoLessonSeeder extends Seeder
         Lesson::all()->each(function (Lesson $lesson) {
             $rand = rand(1,3);
             for ($i = 0; $i < $rand; $i++) {
-                $instructorInfoLesson = new InstructorInfoLesson();
-                $instructorInfoLesson->instructor_info_id = InstructorInfo::inRandomOrder()->first()->id;
-                $instructorInfoLesson->lesson_id = Lesson::inRandomOrder()->first()->id;
-                $instructorInfoLesson->save();
+                $lesson->instructors()->attach(InstructorInfo::inRandomOrder()->first());
             }
         });
     }

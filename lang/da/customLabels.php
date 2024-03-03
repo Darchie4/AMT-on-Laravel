@@ -25,5 +25,6 @@ return [
     'lesson_create_Price' => 'Pris',
     'lesson_create_coverImage' => 'Dæk billede',
     'lesson_create_danceStyle' => 'Stilart',
-    'lesson_create_difficulty' => 'Digtigheds grad',
+    'lesson_create_difficulty' => 'Dygtigheds grad',
+    'lesson_create_instructor' => 'Unservis(ere)',
 ];

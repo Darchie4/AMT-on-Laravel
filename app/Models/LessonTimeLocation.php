@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LessonTimeLocation extends Model
@@ -13,16 +14,16 @@ class LessonTimeLocation extends Model
     /**
      * Get the lesson
      */
-    public function lesson(): HasOne
+    public function lesson(): BelongsTo
     {
-        return $this->hasOne(Lesson::class);
+        return $this->belongsTo(Lesson::class);
     }
 
     /**
      * Get the lesson
      */
-    public function location(): HasOne
+    public function location(): BelongsTo
     {
-        return $this->hasOne(Location::class);
+        return $this->belongsTo(Location::class);
     }
 }

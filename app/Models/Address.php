@@ -21,16 +21,16 @@ class Address extends Model
     /**
      * Get all the locations at this address
      */
-    public function locations(): BelongsToMany
+    public function locations(): HasMany
     {
-        return $this->belongsToMany(Location::class);
+        return $this->hasMany(Location::class);
     }
 
     /**
      * Get all the users at this address
      */
-    public function users(): BelongsToMany
+    public function users(): HasMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
     }
 }

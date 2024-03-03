@@ -15,7 +15,7 @@ class DanceStyleLessonSeeder extends Seeder
     public function run(): void
     {
         Lesson::all()->each(function (Lesson $lesson){
-            $lesson->danceStyle()->associate(DanceStyle::inRandomOrder()->first()->id);
+            $lesson->danceStyle()->associate(DanceStyle::inRandomOrder()->first());
         });
     }
 }

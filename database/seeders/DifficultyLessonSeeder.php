@@ -16,7 +16,7 @@ class DifficultyLessonSeeder extends Seeder
     public function run(): void
     {
         Lesson::all()->each(function (Lesson $lesson){
-            $lesson->danceStyle()->associate(Difficulty::inRandomOrder()->first()->id);
+            $lesson->danceStyle()->associate(Difficulty::inRandomOrder()->first());
         });
     }
 }
