@@ -31,6 +31,22 @@ return [
     'female' => 'Kvinde',
     'other' => 'Andet',
 
+    //Roles and permissions
+    'role_name' => 'Rollenavn',
+    'manage' => 'Administrer',
+    'roles' => 'Roller',
+    'permissions' => 'Tilladelser',
+    'see_permissions'=>'Se tilladelser',
+
+    //CRUD
+    'edit' => 'Rediger',
+    'delete' => 'Slet',
+    'create' => 'Lav ny',
+
+    //Admin
+    'admin_settings' => 'Administrator indstillinger',
+
+
 
 
 

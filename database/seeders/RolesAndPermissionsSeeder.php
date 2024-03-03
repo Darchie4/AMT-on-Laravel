@@ -20,6 +20,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'lessons_can_crud']);
         Permission::create(['name' =>'lessons_instructor']);
         Permission::create(['name' => 'users_can_crud']);
+        Permission::create(['name' => 'admin_panel']);
 
         // create roles and assign created permissions
         // this can be done as separate statements
@@ -35,6 +36,6 @@ class RolesAndPermissionsSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => static::$password ??= Hash::make('password'),
         ]);
-        $user->assignRole($role2);
+        $user->assignRole($role1);
     }
 }
