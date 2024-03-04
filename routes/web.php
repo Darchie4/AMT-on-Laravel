@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\IndexController;
+use App\Http\Controllers\admin\AdminIndexController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\UserController;
@@ -25,12 +25,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['permission:lessons_can_crud']], function () {
-    Route::get('/test', [App\Http\Controllers\TestController::class, 'index'])->name('test');
-});
 Route::middleware('permission:admin_panel') -> name('admin.')
     ->prefix('admin')-> group(function () {
-        Route::get('/',[IndexController::class, 'index'])->name('index');
+        Route::get('/',[AdminIndexController::class, 'index'])->name('index');
 
         //Role routes
         Route::resource('/roles',RoleController::class);

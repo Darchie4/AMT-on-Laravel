@@ -25,7 +25,12 @@ class PermissionController extends Controller
             'name' => 'required|string|min:2',
         ]);
 
-        $permission = Permission::create([
+        //Check if already exists
+        if (Permission::where('name', '=', $request->input('name'))->exists()) {
+            return redirect()->back()->with('error','Permission with this name already exist');
+        }
+
+        Permission::create([
             'name' => $request->input('name')
         ]);
 

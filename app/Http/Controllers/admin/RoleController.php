@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Symfony\Component\Console\Input\Input;
 
 class RoleController extends Controller
 {
@@ -28,6 +29,10 @@ class RoleController extends Controller
             'name' => 'required|string|min:2',
         ]);
 
+        //Check if already exists
+        if (Role::where('name', '=', $request->input('name'))->exists()) {
+            return redirect()->back()->with('error','Role with this name already exist');
+        }
         Role::create([
             'name' => $request->input('name')
         ]);
