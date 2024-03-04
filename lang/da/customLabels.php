@@ -26,10 +26,31 @@ return [
     'login' => 'Log ind',
     'remember-me' => 'Husk mig',
     'forgot-password' => 'Har du glemt din adgangskode?',
+    'users' => 'Brugere',
+    'all_users' => 'Alle brugere',
+
     //Change to match genders in table Gender
     'male' => 'Mand',
     'female' => 'Kvinde',
     'other' => 'Andet',
+
+    //Roles and permissions
+    'role_name' => 'Rollenavn',
+    'manage' => 'Administrer',
+    'roles' => 'Roller',
+    'permissions' => 'Tilladelser',
+    'see_permissions'=>'Se tilladelser',
+    'permission_name' => 'Tilladelsesnavn',
+    'assign'=>'Tildel',
+
+    //CRUD
+    'edit' => 'Rediger',
+    'delete' => 'Slet',
+    'create' => 'Lav ny',
+
+    //Admin
+    'admin_settings' => 'Administrator indstillinger',
+
 
 
 
