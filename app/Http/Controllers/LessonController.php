@@ -8,6 +8,7 @@ use App\Models\InstructorInfo;
 use App\Models\Lesson;
 use App\Models\LessonTimeLocation;
 use App\Models\Location;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
@@ -25,6 +26,11 @@ class LessonController extends Controller
     public function adminIndex(): Renderable
     {
         return view('lesson/admin/index', ['lessons' => Lesson::all()]);
+    }
+
+    public function adminShow(int $id): Renderable
+    {
+        return view('lesson/admin/show', ['lesson' => Lesson::findOrFail($id)]);
     }
 
     /**
@@ -86,7 +92,7 @@ class LessonController extends Controller
         $lesson->price = \request("price");
         $lesson->dance_style_id = $danceStyle->id;
         $lesson->difficulty_id = $difficulty->id;
-        $lesson->cover_img_path = '/lesson/image'.$fileName;
+        $lesson->cover_img_path = 'storage/lesson/image/'.$fileName;
 
         $lesson->save();
 
@@ -97,8 +103,8 @@ class LessonController extends Controller
         foreach ($request->input('start_times') as $index => $startTime) {
             $lessonTimeLocation = new LessonTimeLocation();
             $lessonTimeLocation->week_day = $request->input('days')[$index];
-            $lessonTimeLocation->start_time = $startTime;
-            $lessonTimeLocation->end_time = $request->input('end_times')[$index];
+            $lessonTimeLocation->start_time = Carbon::parse($startTime)->format('H:s');
+            $lessonTimeLocation->end_time = Carbon::parse($request->input('end_times')[$index])->format('H:s');
             $lessonTimeLocation->location_id = $request->input('locations')[$index];
             $lessonTimeLocation->lesson_id = $lesson->id; // Associate the lesson ID
             $lessonTimeLocation->save();

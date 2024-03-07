@@ -11,6 +11,14 @@ class LessonTimeLocation extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'week_day',
+        'start_time',
+        'end_time',
+        'lesson_id',
+        'location_id',
+    ];
+
     /**
      * Get the lesson
      */
