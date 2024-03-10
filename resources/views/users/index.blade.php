@@ -31,7 +31,31 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-filter"></i>
                         </button>
-                        <!--INSERT FORM HERE-->
+                        <form action="{{ route('admin.users.filter') }}" method="POST" id="filter_form">
+                            @csrf
+                            <ul class="dropdown-menu">
+                                @foreach($roles as $role)
+                                    <li class="dropdown-item-text">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="roles[]"
+                                                   value="{{ $role->name }}"
+                                                   id="{{ $role->name }}"{{ in_array($role->name, $selectedRoles) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ $role->name }}">
+                                                {{ $role->name }}
+                                            </label>
+                                        </div>
+                                    </li>
+                                @endforeach
+                                <li class="dropdown-item-text">
+                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                </li>
+                                <li class="dropdown-item-text">
+                                    <button type="button" class="btn btn-secondary" onclick="clearFilters()">Reset
+                                        Filters
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
                     </div>
                 </div>
                 <!--Create new btn-->
@@ -79,4 +103,7 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+        <script src="{{ asset('js/users_reset_filter.js') }}"></script>
+    @endpush
 @endsection

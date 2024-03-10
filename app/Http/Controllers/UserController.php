@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $usersQuery = User::query();
-        $roles = [];
+        $roles = Role::all();
         if ($request->has('search')) {
             $search = $request->input('search');
             $usersQuery->where('name', 'like', '%' . $search . '%')
@@ -22,7 +22,26 @@ class UserController extends Controller
         }
 
         $users = $usersQuery->get();
-        return view('users.index', compact('users'));
+        $selectedRoles = [];
+        return view('users.index', compact('users','roles','selectedRoles'));
+    }
+
+    //Method for filtering for roles
+    public function filter(Request $request){
+        $selectedRoles = $request->input('roles', []);
+
+        $query = User::query();
+
+        if (!empty($selectedRoles)) {
+            $query->whereHas('roles', function ($query) use ($selectedRoles) {
+                $query->whereIn('name', $selectedRoles);
+            });
+        }
+
+        $users = $query->get();
+        $roles = Role::all();
+
+        return view('users.index', compact('users', 'roles', 'selectedRoles'));
     }
 
     //Get create new user view
