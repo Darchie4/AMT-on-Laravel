@@ -26,7 +26,7 @@ class RoleController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|min:2',
+            'name' => 'required|string|min:2|unique:roles',
         ]);
 
         //Check if already exists
