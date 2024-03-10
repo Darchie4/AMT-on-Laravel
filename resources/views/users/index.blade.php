@@ -31,46 +31,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-filter"></i>
                         </button>
-                        <form>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-item-text">
-                                    <input class="form-check-input"
-                                           type="checkbox"
-                                           name="instructor">
-                                    <label class="form-check-label" for="instructor">
-                                        {{__('customLabels.filter_instructors')}}
-                                    </label>
-                                </li>
-                                <li class="dropdown-item-text">
-                                    <input class="form-check-input"
-                                           type="checkbox"
-                                           name="admin">
-                                    <label class="form-check-label" for="admin">
-                                        {{__('customLabels.filter_admins')}}
-                                    </label>
-                                </li>
-                                <li class="dropdown-item-text">
-                                    <input class="form-check-input"
-                                           type="checkbox"
-                                           name="member">
-                                    <label class="form-check-label" for="instructor-check">
-                                        {{__('customLabels.filter_members')}}
-                                    </label>
-                                </li>
-                                <li class="dropdown-item-text">
-                                    <input class="form-check-input"
-                                           type="checkbox"
-                                           value="role"
-                                           name="instructor-check">
-                                    <label class="form-check-label" for="instructor-check">Test</label>
-                                </li>
-                                <li class="dropdown-item-text">
-                                    <button type="submit" class="btn btn-primary">
-                                        Apply Filter
-                                    </button>
-                                </li>
-                            </ul>
-                        </form>
+                        <!--INSERT FORM HERE-->
                     </div>
                 </div>
                 <!--Create new btn-->

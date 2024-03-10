@@ -20,19 +20,7 @@ class UserController extends Controller
                 ->orWhere('email', 'like', '%' . $search . '%')
                 ->orWhere('lname', 'like', '%' . $search . '%');
         }
-        if ($request->has('instructor') ||
-        $request-> has('admin')) {
 
-            if ($request->has('instructor')) {
-                $roles[] = 'instructor';
-            }
-            if ($request->has('admin')) {
-                $roles[] = 'admin';
-            }
-            $usersQuery->whereHas('roles', function ($query) use ($roles) {
-                $query->whereIn('name', $roles);
-            });
-        }
         $users = $usersQuery->get();
         return view('users.index', compact('users'));
     }
