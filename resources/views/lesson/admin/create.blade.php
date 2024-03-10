@@ -39,6 +39,7 @@
         <form class="row g-3" action="{{route("admin.lesson.doCreate")}}" method="post"
               enctype="multipart/form-data">
             @csrf
+            @method('post')
 
             <div class="col form-group">
                 <label for="name">{{__('customlabels.lesson_create_Name')}}</label> <br>

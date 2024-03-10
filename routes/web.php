@@ -25,7 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('/admin')->group(function () {
     Route::prefix('/lesson')->group(function(){
-        Route::get('index', [LessonController::class, 'adminIndex'])->name('admin.lesson.index');
+        Route::get('/', [LessonController::class, 'adminIndex'])->name('admin.lesson.index');
         Route::get('show/{id}', [LessonController::class, 'adminShow'])->name('admin.lesson.show');
         Route::get('create', [LessonController::class, 'adminCreate'])->name('admin.lesson.create');
         Route::post('doCreate', [LessonController::class, 'adminDoCreate'])->name('admin.lesson.doCreate');
