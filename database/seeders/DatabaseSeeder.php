@@ -19,8 +19,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             DanceStyleSeeder::class,
             DifficultySeeder::class,
-            PermissionSeeder::class,
-            RoleSeeder::class,
+            RolesAndPermissionsSeeder::class,
             LocationSeeder::class,
             InstructorInfoSeeder::class,
             LessonSeeder::class,
@@ -28,8 +27,9 @@ class DatabaseSeeder extends Seeder
             DanceStyleLessonSeeder::class,
             DifficultyLessonSeeder::class,
             InstructorInfoLessonSeeder::class,
-            RolePermissionSeeder::class,
-            RoleUserSeeder::class
+            //RolePermissionSeeder::class,
+            //RoleUserSeeder::class,
+            RolesAndPermissionsSeeder::class
         ]);
 
 
