@@ -6,7 +6,7 @@
         <div class="row row-cols-2">
             <!--Search box -->
             <div class="d-grid justify-content-md-start mb-2 col-md-9">
-                <form>
+                <form action="{{route('admin.users.index')}}" method="GET">
                     <div class="input-group">
                         <input class="form-control"
                                type="search"
