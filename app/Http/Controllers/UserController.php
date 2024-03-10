@@ -10,41 +10,71 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     //Basic crud
-    public function index(){
-        $users = User::all();
-        return view('users.index',compact('users'));
+    public function index(Request $request)
+    {
+        $usersQuery = User::query();
+        $roles = [];
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $usersQuery->where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')
+                ->orWhere('lname', 'like', '%' . $search . '%');
+        }
+        if ($request->has('instructor') ||
+        $request-> has('admin')) {
+
+            if ($request->has('instructor')) {
+                $roles[] = 'instructor';
+            }
+            if ($request->has('admin')) {
+                $roles[] = 'admin';
+            }
+            $usersQuery->whereHas('roles', function ($query) use ($roles) {
+                $query->whereIn('name', $roles);
+            });
+        }
+        $users = $usersQuery->get();
+        return view('users.index', compact('users'));
     }
 
     //Get create new user view
-    public function create(){
+    public function create()
+    {
         return view();
     }
 
     //POST create new user
-    public function store(){
+    public function store()
+    {
     }
 
     //Show details about user
-    public function show(){
+    public function show()
+    {
     }
 
     //Get edit view
-    public function edit(User $user){
+    public function edit(User $user)
+    {
         $roles = Role::all();
-        return view('users.edit',compact('user','roles'));
+        return view('users.edit', compact('user', 'roles'));
     }
+
     //Edit a user (put/patch)
-    public function update(){
+    public function update()
+    {
     }
 
     //delete a user
-    public function destroy(){
+    public function destroy()
+    {
     }
 
     //Roles and permissions
 
     //add new role to user
-    public function assignRole(Request $request, User $user){
+    public function assignRole(Request $request, User $user)
+    {
         if ($user->hasRole($request->role)) {
             return back()->with('message', 'Role already assigned to user');
         }
@@ -53,11 +83,12 @@ class UserController extends Controller
     }
 
     //remove existing role from user
-    public function removeRole(User $user, Role $role) : RedirectResponse{
-        if ($user->hasRole($role)){
+    public function removeRole(User $user, Role $role): RedirectResponse
+    {
+        if ($user->hasRole($role)) {
             $user->removeRole($role);
-            return back()->with('message','Role removed from user');
+            return back()->with('message', 'Role removed from user');
         }
-        return back()->with('message','Role has not been assigned to user');
+        return back()->with('message', 'Role has not been assigned to user');
     }
 }
