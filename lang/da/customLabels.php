@@ -9,8 +9,6 @@ return [
     */
     //Standard
     'Welcome' => 'Velkommen til!',
-    'back' => 'Tilbage',
-    'confirm' => 'Bekræft',
 
     //Register/login
     'Register' => 'Opret profil',
@@ -53,9 +51,6 @@ return [
     //Admin
     'admin_settings' => 'Administrator indstillinger',
 
-    //Users
-    'user_details' => 'Brugerdetailer',
-    'user_joined'=>'Medlem siden',
 
 
 
