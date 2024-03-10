@@ -27,9 +27,6 @@ class DatabaseSeeder extends Seeder
             DanceStyleLessonSeeder::class,
             DifficultyLessonSeeder::class,
             InstructorInfoLessonSeeder::class,
-            //RolePermissionSeeder::class,
-            //RoleUserSeeder::class,
-            RolesAndPermissionsSeeder::class
         ]);
 
 

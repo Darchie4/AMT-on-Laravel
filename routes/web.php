@@ -45,9 +45,9 @@ Route::middleware('permission:admin_panel') -> name('admin.')
         Route::delete('/users/{user}/roles/{role}',[UserController::class,'removeRole'])->name('users.roles.remove');
 
         Route::prefix('/lesson')->group(function(){
-            Route::get('/', [LessonController::class, 'adminIndex'])->name('admin.lesson.index');
-            Route::get('show/{id}', [LessonController::class, 'adminShow'])->name('admin.lesson.show');
-            Route::get('create', [LessonController::class, 'adminCreate'])->name('admin.lesson.create');
-            Route::post('doCreate', [LessonController::class, 'adminDoCreate'])->name('admin.lesson.doCreate');
+            Route::get('/', [LessonController::class, 'adminIndex'])->name('lesson.index');
+            Route::get('show/{id}', [LessonController::class, 'adminShow'])->name('lesson.show');
+            Route::get('create', [LessonController::class, 'adminCreate'])->name('lesson.create');
+            Route::post('doCreate', [LessonController::class, 'adminDoCreate'])->name('lesson.doCreate');
         });
 });
