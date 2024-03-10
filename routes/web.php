@@ -28,7 +28,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('permission:admin_panel') -> name('admin.')
-    ->prefix('admin')-> group(function () {
+    ->prefix('/admin')-> group(function () {
         Route::get('/',[AdminIndexController::class, 'index'])->name('index');
 
         //Role routes
@@ -46,8 +46,11 @@ Route::middleware('permission:admin_panel') -> name('admin.')
 
         Route::prefix('/lesson')->group(function(){
             Route::get('/', [LessonController::class, 'adminIndex'])->name('lesson.index');
-            Route::get('show/{id}', [LessonController::class, 'adminShow'])->name('lesson.show');
-            Route::get('create', [LessonController::class, 'adminCreate'])->name('lesson.create');
-            Route::post('doCreate', [LessonController::class, 'adminDoCreate'])->name('lesson.doCreate');
+            Route::get('/show/{id}', [LessonController::class, 'adminShow'])->name('lesson.show');
+            Route::get('/create', [LessonController::class, 'adminCreate'])->name('lesson.create');
+            Route::post('/doCreate', [LessonController::class, 'adminDoCreate'])->name('lesson.doCreate');
+            Route::get('/edit/{id}', [LessonController::class, 'adminEdit'])->name('lesson.edit');
+            Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
+            Route::delete('/delete/{id}',[LessonController::class,'adminDelete'])->name('lesson.remove');
         });
 });

@@ -8,6 +8,9 @@
                     <h3>Administration</h3>
                     <ul>
                         <li>
+                            <a href="{{ route('admin.lesson.index') }}">{{ __('customLabels.lesson') }}</a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.roles.index') }}">{{ __('customLabels.roles') }}</a>
                         </li>
                         <li>
