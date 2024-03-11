@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="container">
-
-
         <div class="my-5 text-center">
             <h1>{{__('customlabels.lesson_index_welcome')}}</h1>
         </div>
@@ -34,8 +32,8 @@
                     <th scope="col">{{__('customlabels.lesson_index_table_functions')}}</th>
                 </tr>
                 </thead>
-                <tbody>
 
+                <tbody>
                 @foreach($lessons as $lesson)
                     <tr>
                         <td scope="row">{{$lesson->name}}</td>
@@ -49,29 +47,25 @@
                         <td>{{$lesson->danceStyle->name}}</td>
                         <td>{{$lesson->difficulty->name}}</td>
                         <td>
-                            @can('permission:admin_panel')
-                                <div class="container">
+                            <div class="container">
+                                @can('permission:admin_panel')
                                     <form method="POST"
                                           action="{{route('admin.lesson.remove', [$lesson->id])}}"
                                           onsubmit="return confirm('{{__('customLabels.confirm')}}')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                                class="btn btn-danger">{{__('customLabels.confirm')}}</button>
+                                                class="btn btn-danger">{{__('customLabels.lesson_index_button_delete')}}</button>
                                     </form>
-                                    @endcan
-                                    <a class="btn btn-primary"
-                                       href="{{route('admin.lesson.edit', [$lesson->id])}}">{{__('customLabels.edit')}}</a>
-                                </div>
+                                @endcan
+                                <a class="btn btn-primary"
+                                   href="{{route('admin.lesson.edit', [$lesson->id])}}">{{__('customLabels.edit')}}</a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
-
-                <tr>
-                </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 

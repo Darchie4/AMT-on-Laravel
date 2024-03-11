@@ -51,7 +51,11 @@ return [
     //Admin
     'admin_settings' => 'Administrator indstillinger',
 
-
+    //Search and filtering
+    'users_search_here'=>'Søg her...',
+    'filter_instructors'=>'Undervisere',
+    'filter_admins' =>'Administratorer',
+    'filter_members'=>'Medlemmer',
 
 
 
@@ -59,6 +63,7 @@ return [
     //With variables
     'welcome_message' => 'Velkommen, :name', //in view: {{ __('messages.welcome_message', ['name' => Auth::user()->name]) }}
 
+    'Fuckoff' => 'TEST TEXT',
 
     'lesson_create_Name' => 'Lektionens navn',
     'lesson_create_ShortDescription' => 'Kort beskrivelse',
@@ -71,19 +76,20 @@ return [
     'lesson_create_coverImage' => 'Dæk billede',
     'lesson_create_danceStyle' => 'Stilart',
     'lesson_create_difficulty' => 'Dygtigheds grad',
+    'lesson_create_instructor' => 'Unservis(ere)',
 
-    // Index lang
-    'lesson_index_welcome' => 'Hold administration',
-    'lesson_index_statistics_tittle' => 'Statistikker',
-    'lesson_index_statistics_lesson_count' => 'Antal hold',
-    'lesson_index_links' => 'Links',
-    'lesson_index_create_new' => 'Opret nyt hold',
-
+    // Lesson Index lang
     'lesson_index_table_name' => 'Navn',
-    'lesson_index_table_age_min' => 'Min. alder',
-    'lesson_index_table_age_max' => 'Maks. alder',
-    'lesson_index_table_instructors' => 'Unservis(ere)',
+    'lesson_index_table_age_min' => 'Min. Alder',
+    'lesson_index_table_age_max' => 'Maks. Alder',
+    'lesson_index_table_instructors' => 'Undervisere',
     'lesson_index_table_danceStyle' => 'Stilart',
     'lesson_index_table_difficulty' => 'Dygtighedsgrad',
-    'lesson_index_table_functions' => 'funktioner',
+    'lesson_index_table_functions' => 'Funktioner',
+
+    'lesson_index_welcome' => 'Hold administration',
+    'lesson_index_create_new' => 'Opret nyt hold',
+    'lesson_index_statistics_tittle' => 'Hold Statistikker',
+    'lesson_index_statistics_lesson_count' => 'Antal hold',
+    'lesson_index_button_delete' => 'Slet',
 ];
