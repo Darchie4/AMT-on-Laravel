@@ -63,8 +63,6 @@ return [
     //With variables
     'welcome_message' => 'Velkommen, :name', //in view: {{ __('messages.welcome_message', ['name' => Auth::user()->name]) }}
 
-    'Fuckoff' => 'TEST TEXT',
-
     'lesson_create_Name' => 'Lektionens navn',
     'lesson_create_ShortDescription' => 'Kort beskrivelse',
     'lesson_create_LongDescription' => 'Lang beskrivelse',
@@ -92,4 +90,5 @@ return [
     'lesson_index_statistics_tittle' => 'Hold Statistikker',
     'lesson_index_statistics_lesson_count' => 'Antal hold',
     'lesson_index_button_delete' => 'Slet',
+    'lesson_index_links' => 'Funktioner',
 ];
