@@ -156,6 +156,18 @@
                        value="{{Carbon::parse($lesson->season_end)->format("Y-m-d")}}"
                        {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} ><br>
 
+                <label for="total_signup_space">{{__('customlabels.lesson_create_totalSignupSpaces')}}</label><br>
+                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number" value="{{ $lesson->total_signup_space }}"
+                    {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }}><br>
+
+                <label for="visible">{{__('customlabels.lesson_create_toggle_visible')}}</label>
+                <input class="form-check-input" type="checkbox" id="visible" name="visible"
+                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->visible ? 'checked' : '' }}><br>
+
+                <label for="can_signup">{{__('customlabels.lesson_create_toggle_signup')}}</label>
+                <input class="form-check-input" type="checkbox" id="can_signup" name="can_signup"
+                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->can_signup ? 'checked' : '' }}><br>
+
                 <label for="cover_image">{{__('customlabels.lesson_create_coverImage')}}</label><br>
                 @if($lesson->cover_img_path)
                     <img src="{{ asset($lesson->cover_img_path) }}" alt="Lesson Cover Image"

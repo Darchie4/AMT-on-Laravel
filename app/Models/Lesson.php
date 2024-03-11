@@ -26,6 +26,9 @@ class Lesson extends Model
         'cover_img_path',
         'dance_style_id',
         'difficulty_id',
+        'total_signup_space',
+        'can_signup',
+        'visible',
     ];
 
     /**

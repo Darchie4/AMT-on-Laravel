@@ -22,6 +22,10 @@ return new class extends Migration
             $table->integer("age_min");
             $table->integer("age_max");
             $table->decimal("price");
+            $table->integer("total_signup_space");
+            $table->boolean("can_signup");
+            $table->boolean("visible");
+
             $table->string("cover_img_path")->unique();
 
             $table->foreignId("dance_style_id");

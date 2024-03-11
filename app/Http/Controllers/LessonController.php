@@ -59,10 +59,13 @@ class LessonController extends Controller
             'age_max' => 'required|integer|gte:age_min',
             'season_start' => 'required|date',
             'season_end' => 'required|date|after_or_equal:season_start',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
             'cover_image' => 'nullable|image|mimes:jpeg,png|max:2048',
             'danceStyle' => 'required|string',
             'difficulty' => 'required|string',
+            'total_signup_space' => 'required|integer|min:0',
+            'visible' => 'sometimes',
+            'can_signup' => 'sometimes',
 
             'instructors' => 'required|array',
             'instructors.*' => 'exists:instructor_infos,id',
@@ -93,6 +96,9 @@ class LessonController extends Controller
         $lesson->dance_style_id = $danceStyle->id;
         $lesson->difficulty_id = $difficulty->id;
         $lesson->cover_img_path = 'storage/lesson/image/'.$fileName;
+        $lesson->total_signup_space = \request("total_signup_space");
+        $lesson->visible = (\request("visible") != null);
+        $lesson->can_signup = (\request("can_signup") != null);
 
         $lesson->save();
 
@@ -129,10 +135,13 @@ class LessonController extends Controller
             'age_max' => 'required|integer|gte:age_min',
             'season_start' => 'required|date',
             'season_end' => 'required|date|after_or_equal:season_start',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
             'cover_image' => 'nullable|image|mimes:jpeg,png|max:2048',
             'danceStyle' => 'required|string',
             'difficulty' => 'required|string',
+            'total_signup_space' => 'required|integer|min:0',
+            'visible' => 'required',
+            'can_signup' => 'required',
 
             'instructors' => 'required|array',
             'instructors.*' => 'exists:instructor_infos,id',
@@ -151,6 +160,9 @@ class LessonController extends Controller
         $lesson->season_start = $request->input("season_start");
         $lesson->season_end = $request->input("season_end");
         $lesson->price = $request->input("price");
+        $lesson->total_signup_space = \request("total_signup_space");
+        $lesson->visible = (\request("visible") != null);
+        $lesson->can_signup = (\request("can_signup") != null);
 
         // Update dance style and difficulty
         $danceStyle = DanceStyle::firstOrCreate(['name' => $request->input('danceStyle')]);

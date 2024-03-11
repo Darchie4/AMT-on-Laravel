@@ -57,13 +57,14 @@
                 </datalist>
 
                 <label for="difficulty">{{__('customlabels.lesson_create_difficulty')}}</label><br>
-                <input class="form-control" name="difficulty" list="difficulties"
+                <input class="form-control" name="difficulty" id="difficulty" list="difficulties"
                        placeholder="{{__('customlabels.lesson_create_difficulty_placeholder')}}" required><br>
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
                         <option value="{{$difficulty->id}}">{{$difficulty->name}}</option>
                     @endforeach
                 </datalist>
+                <input class="form-control" type="hidden" id="sorting_index" name="sorting_index">
 
                 <label for="instructors[]">{{__('customlabels.lesson_create_instructor')}}</label><br>
                 <select id="choices-multiple-remove-button" placeholder="{{__('customlabels.lesson_create_select_instructor_placeholder')}}" multiple id="instructor"
@@ -138,6 +139,15 @@
 
                 <label for="season_end">{{__('customlabels.lesson_create_seasonEnd')}}</label><br>
                 <input class="form-control" id="season_end" name="season_end" type="date" required><br>
+
+                <label for="total_signup_space">{{__('customlabels.lesson_create_totalSignupSpaces')}}</label><br>
+                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number" required><br>
+
+                <label for="visible">{{__('customlabels.lesson_create_toggle_visible')}}</label>
+                <input class="form-check-input" type="checkbox" id="visible" name="visible" checked><br><br>
+
+                <label for="can_signup">{{__('customlabels.lesson_create_toggle_signup')}}</label>
+                <input class="form-check-input" type="checkbox" id="can_signup" name="can_signup"><br><br>
 
                 <label for="cover_image">{{__('customlabels.lesson_create_coverImage')}}</label><br>
                 <input class="form-control" id="cover_image" name="cover_image" type="file"
