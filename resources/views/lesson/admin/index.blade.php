@@ -22,15 +22,15 @@
         <div class="table-responsive">
             <table class="table table-striped table-hover table-sm">
                 <thead class="table-dark">
-                <tr>
-                    <th scope="col">{{__('customlabels.lesson_index_table_name')}}</th>
-                    <th scope="col">{{__('customlabels.lesson_index_table_age_min')}}</th>
-                    <th scope="col">{{__('customlabels.lesson_index_table_age_max')}}</th>
-                    <th scope="col">{{__('customlabels.lesson_index_table_instructors')}}</th>
-                    <th scope="col">{{__('customlabels.lesson_index_table_danceStyle')}}</th>
-                    <th scope="col">{{__('customlabels.lesson_index_table_difficulty')}}</th>
-                    <th scope="col">{{__('customlabels.lesson_index_table_functions')}}</th>
-                </tr>
+                    <tr>
+                        <th scope="col">{{__('customlabels.lesson_index_table_name')}}</th>
+                        <th scope="col">{{__('customlabels.lesson_index_table_age_min')}}</th>
+                        <th scope="col">{{__('customlabels.lesson_index_table_age_max')}}</th>
+                        <th scope="col">{{__('customlabels.lesson_index_table_instructors')}}</th>
+                        <th scope="col">{{__('customlabels.lesson_index_table_danceStyle')}}</th>
+                        <th scope="col">{{__('customlabels.lesson_index_table_difficulty')}}</th>
+                        <th scope="col">{{__('customlabels.lesson_index_table_functions')}}</th>
+                    </tr>
                 </thead>
 
                 <tbody>
@@ -68,5 +68,4 @@
             </table>
         </div>
     </div>
-
 @endsection

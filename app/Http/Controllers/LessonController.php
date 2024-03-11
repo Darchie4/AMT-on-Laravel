@@ -77,7 +77,6 @@ class LessonController extends Controller
 
         $difficulty = Difficulty::firstOrCreate(['name' => $request->input('difficulty')], ['name' => \request('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
 
-
         $uploadedFile = $request->file('cover_image');
         $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
         $request->file('cover_image')->storeAs('/lesson/image', $fileName, 'public');

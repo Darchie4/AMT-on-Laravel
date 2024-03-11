@@ -63,6 +63,7 @@ return [
     //With variables
     'welcome_message' => 'Velkommen, :name', //in view: {{ __('messages.welcome_message', ['name' => Auth::user()->name]) }}
 
+    // Lesson create
     'lesson_create_Name' => 'Lektionens navn',
     'lesson_create_ShortDescription' => 'Kort beskrivelse',
     'lesson_create_LongDescription' => 'Lang beskrivelse',
@@ -75,6 +76,10 @@ return [
     'lesson_create_danceStyle' => 'Stilart',
     'lesson_create_difficulty' => 'Dygtigheds grad',
     'lesson_create_instructor' => 'Unservis(ere)',
+    'lesson_create_dance_style_placeholder' => 'Ex. Pardans, Hip Hop osv...',
+    'lesson_create_difficulty_placeholder' => 'Ex. Begynder, Let Øvet osv...',
+    'lesson_create_button_add_timeslot' => 'Tilføj Træningstid',
+    'lesson_create_button_submit' => 'Opret hold',
 
     // Lesson Index lang
     'lesson_index_table_name' => 'Navn',

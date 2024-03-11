@@ -23,7 +23,6 @@
             data-locations="{{ json_encode($locations) }}"></script>
     <script src="{{ asset('js/admin/lesson/difficultySortingChangeSelector.js') }}"></script>
     <script src="{{ asset('js/admin/lesson/inputValidation.js') }}"></script>
-
 </head>
 
 @section('content')
