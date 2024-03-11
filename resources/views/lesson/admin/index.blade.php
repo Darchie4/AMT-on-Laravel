@@ -10,7 +10,7 @@
                 <h2>{{__('customlabels.lesson_index_statistics_tittle')}}</h2>
                 <b>{{__('customlabels.lesson_index_statistics_lesson_count')}}: </b> {{$lessons->count()}}
             </div>
-            @can('permission:admin_panel')
+            @can('admin_panel')
                 <div class="col">
                     <h2>{{__('customlabels.lesson_index_links')}}</h2>
                     <a class="btn btn-primary"
@@ -48,7 +48,7 @@
                         <td>{{$lesson->difficulty->name}}</td>
                         <td>
                             <div class="container">
-                                @can('permission:admin_panel')
+                                @can('admin_panel')
                                     <form method="POST"
                                           action="{{route('admin.lesson.remove', [$lesson->id])}}"
                                           onsubmit="return confirm('{{__('customLabels.confirm')}}')">

@@ -28,7 +28,7 @@
 @section('content')
     <div class="container">
 
-        <form class="row g-3" action="{{route((Auth::user()->can('permission:admin_panel') ? 'admin.lesson.doEdit' : 'instructor.lesson.doEdit') , ['id'=>$lesson->id])}}" method="post"
+        <form class="row g-3" action="{{route((Auth::user()->can('admin_panel') ? 'admin.lesson.doEdit' : 'instructor.lesson.doEdit') , ['id'=>$lesson->id])}}" method="post"
               enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -66,7 +66,7 @@
 
                 <label for="instructors">{{__('customlabels.lesson_create_instructor')}}</label><br>
                 <select id="choices-multiple-remove-button" placeholder="Vælg undervisere" multiple
-                        {{ Auth::user()->can('permission:admin_panel') ? '' : 'disabled' }} name="instructors[]">
+                        {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} name="instructors[]">
                     @foreach($instructors as $instructor)
                         <option
                             value="{{ $instructor->id }}" {{ in_array($instructor->id, $lesson->instructors->pluck('id')->toArray()) ? 'selected' : '' }}>
@@ -88,7 +88,7 @@
                        required><br>
 
                 <label for="price">{{__('customlabels.lesson_create_Price')}}</label><br>
-                <input class="form-control" id="price" name="price" type="number" value="{{ $lesson-> price}}" {{ Auth::user()->can('permission:admin_panel') ? '' : 'disabled' }}  required><br>
+                <input class="form-control" id="price" name="price" type="number" value="{{ $lesson-> price}}" {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }}  required><br>
 
                 <div class="form-control">
                     <div id="timeslotsContainer">
@@ -103,21 +103,21 @@
                                     <input class="form-control" type="time" id="start_time_{{$loop->index}}"
                                            name="start_times[]"
                                            value="{{$timeslot->start_time }}"
-                                           {{ Auth::user()->can('permission:admin_panel') ? 'required' : 'disabled' }} required>
+                                           {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
                                 </div>
                                 <div class="col">
                                     <label for="end_time_{{$loop->index}}">End Time</label> <br>
                                     <input class="form-control" type="time" id="end_time_{{$loop->index}}"
                                            name="end_times[]"
                                            value="{{ $timeslot->end_time }}"
-                                           {{ Auth::user()->can('permission:admin_panel') ? 'required' : 'disabled' }} required>
+                                           {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
                                 </div>
                             </div>
                             <div class="row g-2">
                                 <div class="col">
                                     <label for="day_{{$loop->index}}">Day of Week</label> <br>
                                     <select class="form-control" id="day_{{$loop->index}}" name="days[]"
-                                            {{ Auth::user()->can('permission:admin_panel') ? 'required' : 'disabled' }} required>
+                                            {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
                                         <option value="0" {{ $timeslot->day == 0 ? 'selected' : '' }}>Monday</option>
                                         <option value="1" {{ $timeslot->day == 1 ? 'selected' : '' }}>Tuesday</option>
                                         <option value="2" {{ $timeslot->day == 2 ? 'selected' : '' }}>Wednesday</option>
@@ -130,7 +130,7 @@
                                 <div class="col">
                                     <label for="location_{{$loop->index}}">Location</label> <br>
                                     <select class="form-control" id="location_{{$loop->index}}" name="locations[]"
-                                            {{ Auth::user()->can('permission:admin_panel') ? 'required' : 'disabled' }} >
+                                            {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} >
                                         @foreach($locations as $location)
                                             <option
                                                 value="{{ $location->id }}" {{ $timeslot->location_id == $location->id ? 'selected' : '' }}>{{ $location->name }}</option>
@@ -141,7 +141,7 @@
                         @endforeach
                     </div>
                     <div class="mx-auto mt-3 text-center">
-                        <button class="mx-auto btn btn-primary" type="button" onclick="addTimeslot()" {{ Auth::user()->can('permission:admin_panel') ? '' : 'disabled' }} >Add Timeslot
+                        <button class="mx-auto btn btn-primary" type="button" onclick="addTimeslot()" {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} >Add Timeslot
                         </button>
                     </div>
                 </div>
@@ -153,12 +153,12 @@
                 <label for="season_start">{{__('customlabels.lesson_create_seasonStart')}}</label><br>
                 <input class="form-control" id="season_start" name="season_start" type="date"
                        value="{{Carbon::parse($lesson->season_start)->format("Y-m-d")}}"
-                       {{ Auth::user()->can('permission:admin_panel') ? 'required' : 'disabled' }} ><br>
+                       {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} ><br>
 
                 <label for="season_end">{{__('customlabels.lesson_create_seasonEnd')}}</label><br>
                 <input class="form-control" id="season_end" name="season_end" type="date"
                        value="{{Carbon::parse($lesson->season_end)->format("Y-m-d")}}"
-                       {{ Auth::user()->can('permission:admin_panel') ? 'required' : 'disabled' }} ><br>
+                       {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} ><br>
 
                 <label for="cover_image">{{__('customlabels.lesson_create_coverImage')}}</label><br>
                 @if($lesson->cover_img_path)

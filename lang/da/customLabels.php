@@ -74,6 +74,7 @@ return [
     'lesson_create_Price' => 'Pris',
     'lesson_create_coverImage' => 'Dæk billede',
     'lesson_create_danceStyle' => 'Stilart',
+    'lesson_create_select_instructor_placeholder' => 'Vælg undervisere',
     'lesson_create_difficulty' => 'Dygtigheds grad',
     'lesson_create_instructor' => 'Unservis(ere)',
     'lesson_create_dance_style_placeholder' => 'Ex. Pardans, Hip Hop osv...',

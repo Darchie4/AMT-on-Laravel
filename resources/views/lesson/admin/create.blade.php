@@ -70,7 +70,7 @@
                 </datalist>
 
                 <label for="instructors[]">{{__('customlabels.lesson_create_instructor')}}</label><br>
-                <select id="choices-multiple-remove-button" placeholder="Vælg undervisere" multiple id="instructor"
+                <select id="choices-multiple-remove-button" placeholder="{{__('customlabels.lesson_create_select_instructor_placeholder')}}" multiple id="instructor"
                         name="instructors[]">
                     @foreach($instructors as $instructor)
                         <option value={{$instructor -> id}}>{{$instructor -> user -> name}}</option>
@@ -132,27 +132,27 @@
                         </button>
                     </div>
                 </div>
-                </div>
+            </div>
 
-                <div class="vr mx-3 p-0"></div>
+            <div class="vr mx-3 p-0"></div>
 
-                <div class="col form-group">
-                    <label for="season_start">{{__('customlabels.lesson_create_seasonStart')}}</label><br>
-                    <input class="form-control" id="season_start" name="season_start" type="date" required><br>
+            <div class="col form-group">
+                <label for="season_start">{{__('customlabels.lesson_create_seasonStart')}}</label><br>
+                <input class="form-control" id="season_start" name="season_start" type="date" required><br>
 
-                    <label for="season_end">{{__('customlabels.lesson_create_seasonEnd')}}</label><br>
-                    <input class="form-control" id="season_end" name="season_end" type="date" required><br>
+                <label for="season_end">{{__('customlabels.lesson_create_seasonEnd')}}</label><br>
+                <input class="form-control" id="season_end" name="season_end" type="date" required><br>
 
-                    <label for="cover_image">{{__('customlabels.lesson_create_coverImage')}}</label><br>
-                    <input class="form-control" id="cover_image" name="cover_image" type="file"
-                           accept="image/png, image/jpeg"><br>
-                </div>
+                <label for="cover_image">{{__('customlabels.lesson_create_coverImage')}}</label><br>
+                <input class="form-control" id="cover_image" name="cover_image" type="file"
+                       accept="image/png, image/jpeg"><br>
+            </div>
 
-                <label for="long_description">{{__('customlabels.lesson_create_LongDescription')}}</label><br>
-                <textarea id="long_description" name="long_description" required></textarea><br>
+            <label for="long_description">{{__('customlabels.lesson_create_LongDescription')}}</label><br>
+            <textarea id="long_description" name="long_description" required></textarea><br>
 
-                <button class="btn btn-success" type="submit"
-                        value="Submit">{{__('customlabels.lesson_create_button_submit')}}</button>
+            <button class="btn btn-success" type="submit"
+                    value="Submit">{{__('customlabels.lesson_create_button_submit')}}</button>
         </form>
     </div>
 
