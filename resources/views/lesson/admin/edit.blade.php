@@ -14,10 +14,6 @@
                 renderChoiceLimit: 5
             });
         });
-
-        tinymce.init({
-            selector: 'textarea#long_description'
-        });
     </script>
     <script src="{{ asset('js/admin/lesson/timeSlotSelector.js') }}"
             data-locations="{{ json_encode($locations) }}"></script>
