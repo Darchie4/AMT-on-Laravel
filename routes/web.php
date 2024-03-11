@@ -40,9 +40,13 @@ Route::middleware('permission:admin_panel') -> name('admin.')
         Route::resource('/permissions',PermissionController::class);
 
         //User routes
-        Route::resource('users',UserController::class);
-        Route::post('/users/{user}/roles',[UserController::class,'assignRole'])->name('users.roles.assign');
-        Route::delete('/users/{user}/roles/{role}',[UserController::class,'removeRole'])->name('users.roles.remove');
+        Route::resource('/users',UserController::class);
+        Route::prefix('users')->group(function(){
+            Route::post('/{user}/roles',[UserController::class,'assignRole'])->name('users.roles.assign');
+            Route::delete('/{user}/roles/{role}',[UserController::class,'removeRole'])->name('users.roles.remove');
+            Route::post('/filter',[UserController::class,'filter'])->name('users.filter');
+        });
+
 
         Route::prefix('/lesson')->group(function(){
             Route::get('/', [LessonController::class, 'adminIndex'])->name('lesson.index');

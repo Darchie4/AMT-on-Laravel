@@ -51,7 +51,11 @@ return [
     //Admin
     'admin_settings' => 'Administrator indstillinger',
 
-
+    //Search and filtering
+    'users_search_here'=>'Søg her...',
+    'filter_instructors'=>'Undervisere',
+    'filter_admins' =>'Administratorer',
+    'filter_members'=>'Medlemmer',
 
 
 
