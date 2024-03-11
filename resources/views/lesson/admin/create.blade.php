@@ -21,7 +21,10 @@
             selector: 'textarea#long_description'
         });
     </script>
-    <script src="{{ asset('js/admin/lesson/timeSlotSelector.js') }}" data-locations="{{ json_encode($locations) }}"></script>
+    <script src="{{ asset('js/admin/lesson/timeSlotSelector.js') }}"
+            data-locations="{{ json_encode($locations) }}"></script>
+    <script src="{{ asset('js/admin/lesson/difficultySortingChangeSelector.js') }}"></script>
+    <script src="{{ asset('js/admin/lesson/inputValidation.js') }}"></script>
 </head>
 
 @section('content')
@@ -50,7 +53,7 @@
 
                 <label for="danceStyle">{{__('customlabels.lesson_create_danceStyle')}}</label><br>
                 <input class="form-control" name="danceStyle" list="danceStyles"
-                       placeholder="Ex. Pardans, Hip Hop osv..." required><br>
+                       placeholder="{{__('customlabels.lesson_create_dance_style_placeholder')}}" required><br>
                 <datalist id="danceStyles">
                     @foreach($danceStyles as $style)
                         <option value="{{$style->name}}">{{$style->name}}</option>
@@ -58,8 +61,8 @@
                 </datalist>
 
                 <label for="difficulty">{{__('customlabels.lesson_create_difficulty')}}</label><br>
-                <input class="form-control" name="difficulty" list="skillLeveles"
-                       placeholder="Ex. Begynder, Let Øvet osv..." required><br>
+                <input class="form-control" name="difficulty" list="difficulties"
+                       placeholder="{{__('customlabels.lesson_create_difficulty_placeholder')}}" required><br>
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
                         <option value="{{$difficulty->id}}">{{$difficulty->name}}</option>
@@ -67,7 +70,7 @@
                 </datalist>
 
                 <label for="instructors[]">{{__('customlabels.lesson_create_instructor')}}</label><br>
-                <select id="choices-multiple-remove-button" placeholder="Vælg undervisere" multiple id="instructor"
+                <select id="choices-multiple-remove-button" placeholder="{{__('customlabels.lesson_create_select_instructor_placeholder')}}" multiple id="instructor"
                         name="instructors[]">
                     @foreach($instructors as $instructor)
                         <option value={{$instructor -> id}}>{{$instructor -> user -> name}}</option>
@@ -87,10 +90,48 @@
                 <label for="price">{{__('customlabels.lesson_create_Price')}}</label><br>
                 <input class="form-control" id="price" name="price" type="number" required><br>
 
-                <div id="timeslotsContainer">
-                    <!-- Timeslot inputs will be dynamically added here -->
+                <div class="form-control">
+                    <div id="timeslotsContainer">
+                        <h3>Time and location</h3>
+                        <div class="row g-2">
+                            <div class="col">
+                                <label for="start_time_0">Start Time</label>
+                                <input class="form-control" type="time" id="start_time_0" name="start_times[]" required>
+                            </div>
+                            <div class="col">
+                                <label for="end_time_0">End Time</label>
+                                <input class="form-control" type="time" id="end_time_0" name="end_times[]" required>
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col">
+                                <label for="day_0">Day of Week</label>
+                                <select class="form-control" id="day_0" name="days[]" required>
+                                    <option value="0">Monday</option>
+                                    <option value="1">Tuesday</option>
+                                    <option value="2">Wednesday</option>
+                                    <option value="3">Thursday</option>
+                                    <option value="4">Friday</option>
+                                    <option value="5">Saturday</option>
+                                    <option value="6">Sunday</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="location_0">Location</label>
+                                <select class="form-control" id="location_0" name="locations[]" required>
+                                    @foreach($locations as $location)
+                                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mx-auto mt-3 text-center">
+                        <button class="mx-auto btn btn-primary" type="button" onclick="addTimeslot()">
+                            {{__('customlabels.lesson_create_button_add_timeslot')}}
+                        </button>
+                    </div>
                 </div>
-                <button type="button" onclick="addTimeslot()">Add Timeslot</button>
             </div>
 
             <div class="vr mx-3 p-0"></div>
@@ -103,13 +144,15 @@
                 <input class="form-control" id="season_end" name="season_end" type="date" required><br>
 
                 <label for="cover_image">{{__('customlabels.lesson_create_coverImage')}}</label><br>
-                <input class="form-control-file" id="cover_image" name="cover_image" type="file" accept="image/png, image/jpeg"><br>
+                <input class="form-control" id="cover_image" name="cover_image" type="file"
+                       accept="image/png, image/jpeg"><br>
             </div>
 
             <label for="long_description">{{__('customlabels.lesson_create_LongDescription')}}</label><br>
             <textarea id="long_description" name="long_description" required></textarea><br>
 
-            <button type="submit" value="Submit">Submit</button>
+            <button class="btn btn-success" type="submit"
+                    value="Submit">{{__('customlabels.lesson_create_button_submit')}}</button>
         </form>
     </div>
 

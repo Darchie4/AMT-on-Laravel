@@ -75,7 +75,7 @@ class LessonController extends Controller
 
         $danceStyle = DanceStyle::firstOrCreate(['name' => \request('danceStyle')]);
 
-        $difficulty = Difficulty::firstOrCreate(['name' => \request('difficulty')], ['name' => \request('difficulty'), 'sorting_index' => (Difficulty::all()->count()+1)]);
+        $difficulty = Difficulty::firstOrCreate(['name' => $request->input('difficulty')], ['name' => \request('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
 
         $uploadedFile = $request->file('cover_image');
         $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
@@ -103,8 +103,8 @@ class LessonController extends Controller
         foreach ($request->input('start_times') as $index => $startTime) {
             $lessonTimeLocation = new LessonTimeLocation();
             $lessonTimeLocation->week_day = $request->input('days')[$index];
-            $lessonTimeLocation->start_time = Carbon::parse($startTime)->format('H:s');
-            $lessonTimeLocation->end_time = Carbon::parse($request->input('end_times')[$index])->format('H:s');
+            $lessonTimeLocation->start_time = Carbon::parse($startTime)->format('H:i');
+            $lessonTimeLocation->end_time = Carbon::parse($request->input('end_times')[$index])->format('H:i');
             $lessonTimeLocation->location_id = $request->input('locations')[$index];
             $lessonTimeLocation->lesson_id = $lesson->id; // Associate the lesson ID
             $lessonTimeLocation->save();
@@ -112,6 +112,123 @@ class LessonController extends Controller
         }
 
         return redirect()->route('admin.lesson.index')->with('success', 'Lesson and timeslots created successfully!');
+    }
+
+    public function adminEdit(int $id): Renderable
+    {
+        $lesson = Lesson::findOrFail($id);
+        return view('lesson/admin/edit', ['lesson'=> $lesson,'instructors' => InstructorInfo::all(), 'locations' => Location::all(), 'danceStyles' => DanceStyle::all(), 'difficulties' => Difficulty::all()]);
+    }
+    public function adminDoEdit(Request $request, Lesson $lesson): RedirectResponse
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'short_description' => 'required|string|max:255',
+            'long_description' => 'required|string',
+            'age_min' => 'required|integer',
+            'age_max' => 'required|integer|gte:age_min',
+            'season_start' => 'required|date',
+            'season_end' => 'required|date|after_or_equal:season_start',
+            'price' => 'required|numeric',
+            'cover_image' => 'nullable|image|mimes:jpeg,png|max:2048',
+            'danceStyle' => 'required|string',
+            'difficulty' => 'required|string',
+
+            'instructors' => 'required|array',
+            'instructors.*' => 'exists:instructor_infos,id',
+
+            'start_times.*' => 'required|date_format:H:i',
+            'end_times.*' => 'required|date_format:H:i|after:start_times.*',
+            'days.*' => 'required|integer|between:0,6',
+            'locations.*' => 'required|exists:locations,id',
+        ]);
+
+        $lesson->name = $request->input("name");
+        $lesson->short_description = $request->input("short_description");
+        $lesson->long_description = $request->input("long_description");
+        $lesson->age_min = $request->input("age_min");
+        $lesson->age_max = $request->input("age_max");
+        $lesson->season_start = $request->input("season_start");
+        $lesson->season_end = $request->input("season_end");
+        $lesson->price = $request->input("price");
+
+        // Update dance style and difficulty
+        $danceStyle = DanceStyle::firstOrCreate(['name' => $request->input('danceStyle')]);
+        $lesson->dance_style_id = $danceStyle->id;
+
+        $difficulty = Difficulty::updateOrCreate(['name' => $request->input('difficulty')], ['name' => $request->input('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
+        $lesson->difficulty_id = $difficulty->id;
+
+        // Update cover image if provided
+        if ($request->hasFile('cover_image')) {
+            $uploadedFile = $request->file('cover_image');
+            $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
+            $request->file('cover_image')->storeAs('/lesson/image', $fileName, 'public');
+            $lesson->cover_img_path = 'storage/lesson/image/' . $fileName;
+        }
+
+        $lesson->save();
+
+        // Sync instructors
+        $lesson->instructors()->sync($request->input('instructors'));
+
+        // Update or create lesson time locations
+        foreach ($request->input('start_times') as $index => $startTime) {
+            LessonTimeLocation::updateOrCreate(
+                ['lesson_id' => $lesson->id, 'week_day' => $request->input('days')[$index]],
+                ['start_time' => Carbon::parse($startTime)->format('H:i'), 'end_time' => Carbon::parse($request->input('end_times')[$index])->format('H:i'), 'location_id' => $request->input('locations')[$index]]
+            );
+        }
+
+        return redirect()->route('admin.lesson.index')->with('success', 'Lesson updated successfully!');
+    }
+
+    public function adminDelete(int $id) : RedirectResponse{
+
+        $lesson = Lesson::findOrFail($id);
+        $name = $lesson->name;
+        $lesson->delete();
+
+        return back()->with('message','The lesson: '.$name. ' has been deleted');
+    }
+
+    public function instructorDoEdit(Request $request, Lesson $lesson): RedirectResponse
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'short_description' => 'required|string|max:255',
+            'long_description' => 'required|string',
+            'age_min' => 'required|integer',
+            'age_max' => 'required|integer|gte:age_min',
+            'cover_image' => 'nullable|image|mimes:jpeg,png|max:2048',
+            'danceStyle' => 'required|string',
+            'difficulty' => 'required|string',
+        ]);
+
+        $lesson->name = $request->input("name");
+        $lesson->short_description = $request->input("short_description");
+        $lesson->long_description = $request->input("long_description");
+        $lesson->age_min = $request->input("age_min");
+        $lesson->age_max = $request->input("age_max");
+
+        // Update dance style and difficulty
+        $danceStyle = DanceStyle::firstOrCreate(['name' => $request->input('danceStyle')]);
+        $lesson->dance_style_id = $danceStyle->id;
+
+        $difficulty = Difficulty::updateOrCreate(['name' => $request->input('difficulty')], ['name' => $request->input('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
+        $lesson->difficulty_id = $difficulty->id;
+
+        // Update cover image if provided
+        if ($request->hasFile('cover_image')) {
+            $uploadedFile = $request->file('cover_image');
+            $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
+            $request->file('cover_image')->storeAs('/lesson/image', $fileName, 'public');
+            $lesson->cover_img_path = 'storage/lesson/image/' . $fileName;
+        }
+
+        $lesson->save();
+
+        return redirect()->route('admin.lesson.index')->with('success', 'Lesson updated successfully!');
     }
 
 }

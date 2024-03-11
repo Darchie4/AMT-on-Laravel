@@ -63,8 +63,7 @@ return [
     //With variables
     'welcome_message' => 'Velkommen, :name', //in view: {{ __('messages.welcome_message', ['name' => Auth::user()->name]) }}
 
-    'Fuckoff' => 'TEST TEXT',
-
+    // Lesson create
     'lesson_create_Name' => 'Lektionens navn',
     'lesson_create_ShortDescription' => 'Kort beskrivelse',
     'lesson_create_LongDescription' => 'Lang beskrivelse',
@@ -75,6 +74,27 @@ return [
     'lesson_create_Price' => 'Pris',
     'lesson_create_coverImage' => 'Dæk billede',
     'lesson_create_danceStyle' => 'Stilart',
+    'lesson_create_select_instructor_placeholder' => 'Vælg undervisere',
     'lesson_create_difficulty' => 'Dygtigheds grad',
     'lesson_create_instructor' => 'Unservis(ere)',
+    'lesson_create_dance_style_placeholder' => 'Ex. Pardans, Hip Hop osv...',
+    'lesson_create_difficulty_placeholder' => 'Ex. Begynder, Let Øvet osv...',
+    'lesson_create_button_add_timeslot' => 'Tilføj Træningstid',
+    'lesson_create_button_submit' => 'Opret hold',
+
+    // Lesson Index lang
+    'lesson_index_table_name' => 'Navn',
+    'lesson_index_table_age_min' => 'Min. Alder',
+    'lesson_index_table_age_max' => 'Maks. Alder',
+    'lesson_index_table_instructors' => 'Undervisere',
+    'lesson_index_table_danceStyle' => 'Stilart',
+    'lesson_index_table_difficulty' => 'Dygtighedsgrad',
+    'lesson_index_table_functions' => 'Funktioner',
+
+    'lesson_index_welcome' => 'Hold administration',
+    'lesson_index_create_new' => 'Opret nyt hold',
+    'lesson_index_statistics_tittle' => 'Hold Statistikker',
+    'lesson_index_statistics_lesson_count' => 'Antal hold',
+    'lesson_index_button_delete' => 'Slet',
+    'lesson_index_links' => 'Funktioner',
 ];
