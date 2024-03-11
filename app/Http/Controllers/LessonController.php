@@ -193,5 +193,43 @@ class LessonController extends Controller
         return back()->with('message','The lesson: '.$name. ' has been deleted');
     }
 
+    public function instructorDoEdit(Request $request, Lesson $lesson): RedirectResponse
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'short_description' => 'required|string|max:255',
+            'long_description' => 'required|string',
+            'age_min' => 'required|integer',
+            'age_max' => 'required|integer|gte:age_min',
+            'cover_image' => 'nullable|image|mimes:jpeg,png|max:2048',
+            'danceStyle' => 'required|string',
+            'difficulty' => 'required|string',
+        ]);
+
+        $lesson->name = $request->input("name");
+        $lesson->short_description = $request->input("short_description");
+        $lesson->long_description = $request->input("long_description");
+        $lesson->age_min = $request->input("age_min");
+        $lesson->age_max = $request->input("age_max");
+
+        // Update dance style and difficulty
+        $danceStyle = DanceStyle::firstOrCreate(['name' => $request->input('danceStyle')]);
+        $lesson->dance_style_id = $danceStyle->id;
+
+        $difficulty = Difficulty::updateOrCreate(['name' => $request->input('difficulty')], ['name' => $request->input('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
+        $lesson->difficulty_id = $difficulty->id;
+
+        // Update cover image if provided
+        if ($request->hasFile('cover_image')) {
+            $uploadedFile = $request->file('cover_image');
+            $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
+            $request->file('cover_image')->storeAs('/lesson/image', $fileName, 'public');
+            $lesson->cover_img_path = 'storage/lesson/image/' . $fileName;
+        }
+
+        $lesson->save();
+
+        return redirect()->route('admin.lesson.index')->with('success', 'Lesson updated successfully!');
+    }
 
 }

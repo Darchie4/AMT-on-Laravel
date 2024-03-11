@@ -27,30 +27,37 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware('permission:admin_panel') -> name('admin.')
-    ->prefix('/admin')-> group(function () {
-        Route::get('/',[AdminIndexController::class, 'index'])->name('index');
+Route::middleware('permission:admin_panel')->name('admin.')
+    ->prefix('/admin')->group(function () {
+        Route::get('/', [AdminIndexController::class, 'index'])->name('index');
 
         //Role routes
-        Route::resource('/roles',RoleController::class);
-        Route::post('/roles/{role}/permissions',[RoleController::class, 'assignPermission'])->name('roles.permission.assign');
-        Route::delete('/roles/{role}/permissions/{permission}',[RoleController::class, 'removePermission'])->name('roles.permission.remove');
+        Route::resource('/roles', RoleController::class);
+        Route::post('/roles/{role}/permissions', [RoleController::class, 'assignPermission'])->name('roles.permission.assign');
+        Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'removePermission'])->name('roles.permission.remove');
 
         //Permission routes
-        Route::resource('/permissions',PermissionController::class);
+        Route::resource('/permissions', PermissionController::class);
 
         //User routes
-        Route::resource('users',UserController::class);
-        Route::post('/users/{user}/roles',[UserController::class,'assignRole'])->name('users.roles.assign');
-        Route::delete('/users/{user}/roles/{role}',[UserController::class,'removeRole'])->name('users.roles.remove');
+        Route::resource('users', UserController::class);
+        Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles.assign');
+        Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('users.roles.remove');
 
-        Route::prefix('/lesson')->group(function(){
+        Route::prefix('/lesson')->group(function () {
             Route::get('/', [LessonController::class, 'adminIndex'])->name('lesson.index');
             Route::get('/show/{id}', [LessonController::class, 'adminShow'])->name('lesson.show');
             Route::get('/create', [LessonController::class, 'adminCreate'])->name('lesson.create');
             Route::post('/doCreate', [LessonController::class, 'adminDoCreate'])->name('lesson.doCreate');
             Route::get('/edit/{id}', [LessonController::class, 'adminEdit'])->name('lesson.edit');
             Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
-            Route::delete('/delete/{id}',[LessonController::class,'adminDelete'])->name('lesson.remove');
+            Route::delete('/delete/{id}', [LessonController::class, 'adminDelete'])->name('lesson.remove');
         });
+    });
+
+Route::middleware('permission:lessons_instructor')->name('instructor.')
+    ->prefix('/instructor')->group(function () {
+    Route::prefix('/lesson')->group(function () {
+        Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
+    });
 });
