@@ -65,7 +65,7 @@ class InstructorController extends Controller
 
         $instructor->short_description = $request->input('short_description');
         $instructor->long_description = $request->input('long_description');
-        $instructor->profile_img_path=$request->input('profile_img_path');
+        //$instructor->profile_img_path=$request->input('profile_img_path');
 
         // Update cover image if provided
         if ($request->hasFile('profile_img_path')) {
