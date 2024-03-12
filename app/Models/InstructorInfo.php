@@ -12,6 +12,12 @@ class InstructorInfo extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'long_description',
+        'short_description',
+        'profile_img_path'
+    ];
+
     /**
      * Get the user that the instructor information belongs to.
      */

@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string("short_description");
             $table->string("long_description");
-            $table->string("profile_img_path")->unique();
+            $table->string("profile_img_path")->unique()->nullable();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete()->cascadeOnDelete();
 
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminIndexController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,8 @@ Route::middleware('permission:admin_panel') -> name('admin.')
             Route::delete('/{user}/roles/{role}',[UserController::class,'removeRole'])->name('users.roles.remove');
             Route::post('/filter',[UserController::class,'filter'])->name('users.filter');
         });
+
+        Route::resource('/instructors',InstructorController::class);
 
         Route::prefix('/lesson')->group(function () {
             Route::get('/', [LessonController::class, 'adminIndex'])->name('lesson.index');

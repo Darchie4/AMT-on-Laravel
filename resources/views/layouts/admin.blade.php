@@ -16,6 +16,9 @@
                         <li>
                             <a href="{{ route('admin.users.index') }}">{{ __('customLabels.users') }}</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.instructors.index') }}">{{ __('customLabels.instructors') }}</a>
+                        </li>
                     </ul>
                 </aside>
             </div>
