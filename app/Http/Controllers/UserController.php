@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $users = $usersQuery->get();
         $selectedRoles = [];
-        return view('users.index', compact('users','roles','selectedRoles'));
+        return view('users.admin.index', compact('users','roles','selectedRoles'));
     }
 
     //Method for filtering for roles
@@ -41,7 +41,7 @@ class UserController extends Controller
         $users = $query->get();
         $roles = Role::all();
 
-        return view('users.index', compact('users', 'roles', 'selectedRoles'));
+        return view('users.admin.index', compact('users', 'roles', 'selectedRoles'));
     }
 
     //Get create new user view
@@ -56,20 +56,41 @@ class UserController extends Controller
     }
 
     //Show details about user
-    public function show()
+    public function show(User $user)
     {
+        return view('users.admin.details',compact('user'));
     }
 
     //Get edit view
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view('users.edit', compact('user', 'roles'));
+        return view('users.admin.edit', compact('user', 'roles'));
     }
 
     //Edit a user (put/patch)
-    public function update()
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'lname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255',Rule::unique('users')->ignore($id)],
+            'phone' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'date'],
+            'gender' => ['required', 'string', 'max:255'],
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'name' => $request->input('name'),
+            'lname' => $request->input('lname'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'birthday' => $request->input('birthday'),
+            'gender' => $request->input('gender')
+        ]);
+
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
     }
 
     //delete a user

@@ -9,6 +9,8 @@ return [
     */
     //Standard
     'Welcome' => 'Velkommen til!',
+    'back' => 'Tilbage',
+    'confirm' => 'Bekræft',
 
     //Register/login
     'Register' => 'Opret profil',
@@ -57,7 +59,9 @@ return [
     'filter_admins' =>'Administratorer',
     'filter_members'=>'Medlemmer',
 
-
+    //Users
+    'user_details' => 'Brugerdetailer',
+    'user_joined'=>'Medlem siden',
 
 
     //With variables
