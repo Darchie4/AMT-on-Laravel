@@ -51,7 +51,7 @@ class InstructorController extends Controller
             'gender' => ['required', 'string', 'max:255'],
             'short_description' =>['string'],
             'long_description' => ['string'],
-            'profile_img_path'=>['nullable','max:2048']
+            'profile_img_path'=>['required','max:2048']
         ]);
 
         $user->update([
