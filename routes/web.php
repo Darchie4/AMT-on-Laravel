@@ -27,6 +27,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::prefix('/lesson')->group(function () {
+    Route::get('/', [LessonController::class, 'index'])->name('lesson.index');
+});
+
 Route::middleware('permission:admin_panel') -> name('admin.')
     ->prefix('admin')-> group(function () {
         Route::get('/',[AdminIndexController::class, 'index'])->name('index');

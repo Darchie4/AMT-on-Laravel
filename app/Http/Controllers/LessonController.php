@@ -23,6 +23,17 @@ class LessonController extends Controller
      *
      * @return Renderable
      */
+    public function index(): Renderable
+    {
+        return view('lesson/public/index', ['lessons' => Lesson::all()]);
+    }
+
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return Renderable
+     */
     public function adminIndex(): Renderable
     {
         return view('lesson/admin/index', ['lessons' => Lesson::all()]);
