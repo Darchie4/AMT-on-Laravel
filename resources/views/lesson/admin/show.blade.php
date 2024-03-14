@@ -19,14 +19,14 @@
                 <b>Sæson start:</b> {{Carbon::parse($lesson->season_start)->format("d-m-Y")}}<br>
                 <b>Sæson slut:</b> {{Carbon::parse($lesson->season_end)->format("d-m-Y")}}<br>
             </div>
-            
+
             <div>
                 <h2 class="pt-3">Trænings tider</h2>
                 @foreach($lesson->lessonTimeLocations as $lessonTimeLocation)
                     @if($loop -> first || $loop->index % 3 == 0)
                         <div class="row p-0">
                             @endif
-                            <div class="col ">
+                            <div class="col">
                                 <b>Location: </b> {{$lessonTimeLocation ->location->name}} <br>
                                 <b>Week day: </b> {{trans(Carbon::getDays()[$lessonTimeLocation->week_day])}}<br>
                                 <b>Time Start: </b> {{$lessonTimeLocation -> start_time}} <br>

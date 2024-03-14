@@ -44,6 +44,15 @@ class LessonController extends Controller
         return view('lesson/admin/show', ['lesson' => Lesson::findOrFail($id)]);
     }
 
+    public function show(int $id): Renderable
+    {
+        return view('lesson/admin/show', ['lesson' => Lesson::findOrFail($id)]);
+    }
+    public function signup(int $id): Renderable
+    {
+        return view('lesson/admin/show', ['lesson' => Lesson::findOrFail($id)]);
+    }
+
     /**
      * Show the view for creating a new Lesson
      *
