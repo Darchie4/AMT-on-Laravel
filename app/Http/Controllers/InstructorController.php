@@ -37,7 +37,7 @@ class InstructorController extends Controller
     public function edit(int $id)
     {
         //dd(Auth::user());
-        $thisuser = (Auth::user())->instructor->id;
+        $thisuser = Auth::user()->instructorInfo->id;
         $instructor = InstructorInfo::findOrFail($id);
         if ($thisuser == $id || Auth::user()->can('admin_panel')){
             return view('instructors.admin.edit', ['instructor'=> $instructor,'roles' => Role::all()]);

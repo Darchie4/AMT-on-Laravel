@@ -60,7 +60,7 @@ class User extends Authenticatable
         return $this->hasOne(Address::class);
     }
 
-    public function InstructorInfo(): HasOne
+    public function instructorInfo(): HasOne
     {
         return $this->hasOne(InstructorInfo::class);
     }
