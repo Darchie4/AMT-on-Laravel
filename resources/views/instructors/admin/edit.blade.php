@@ -18,7 +18,7 @@
                         {{__('customLabels.instructor_edit_instructor')}}
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{route('admin.instructors.update', [$id => $instructor->id])}}"
+                        <form method="POST" action="{{route('admin.instructors.update', ['id'=>$instructor->id])}}"
                               enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

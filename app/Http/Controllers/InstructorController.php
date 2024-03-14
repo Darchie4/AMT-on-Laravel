@@ -32,8 +32,9 @@ class InstructorController extends Controller
         return view('instructors.admin.details',compact('instructor','user'));
     }
 
-    public function edit(InstructorInfo $instructor)
+    public function edit(int $id)
     {
+        $instructor = InstructorInfo::findOrFail($id);
         $roles = Role::all();
         return view('instructors.admin.edit', compact('instructor', 'roles'));
     }
