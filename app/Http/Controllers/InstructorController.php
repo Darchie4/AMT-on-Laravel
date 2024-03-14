@@ -6,6 +6,7 @@ use App\Models\InstructorInfo;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
@@ -26,17 +27,24 @@ class InstructorController extends Controller
         return view('instructors.admin.index',compact('instructors','roles','selectedRoles'));
     }
 
-    public function show(InstructorInfo $instructor){
+    public function show(int $id){
 
+        $instructor = InstructorInfo::findOrFail($id);
         $user = $instructor->user();
         return view('instructors.admin.details',compact('instructor','user'));
     }
 
     public function edit(int $id)
     {
+        //dd(Auth::user());
+        $thisuser = (Auth::user())->instructor->id;
         $instructor = InstructorInfo::findOrFail($id);
-        $roles = Role::all();
-        return view('instructors.admin.edit', compact('instructor', 'roles'));
+        if ($thisuser == $id || Auth::user()->can('admin_panel')){
+            return view('instructors.admin.edit', ['instructor'=> $instructor,'roles' => Role::all()]);
+        }
+        else{
+            return abort(403);
+        }
     }
 
     //Edit a user (put/patch)

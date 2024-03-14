@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasOne(Address::class);
     }
 
+    public function InstructorInfo(): HasOne
+    {
+        return $this->hasOne(InstructorInfo::class);
+    }
+
     /**
      * Get the Roles for the user.
      */
