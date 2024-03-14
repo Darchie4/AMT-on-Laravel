@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InstructorInfo;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
@@ -38,7 +39,7 @@ class InstructorController extends Controller
     }
 
     //Edit a user (put/patch)
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $instructor = InstructorInfo::findOrFail($id);
         $user = $instructor->user;

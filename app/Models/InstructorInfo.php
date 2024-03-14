@@ -26,8 +26,8 @@ class InstructorInfo extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function lessons(): HasMany
+    public function lessons(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(Lesson::class);
+        return $this->belongsToMany(Lesson::class);
     }
 }

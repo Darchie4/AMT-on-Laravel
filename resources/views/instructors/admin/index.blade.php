@@ -2,7 +2,7 @@
 
 @section('admin_content')
     <div class="container">
-        <h2>{{__('customLabels.instructor')}}</h2>
+        <h2>{{__('customLabels.instructor_index_instructors')}}</h2>
         <div class="row row-cols-2">
             <!--Search box -->
             <div class="d-grid justify-content-md-start mb-2 col-md-9">
@@ -37,6 +37,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">{{__('customLabels.email')}}</th>
+                        <th scope="col">{{__('customLabels.instructor_index_lessons')}}</th>
                         <th scope="col">{{__('customLabels.firstname')}}</th>
                         <th scope="col">{{__('customLabels.lastname')}}</th>
                         <th scope="col">{{__('customLabels.manage')}}</th>
@@ -48,6 +49,13 @@
                             <td>{{$instructor->user->id}}</td>
                             <td>
                                 <a href="{{route('admin.instructors.show',$instructor->id)}}">{{$instructor->user->email}}</a>
+                            </td>
+                            <td>
+                                @foreach($instructor->lessons as $lesson)
+                                    <a href="{{route('admin.lesson.show',$lesson->id)}}">
+                                    {{$lesson->id}}@if(!$loop->last), @endif
+                                    </a>
+                                @endforeach
                             </td>
                             <td>{{$instructor->user->name}}</td>
                             <td>{{$instructor->user->lname}}</td>
