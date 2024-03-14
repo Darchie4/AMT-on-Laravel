@@ -74,5 +74,11 @@ return [
     'public_index_trainingTimes' => 'Træningstider',
     'public_index_showInformation' => 'Se mere',
     'public_index_signup' => 'Tilmeld',
+    'public_index_location' => 'Lokation: ',
+    'public_index_weekDay' => 'Ugedag:',
+    'public_index_timeStart' => 'Starttidspunkt',
+    'public_index_timeEnd' => 'Sluttidspunkt',
+    '' => '',
+    '' => '',
 
 ];

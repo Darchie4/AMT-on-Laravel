@@ -49,12 +49,11 @@
                                         <div class="row row-cols-auto">
                                             @endif
                                             <div class="col row-cols-auto">
-                                                <b>Location: </b> {{$lessonTimeLocation ->location->name}} <br>
-                                                <b>Week
-                                                    day: </b> {{trans(Carbon::getDays()[$lessonTimeLocation->week_day-1])}}
+                                                <b>{{__('lesson.public_index_location')}}</b> {{$lessonTimeLocation ->location->name}} <br>
+                                                <b>{{__('lesson.public_index_weekDay')}}</b> {{trans(Carbon::getDays()[$lessonTimeLocation->week_day-1])}}
                                                 <br>
-                                                <b>Time Start: </b> {{$lessonTimeLocation -> start_time}} <br>
-                                                <b>Time End: </b> {{$lessonTimeLocation ->end_time}} <br>
+                                                <b>{{__('lesson.public_index_timeStart')}}</b> {{$lessonTimeLocation -> start_time}} <br>
+                                                <b>{{__('lesson.public_index_timeEnd')}}</b> {{$lessonTimeLocation ->end_time}} <br>
                                             </div>
                                             @if(!$loop -> last && ($loop->index+1) % 3 != 0)
                                                 <hr class="vr p-0">

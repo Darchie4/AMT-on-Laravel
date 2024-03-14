@@ -28,7 +28,7 @@
                             @endif
                             <div class="col">
                                 <b>Location: </b> {{$lessonTimeLocation ->location->name}} <br>
-                                <b>Week day: </b> {{trans(Carbon::getDays()[$lessonTimeLocation->week_day])}}<br>
+                                <b>Week day: </b> {{trans(Carbon::getDays()[$lessonTimeLocation->week_day-1])}}<br>
                                 <b>Time Start: </b> {{$lessonTimeLocation -> start_time}} <br>
                                 <b>Time End: </b> {{$lessonTimeLocation ->end_time}} <br>
                             </div>
