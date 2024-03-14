@@ -61,9 +61,9 @@
                                         </div>
                                         <hr class="p-0">
                                     @elseif($loop -> last || ($loop->index+1) % 3 == 0)
-                            </div>
-                            @endif
-                            @endforeach
+                                        </div>
+                                    @endif
+                                @endforeach
                         </div>
                     </div>
 
