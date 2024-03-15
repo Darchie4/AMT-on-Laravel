@@ -94,8 +94,10 @@ class UserController extends Controller
     }
 
     //delete a user
-    public function destroy()
+    public function destroy(int $id)
     {
+        User::destroy($id);
+        return back()->with('message','User deleted');
     }
 
     //Roles and permissions
@@ -104,10 +106,10 @@ class UserController extends Controller
     public function assignRole(Request $request, User $user)
     {
         if ($user->hasRole($request->role)) {
-            return back()->with('message', 'Role already assigned to user');
+            return back()->with('error', 'Role already assigned to user');
         }
         $user->assignRole($request->role);
-        return back()->with('message', 'Role added to user');
+        return back()->with('success', 'Role added to user');
     }
 
     //remove existing role from user
@@ -115,8 +117,8 @@ class UserController extends Controller
     {
         if ($user->hasRole($role)) {
             $user->removeRole($role);
-            return back()->with('message', 'Role removed from user');
+            return back()->with('success', 'Role removed from user');
         }
-        return back()->with('message', 'Role has not been assigned to user');
+        return back()->with('error', 'Role has not been assigned to user');
     }
 }

@@ -16,7 +16,8 @@ class InstructorInfo extends Model
     protected $fillable = [
         'long_description',
         'short_description',
-        'profile_img_path'
+        'profile_img_path',
+        'user_id'
     ];
 
     /**

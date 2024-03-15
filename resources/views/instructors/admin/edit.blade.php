@@ -5,7 +5,7 @@
         <!--All users button + back-->
         <div class="d-grid d-md-flex gap-2"><br>
             <a class="btn btn-outline-primary mb-2" role="button"
-               href="{{route('admin.instructors.index')}}">{{__('customLabels.instructor_edit_all_instructors')}}</a>
+               href="{{route('admin.instructors.index')}}">{{__('customLabels.instructor_all_instructors')}}</a>
             <a class="btn btn-outline-primary mb-2" role="button"
                href="javascript:history.back()">{{__('customLabels.back')}}</a>
         </div>
@@ -14,7 +14,7 @@
             <!--General user info-->
             <div class="card">
                 <div class="card-header">
-                    {{__('customLabels.instructor_edit_instructor')}}
+                    {{__('customLabels.instructor_instructor')}}
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('admin.instructors.update', ['id'=>$instructor->id])}}"

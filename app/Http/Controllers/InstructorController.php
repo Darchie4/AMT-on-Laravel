@@ -89,10 +89,28 @@ class InstructorController extends Controller
     }
 
     public function create(){
-        return view();
+        return view('instructors.admin.create',['users'=>User::all()]);
+    }
+    public function store(Request $request){
+        $request->validate([
+            'short_description' => 'required|string|min:2',
+            'long_description'=>'string',
+            'profile_img_path'=>'image|max:2048',
+            'user_id' =>'required|exists:users,id'
+        ]);
+
+        InstructorInfo::create([
+            'short_description'=>$request->input('short_description'),
+            'long_description' => $request->input('long_description'),
+            'profile_img_path' => $request->input('profile_img_path'),
+            'user_id' => $request->input('user_id')
+        ]);
+
+        return redirect()->route('admin.instructors.index')->with('success', 'Instructor created successfully');
     }
 
-    public function destroy(){
-
+    public function destroy(int $id){
+        InstructorInfo::destroy($id);
+        return back()->with('success','Instructor deleted');
     }
 }

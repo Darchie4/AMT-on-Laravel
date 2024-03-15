@@ -66,13 +66,19 @@ return [
     //Instructor index
     'instructor_index_instructors' => 'Undervisere',
     'instructor_index_lessons'=>'Hold',
+    'instructors'=>'Undervisere',
+    'instructor_details'=>'Underviserdetailjer',
 
     //Instructor edit
-    'instructor_edit_instructor'=>'Underviser',
+    'instructor_instructor'=>'Underviser',
     'instructor_edit_profile_img'=>'Profilbillede',
     'instructor_edit_short_description'=>'Kort beskrivelse',
     'instructor_edit_long_description'=>'Lang beskrivelse',
-    'instructor_edit_all_instructors'=>'Alle undervisere',
+    'instructor_all_instructors'=>'Alle undervisere',
+
+    //Instructor create
+    'instructor_choose_user'=>'Vælg bruger',
+
 
     //With variables
     'welcome_message' => 'Velkommen, :name', //in view: {{ __('messages.welcome_message', ['name' => Auth::user()->name]) }}
@@ -111,4 +117,5 @@ return [
     'lesson_index_statistics_lesson_count' => 'Antal hold',
     'lesson_index_button_delete' => 'Slet',
     'lesson_index_links' => 'Funktioner',
+    'lesson_index_lessons' => 'Hold'
 ];
