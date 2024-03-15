@@ -39,7 +39,7 @@
 
                 <label for="danceStyle">{{__('customlabels.lesson_create_danceStyle')}}</label><br>
                 <input class="form-control" name="danceStyle" list="danceStyles"
-                       placeholder="Ex. Pardans, Hip Hop osv..." value="{{ $lesson->danceStyle->name }}" required><br>
+                       placeholder="{{__('customlabels.lesson_create_dance_style_placeholder')}}" value="{{ $lesson->danceStyle->name }}" required><br>
                 <datalist id="danceStyles">
                     @foreach($danceStyles as $style)
                         <option
@@ -49,7 +49,7 @@
 
                 <label for="difficulty">{{__('customlabels.lesson_create_difficulty')}}</label><br>
                 <input class="form-control" name="difficulty" id="difficulty" list="difficulties"
-                        placeholder="Ex. Begynder, Let Øvet osv..." value="{{ $lesson->difficulty->name }}" required><br>
+                        placeholder="{{__('customlabels.lesson_create_difficulty_placeholder')}}" value="{{ $lesson->difficulty->name }}" required><br>
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
                         <option

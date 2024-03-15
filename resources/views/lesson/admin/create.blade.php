@@ -61,7 +61,9 @@
                        placeholder="{{__('customlabels.lesson_create_difficulty_placeholder')}}" required><br>
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
-                        <option value="{{$difficulty->id}}">{{$difficulty->name}}</option>
+                        <option
+                            data-id="{{$difficulty->id}}"
+                            data-index="{{$difficulty->sorting_index}}">{{$difficulty->name}}</option>
                     @endforeach
                 </datalist>
                 <input class="form-control" type="hidden" id="sorting_index" name="sorting_index">
