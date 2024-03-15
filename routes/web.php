@@ -46,6 +46,12 @@ Route::middleware('permission:lessons_instructor|admin_panel')->name('admin.')->
         Route::get('/edit/{id}', [InstructorController::class, 'edit'])->name('edit');
         Route::put('/update/{id}', [InstructorController::class, 'update'])->name('update');
     });
+
+    Route::prefix('/lesson')->group(function () {
+        Route::get('/', [LessonController::class, 'adminIndex'])->name('lesson.index');
+        Route::get('/show/{id}', [LessonController::class, 'adminShow'])->name('lesson.show');
+        Route::get('/edit/{id}', [LessonController::class, 'adminEdit'])->name('lesson.edit');
+    });
 });
 
 //Exclusively admin_panel routes
@@ -78,11 +84,8 @@ Route::middleware('permission:admin_panel')->name('admin.')->prefix('/admin')->g
     });
 
     Route::prefix('/lesson')->group(function () {
-        Route::get('/', [LessonController::class, 'adminIndex'])->name('lesson.index');
-        Route::get('/show/{id}', [LessonController::class, 'adminShow'])->name('lesson.show');
         Route::get('/create', [LessonController::class, 'adminCreate'])->name('lesson.create');
         Route::post('/doCreate', [LessonController::class, 'adminDoCreate'])->name('lesson.doCreate');
-        Route::get('/edit/{id}', [LessonController::class, 'adminEdit'])->name('lesson.edit');
         Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
         Route::delete('/delete/{id}', [LessonController::class, 'adminDelete'])->name('lesson.remove');
     });
