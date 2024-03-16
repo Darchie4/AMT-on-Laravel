@@ -20,9 +20,7 @@
                                 <p class="card-text">
                                     {{__('customLabels.roles')}}:
                                     @foreach($instructor->user->roles as $user_role)
-                                        {{$user_role->name}}@if(!$loop->last)
-                                            ,
-                                        @endif
+                                        {{($user_role->name).(!$loop->last ? ', ' : '')}}
                                     @endforeach
                                 </p>
                                 <p class="card-text">{{__('customLabels.user_joined')}}:
@@ -38,7 +36,7 @@
                                         @if(isset($instructor) && $instructor->profile_img_path)
                                             <img
                                                 src="{{ old('profile_img_path') ? asset(old('profile_img_path')) : asset($instructor->profile_img_path) }}"
-                                                alt="Profile Image" style="max-width: 100px;"
+                                                alt="{{__('customLabels.instructor_profile_img')}}" style="max-width: 100px;"
                                                 class="img-thumbnail card-img justify-content-md-center"><br>
                                         @endif
                                     </div>

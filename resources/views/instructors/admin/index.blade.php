@@ -53,7 +53,7 @@
                             <td>
                                 @foreach($instructor->lessons as $lesson)
                                     <a href="{{route('admin.lesson.show',$lesson->id)}}">
-                                    {{$lesson->id}}@if(!$loop->last), @endif
+                                    {{$lesson->id.(!$loop->last ? ',' : '')}}
                                     </a>
                                 @endforeach
                             </td>

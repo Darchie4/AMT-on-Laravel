@@ -43,7 +43,7 @@
                                 @if(isset($instructor) && $instructor->profile_img_path)
                                     <img
                                         src="{{ old('profile_img_path') ? asset(old('profile_img_path')) : asset($instructor->profile_img_path) }}"
-                                        alt="Profile Image" style="max-width: 200px;"><br>
+                                        alt="{{__('customLabels.instructor_profile_img')}}" style="max-width: 200px;"><br>
                                 @endif
                                 <input class="form-control" id="profile_img_path" name="profile_img_path"
                                        type="file"

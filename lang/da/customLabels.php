@@ -76,8 +76,9 @@ return [
     'instructor_edit_long_description'=>'Lang beskrivelse',
     'instructor_all_instructors'=>'Alle undervisere',
 
-    //Instructor create
+    //Instructor create/details
     'instructor_choose_user'=>'Vælg bruger',
+    'instructor_profile_img'=>'Profilbillede',
 
 
     //With variables

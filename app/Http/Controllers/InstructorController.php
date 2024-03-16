@@ -95,7 +95,7 @@ class InstructorController extends Controller
         $request->validate([
             'short_description' => 'required|string|min:2',
             'long_description'=>'string',
-            'profile_img_path'=>'image|max:2048',
+            'profile_img_path'=>'nullable|image|mimes:jpeg,png|max:2048',
             'user_id' =>'required|exists:users,id'
         ]);
 
