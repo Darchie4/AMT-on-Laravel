@@ -70,4 +70,9 @@ class Lesson extends Model
     {
         return $this->belongsTo(Difficulty::class);
     }
+
+    public function canSignup(): bool
+    {
+     return ($this->can_signup);
+    }
 }
