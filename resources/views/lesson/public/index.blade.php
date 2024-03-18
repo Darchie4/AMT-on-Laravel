@@ -50,7 +50,7 @@
                                             @endif
                                             <div class="col row-cols-auto">
                                                 <b>{{__('lesson.public_index_location')}}</b> {{$lessonTimeLocation ->location->name}} <br>
-                                                <b>{{__('lesson.public_index_weekDay')}}</b> {{trans(Carbon::getDays()[$lessonTimeLocation->week_day-1])}}
+                                                <b>{{__('lesson.public_index_weekDay')}}</b> {{trans(Carbon::getDays()[$lessonTimeLocation->week_day])}}
                                                 <br>
                                                 <b>{{__('lesson.public_index_timeStart')}}</b> {{$lessonTimeLocation -> start_time}} <br>
                                                 <b>{{__('lesson.public_index_timeEnd')}}</b> {{$lessonTimeLocation ->end_time}} <br>
