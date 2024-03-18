@@ -78,6 +78,18 @@ return [
     'public_index_weekDay' => 'Ugedag:',
     'public_index_timeStart' => 'Starttidspunkt',
     'public_index_timeEnd' => 'Sluttidspunkt',
+
+
+    'public_signup_errors_cannotSignUp' => 'Det er desværre ikke muligt at tilmelde sig dette hold',
+    'public_signup_public_signup_confirm' => 'Tilmeld',
+    'public_signup_public_signup_goBack' => 'Gå tilbage',
+    'public_signup_public_signup_welcome' => 'Tilmedling',
+    'public_signup_public_signup_nameOfLesson' => 'Du er ved at tilmelde dig til: ',
+    'public_signup_public_signup_' => '',
+    'public_signup_public_signup_' => '',
+    'public_signup_public_signup_' => '',
+    'public_signup_public_signup_' => '',
+    '' => '',
     '' => '',
     '' => '',
 

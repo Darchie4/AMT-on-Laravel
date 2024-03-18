@@ -86,7 +86,7 @@
                                 <div class="col text-center">
                                     @if($lesson->canSignup())
                                         <a class="m-auto btn btn-success px-5"
-                                           href="{{route('lesson.signup', ['id' => $lesson->id])}}">{{__('lesson.public_index_signup')}}</a>
+                                           href="{{route('signups.public.signup', ['id' => $lesson->id])}}">{{__('lesson.public_index_signup')}}</a>
                                     @else
                                         <a class="m-auto btn btn-danger px-5">{{__('lesson.public_index_signup')}}</a>
                                     @endif

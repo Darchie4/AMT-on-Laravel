@@ -61,6 +61,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the Registrations of the user
+     */
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(Registration::class);
+    }
+
+    /**
      * Get the Roles for the user.
      */
     /*public function roles(): BelongsToMany

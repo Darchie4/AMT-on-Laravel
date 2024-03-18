@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminIndexController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('/lesson')->group(function () {
     Route::get('/', [LessonController::class, 'index'])->name('lesson.index');
     Route::get('/show/{id}', [LessonController::class, 'show'])->name('lesson.show');
-    Route::get('/signup/{id}', [LessonController::class, 'signup'])->name('lesson.signup');
+    Route::get('/signup/{id}', [RegistrationController::class, 'userSignUp'])->name('signups.public.signup');
+    Route::post('/dosignup/{lesson_id}/{user_id}', [RegistrationController::class, 'doUserSignup'])->name('signups.public.doSignup');
 });
 
 Route::middleware('permission:admin_panel') -> name('admin.')

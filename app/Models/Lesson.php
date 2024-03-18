@@ -71,8 +71,21 @@ class Lesson extends Model
         return $this->belongsTo(Difficulty::class);
     }
 
+    /**
+     * Get the Registrations of the lesson
+     */
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(Registration::class);
+    }
+
     public function canSignup(): bool
     {
      return ($this->can_signup);
+    }
+
+    public function canSignupUser(User $user): bool
+    {
+        return ($this->canSignup() && $this->age_min <= $user->age && $this->age_max >= $user->age);
     }
 }
