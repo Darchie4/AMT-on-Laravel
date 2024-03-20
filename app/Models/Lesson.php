@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -86,6 +87,8 @@ class Lesson extends Model
 
     public function canSignupUser(User $user): bool
     {
-        return ($this->canSignup() && $this->age_min <= $user->age && $this->age_max >= $user->age);
+        $date = Carbon::parse($user->birthday);
+        $yearsSinceDate = $date->diffInYears(Carbon::now());
+        return ($this->canSignup() && $this->age_min <= $yearsSinceDate && $this->age_max >= $yearsSinceDate);
     }
 }

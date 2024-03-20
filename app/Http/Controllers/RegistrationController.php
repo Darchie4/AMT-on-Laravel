@@ -37,6 +37,8 @@ class RegistrationController extends Controller
             return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_cannotSignUp'));
         }
 
+
+
         $registration = new Registration();
         $registration->user()->associate($user);
         $registration->lesson()->associate($lesson);
@@ -46,7 +48,7 @@ class RegistrationController extends Controller
         $registration->activation_date = Date::now();
         $registration->save();
 
-        dd($registration);
+        return redirect(route('lesson.index'));
     }
 
 }
