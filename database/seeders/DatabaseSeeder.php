@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\LessonTimeLocation;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,7 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            AddressSeeder::class,
+            UserSeeder::class,
+            DanceStyleSeeder::class,
+            DifficultySeeder::class,
+            RolesAndPermissionsSeeder::class,
+            LocationSeeder::class,
+            InstructorInfoSeeder::class,
+            LessonSeeder::class,
+            LessonTimeLocationSeeder::class,
+            DanceStyleLessonSeeder::class,
+            DifficultyLessonSeeder::class,
+            InstructorInfoLessonSeeder::class,
+        ]);
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
