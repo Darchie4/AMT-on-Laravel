@@ -27,6 +27,7 @@ Route::get('/', function () {
 
 Route::prefix('/instructors')->name('instructors.public.')->group(function () {
     Route::get('/', [InstructorController::class, 'publicIndex'])->name('index');
+    Route::get('/show/{id}',[InstructorController::class,'publicShow'])->name('show');
 
 });
 Auth::routes();

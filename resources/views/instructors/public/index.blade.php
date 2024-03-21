@@ -21,7 +21,7 @@
                         <div class="card-body my-0">
                             <div class="text-center">
                                 <a class="m-auto btn btn-primary px-5"
-                                   href="{{route('admin.instructors.show', ['id' => $instructor->id])}}">{{__('instructor.public_index_show_details')}}</a>
+                                   href="{{route('instructors.public.show', ['id' => $instructor->id])}}">{{__('instructor.public_index_show_details')}}</a>
                             </div>
                         </div>
                     </div>

@@ -8,5 +8,8 @@ return [
     'public_index_alt_image_text'=>'Profilbillede af underviser',
     'public_index_general_information'=>'Generel information',
     'public_index_short_description'=>'Beskrivelse',
-    //
+
+    //public show
+    'public_show_lessons'=>'Hold',
+    'public_show_details'=>'Underviserdetaljer',
 ];

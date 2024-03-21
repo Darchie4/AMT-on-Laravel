@@ -17,6 +17,10 @@ class InstructorController extends Controller
         return $this->InstructorIndex($request,'instructors.public.index');
     }
 
+    public function publicShow(int $id){
+        return view('instructors.public.show',['instructor'=>InstructorInfo::findOrFail($id)]);
+    }
+
     //For ADMINS
     public function index(Request $request){
         return $this->InstructorIndex($request,'instructors.admin.index');
