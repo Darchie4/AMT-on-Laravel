@@ -20,14 +20,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//PUBLIC ROUTES
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('/instructors')->name('instructors.public.')->group(function () {
+    Route::get('/', [InstructorController::class, 'publicIndex'])->name('index');
+
+});
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//PERMISSION BASED ROUTES
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //lesson_instructor routes
 Route::middleware('permission:lessons_instructor')->name('instructor.')->prefix('/instructor')->group(function () {

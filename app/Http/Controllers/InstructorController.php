@@ -12,19 +12,14 @@ use Spatie\Permission\Models\Role;
 
 class InstructorController extends Controller
 {
+    //FOR PUBLIC
+    public function publicIndex(Request $request){
+        return $this->InstructorIndex($request,'instructors.public.index');
+    }
+
+    //For ADMINS
     public function index(Request $request){
-        $instructorsQuery = InstructorInfo::query()->with('user');
-        $roles = Role::all();
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $instructorsQuery->whereHas('user', function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%');
-            })->orWhere('lname', 'like', '%' . $search . '%');
-        }
-        $instructors = $instructorsQuery->get();
-        $selectedRoles = [];
-        return view('instructors.admin.index',compact('instructors','roles','selectedRoles'));
+        return $this->InstructorIndex($request,'instructors.admin.index');
     }
 
     public function show(int $id){
@@ -112,5 +107,24 @@ class InstructorController extends Controller
     public function destroy(int $id){
         InstructorInfo::destroy($id);
         return back()->with('success','Instructor deleted');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
+    private function InstructorIndex(Request $request, string $pathToView): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View
+    {
+        $instructorsQuery = InstructorInfo::query()->with('user');
+        $roles = Role::all();
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $instructorsQuery->whereHas('user', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+            })->orWhere('lname', 'like', '%' . $search . '%');
+        }
+        $instructors = $instructorsQuery->get();
+        return view($pathToView, compact('instructors', 'roles'));
     }
 }
