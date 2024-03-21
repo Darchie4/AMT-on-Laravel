@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        <!--All users button + back-->
+        <div class="d-grid d-md-flex gap-2"><br>
+            <a class="btn btn-outline-primary mb-2" role="button"
+               href="{{route('instructors.public.index')}}">{{__('customLabels.instructor_all_instructors')}}</a>
+            <a class="btn btn-outline-primary mb-2" role="button"
+               href="javascript:history.back()">{{__('customLabels.back')}}</a>
+        </div>
         <div class="row justify-content-center">
             <div>
                 <div class="card">
