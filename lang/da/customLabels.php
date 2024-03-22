@@ -97,7 +97,7 @@ return [
     'lesson_create_danceStyle' => 'Stilart',
     'lesson_create_select_instructor_placeholder' => 'Vælg undervisere',
     'lesson_create_difficulty' => 'Dygtigheds grad',
-    'lesson_create_instructor' => 'Unservis(ere)',
+    'lesson_create_instructor' => 'Undervis(ere)',
     'lesson_create_dance_style_placeholder' => 'Ex. Pardans, Hip Hop osv...',
     'lesson_create_difficulty_placeholder' => 'Ex. Begynder, Let Øvet osv...',
     'lesson_create_button_add_timeslot' => 'Tilføj Træningstid',
