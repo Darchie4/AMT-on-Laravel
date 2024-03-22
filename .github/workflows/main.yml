@@ -1,7 +1,7 @@
 on:
   push:
       branches:
-      - development
+      - main
 
 name: 🚀 Deploy website to test
 jobs:
@@ -20,13 +20,13 @@ jobs:
             -   name: Deploy to Server
                 uses: easingthemes/ssh-deploy@main
                 with:
-                    SSH_PRIVATE_KEY: ${{ secrets.TEST_ENV_DEPLOY_KEY }}
+                    SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
                     ARGS: "-rlgoDzvc -i --delete"
                     EXCLUDE: "/storage/logs/, /database/seeders/, Dockerfile, .env, .env.example"
                     # SOURCE: "dist/"
-                    REMOTE_HOST: ${{ secrets.TEST_ENV_SERVER_IP }}
-                    REMOTE_USER: ${{ secrets.TEST_ENV_SERVER_USER }}
-                    TARGET: "/home/ubuntu/web/websites/AMT-on-Laravel/"
+                    REMOTE_HOST: ${{ secrets.SERVER_IP }}
+                    REMOTE_USER: ${{ secrets.SERVER_USER }}
+                    TARGET: ${{ secrets.SERVER_TARGET }}
                     SSH_CMD_ARGS: "-o StrictHostKeyChecking=no"
                     SCRIPT_BEFORE: |
                       sudo docker-compose -f /home/ubuntu/web/websites/docker-compose.yml down
