@@ -1,0 +1,34 @@
+on:
+  push:
+      branches:
+      - development
+
+name: 🚀 Deploy website to test
+jobs:
+    build:
+        name: Build and Deploy
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout Repository
+                uses: actions/checkout@master
+            -   name: Setup Enviroment
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.2'
+            -   name: Install Packages
+                run: composer install --no-dev
+            -   name: Deploy to Server
+                uses: easingthemes/ssh-deploy@main
+                with:
+                    SSH_PRIVATE_KEY: ${{ secrets.TEST_ENV_DEPLOY_KEY }}
+                    ARGS: "-rlgoDzvc -i --delete"
+                    EXCLUDE: "/storage/logs/, /database/seeders/, Dockerfile, .env, .env.example"
+                    # SOURCE: "dist/"
+                    REMOTE_HOST: ${{ secrets.TEST_ENV_SERVER_IP }}
+                    REMOTE_USER: ${{ secrets.TEST_ENV_SERVER_USER }}
+                    TARGET: "/home/ubuntu/web/websites/AMT-on-Laravel/"
+                    SSH_CMD_ARGS: "-o StrictHostKeyChecking=no"
+                    SCRIPT_BEFORE: |
+                      sudo docker-compose -f /home/ubuntu/web/websites/docker-compose.yml down
+                    SCRIPT_AFTER: |
+                      sudo docker-compose -f /home/ubuntu/web/websites/docker-compose.yml up -d --build
