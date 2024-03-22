@@ -16,7 +16,10 @@ jobs:
                 with:
                     php-version: '8.2'
             -   name: Install Packages
-                run: composer install --no-dev
+                run: |
+                    - composer install --no-dev
+                    - npm install
+                    - npm run build
             -   name: Deploy to Server
                 uses: easingthemes/ssh-deploy@main
                 with:
