@@ -5,14 +5,18 @@
 
     <div class="container">
         <div>
-            <h1 class="text-center text-primary">{{__('registration.public_index_welcome')}}</h1>
+            <h1 class="text-center text-primary">{{__('registration.public_index_tittle_welcome')}}</h1>
 
             <p class="my-5">
-                {{__('registration.public_index_pageDescription')}}
+                @if(empty(__('registration.public_index_pageDescriptionHTML')) ||__('registration.public_index_pageDescriptionHTML') == 'registration.public_index_pageDescriptionHTML')
+                    {{ __('registration.public_index_pageDescription') }}
+                @else
+                    {!! __('registration.public_index_pageDescriptionHTML') !!}
+                @endif
             </p>
         </div>
 
-        <h2 class="text-center text-primary">{{__('registration.public_index_currentRegistrations')}}</h2>
+        <h2 class="text-center text-primary">{{__('registration.public_index_tittle_currentRegistrations')}}</h2>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
@@ -46,10 +50,9 @@
         </table>
 
 
-
         @php($inactiveRegistrations = $registrations->where('is_active', false)->all())
         @if(count($inactiveRegistrations) != 0)
-            <h2 class="text-center text-primary mt-5">{{__('registration.public_index_pastRegistrations')}}</h2>
+            <h2 class="text-center text-primary mt-5">{{__('registration.public_index_tittle_pastRegistrations')}}</h2>
 
             <table class="table table-striped table-hover">
                 <thead>
