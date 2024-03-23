@@ -10,6 +10,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 
 class RegistrationController extends Controller
@@ -18,7 +19,24 @@ class RegistrationController extends Controller
     /**
      * Show the view for signing up for a lesson
      *
-     * @return Application|RedirectResponse|Redirector
+     * @param int $id
+     * @return Application|RedirectResponse|Redirector|Renderable
+     */
+    public function userIndex(): Application|RedirectResponse|Redirector|Renderable
+    {
+        $user = Auth::user();
+        if (!$user){
+            return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_hasToBeLoggedIn'));
+        }
+        $registrations = $user->registrations()->get();
+        return view('signUp/public/index', ['registrations' => $registrations]);
+    }
+
+    /**
+     * Show the view for signing up for a lesson
+     *
+     * @param int $id
+     * @return Application|RedirectResponse|Redirector|Renderable
      */
     public function userSignUp(int $id): Application|RedirectResponse|Redirector|Renderable
     {
@@ -29,7 +47,7 @@ class RegistrationController extends Controller
         return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_cannotSignUp'));
     }
 
-    public function doUserSignup(int $lesson_id, int $user_id)
+    public function doUserSignup(int $lesson_id, int $user_id): Application|Redirector|RedirectResponse
     {
         $lesson = Lesson::findOrFail($lesson_id);
         $user = User::findOrFail($user_id);
@@ -37,7 +55,11 @@ class RegistrationController extends Controller
             return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_cannotSignUp'));
         }
 
+        $isSignedUp = $user->lessons()->where('lesson_id', '=', $lesson->id)->first();
 
+        if ($isSignedUp){
+            return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_alreadySignedUp'));
+        }
 
         $registration = new Registration();
         $registration->user()->associate($user);

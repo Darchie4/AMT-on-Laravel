@@ -69,6 +69,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all Lessons that the user is signed up for
+     */
+    public function lessons(): BelongsToMany
+    {
+        return $this->belongsToMany(Lesson::class, 'registrations');
+    }
+
+    /**
      * Get the Roles for the user.
      */
     /*public function roles(): BelongsToMany

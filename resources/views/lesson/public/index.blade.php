@@ -13,6 +13,10 @@
             <div class="col">
             </div>
         </div>
+
+        @foreach ($errors->all() as $error)
+            {{ $error }}<br/>
+        @endforeach
         <div class="row row-cols-1 row-cols-md-2 g-4">
             @foreach($lessons as $lesson)
                 @if($lesson->visible)

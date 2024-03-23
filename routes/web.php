@@ -33,6 +33,7 @@ Route::prefix('/lesson')->group(function () {
     Route::get('/show/{id}', [LessonController::class, 'show'])->name('lesson.show');
     Route::get('/signup/{id}', [RegistrationController::class, 'userSignUp'])->name('signups.public.signup');
     Route::post('/dosignup/{lesson_id}/{user_id}', [RegistrationController::class, 'doUserSignup'])->name('signups.public.doSignup');
+    Route::get('/registrations', [RegistrationController::class, 'userIndex'])->name('signups.public.index');
 });
 
 Route::middleware('permission:admin_panel') -> name('admin.')
