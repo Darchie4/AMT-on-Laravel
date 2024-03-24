@@ -34,6 +34,19 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
 
+                    <!--About us dropdown-->
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ __('navigation.about') }}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('instructors.public.index') }}">
+                                {{ __('navigation.instructors') }}
+                            </a>
+                        </div>
+                    </li>
+
                 </ul>
 
                 <!-- Right Side Of Navbar -->
