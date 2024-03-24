@@ -26,7 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/locations')->name('locations.')->group(function () {
+Route::prefix('/locations')->name('locations.public.')->group(function () {
     Route::get('/', [LocationController::class, 'publicIndex'])->name('index');
     Route::get('/show/{id}', [LocationController::class, 'publicShow'])->name('show');
 });
