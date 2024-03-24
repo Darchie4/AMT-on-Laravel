@@ -11,6 +11,10 @@ return [
     'public_index_city'=>'By',
 
     //public show
-    'public_show_lessons'=>'Hold',
+    'public_show_all_locations'=>'Alle lokationer',
     'public_show_details'=>'Underviserdetaljer',
+    'public_show_address'=>'Adresse',
+    'public_show_long_description'=>'Beskrivelse',
+
+
 ];
