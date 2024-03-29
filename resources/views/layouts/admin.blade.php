@@ -7,24 +7,37 @@
                 <aside class="bd-sidebar">
                     <h3>Administration</h3>
                     <ul>
-                        <li>
-                            <a href="{{ route('admin.roles.index') }}">{{ __('customLabels.roles') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.permissions.index') }}">{{ __('customLabels.permissions') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.users.index') }}">{{ __('customLabels.users') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.instructors.index') }}">{{ __('customLabels.instructors') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.lesson.index') }}">{{ __('customLabels.lesson_index_lessons') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.locations.index') }}">{{ __('location.location_index_admin') }}</a>
-                        </li>
+                        @can('roles_crud')
+                            <li>
+                                <a href="{{ route('admin.roles.index') }}">{{ __('customLabels.roles') }}</a>
+                            </li>
+                        @endcan
+                        @can('permissions_crud')
+                            <li>
+                                <a href="{{ route('admin.permissions.index') }}">{{ __('customLabels.permissions') }}</a>
+                            </li>
+                        @endcan
+                        @can('users_crud')
+                            <li>
+                                <a href="{{ route('admin.users.index') }}">{{ __('customLabels.users') }}</a>
+                            </li>
+                        @endcan
+                        @can(['instructors_crud','instructors_own'])
+
+                            <li>
+                                <a href="{{ route('admin.instructors.index') }}">{{ __('customLabels.instructors') }}</a>
+                            </li>
+                        @endcan
+                        @can(['lessons_crud','lessons_own'])
+                            <li>
+                                <a href="{{ route('admin.lesson.index') }}">{{ __('customLabels.lesson_index_lessons') }}</a>
+                            </li>
+                        @endcan
+                        @can('locations_crud')
+                            <li>
+                                <a href="{{ route('admin.locations.index') }}">{{ __('location.location_index_admin') }}</a>
+                            </li>
+                        @endcan
                     </ul>
                 </aside>
             </div>

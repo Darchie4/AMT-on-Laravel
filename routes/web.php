@@ -56,7 +56,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     Route::get('/', [AdminIndexController::class, 'index'])->name('index')->middleware('permission:admin_dashboard');
 
     //Role routes
-    Route::middleware('permission:routes_crud')->group(function () {
+    Route::middleware('permission:roles_crud')->group(function () {
         Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'removePermission'])->name('roles.permission.remove');
         Route::post('/roles/{role}/permissions', [RoleController::class, 'assignPermission'])->name('roles.permission.assign');
         Route::resource('/roles', RoleController::class);
