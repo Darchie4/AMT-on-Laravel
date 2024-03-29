@@ -22,6 +22,9 @@
                         <li>
                             <a href="{{ route('admin.lesson.index') }}">{{ __('customLabels.lesson_index_lessons') }}</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.locations.index') }}">{{ __('location.location_index_admin') }}</a>
+                        </li>
                     </ul>
                 </aside>
             </div>

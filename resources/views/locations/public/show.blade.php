@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <!--All users button + back-->
+        <!--All locations button + back-->
         <div class="d-grid d-md-flex gap-2"><br>
             <a class="btn btn-outline-primary mb-2" role="button"
                href="{{route('locations.public.index')}}">{{__('location.public_show_all_locations')}}</a>
@@ -17,42 +17,42 @@
                     </div>
                     <div class="card-body">
                         <div class="row row-cols-2">
-                            <div class="col-md-6 card-body">
-                                <div id="map">
-                                    <?php
-                                    include_once(app_path('Http/UrlSigner.php'));
+                            <div class="col-md-4 card-body">
 
-                                    $apikey = env('GOOGLE_API_KEY');
-                                    $signature = env('GOOGLE_SIGNATURE');
-
-                                    $address = urlencode("{$location->address->street_number} {$location->address->street_name}, {$location->address->city}, {$location->address->country}");
-
-                                    $mapURL = "https://maps.googleapis.com/maps/api/staticmap?center={$address}&markers={$address}&zoom=15&size=400x400&key={$apikey}";
-
-                                    $signedMapURL = signUrl($mapURL, $signature);
-                                    ?>
-                                        <!-- Use PHP echo to insert PHP variables into HTML -->
-                                    <img src="<?php echo $signedMapURL; ?>" alt="Map">
-
-                                </div>
                                 <div class="mb-2">
-                                    <h5 class="text-secondary">{{__('location.public_show_address')}}</h5>
-                                    {{$location->address->street_name}} {{$location->address->street_number}},
-                                    {{$location->address->zip_code}} {{$location->address->city}}
+                                    <p class="text-secondary">{{__('location.public_show_address')}}
+                                        : {{$location->address->street_name}} {{$location->address->street_number}},
+                                        {{$location->address->zip_code}} {{$location->address->city}}</p>
+
                                 </div>
                                 <h5 class="text-secondary">{{__('location.public_show_long_description')}}</h5>
                                 {!!$location->long_description!!}
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="row row-cols-auto">
+                                    <div class="card-img" id="map">
+                                        <?php
+                                        include_once(app_path('Http/UrlSigner.php'));
+
+                                        $apikey = env('GOOGLE_API_KEY');
+                                        $signature = env('GOOGLE_SIGNATURE');
+
+                                        $address = urlencode("{$location->address->street_number} {$location->address->street_name}, {$location->address->city}, {$location->address->country}");
+
+                                        $mapURL = "https://maps.googleapis.com/maps/api/staticmap?center={$address}&markers={$address}&zoom=15&size=400x300&key={$apikey}";
+
+                                        $signedMapURL = signUrl($mapURL, $signature);
+                                        ?>
+                                            <!-- Use PHP echo to insert PHP variables into HTML -->
+                                        <img src="<?php echo $signedMapURL; ?>" alt="Map">
+
+                                    </div>
                                     <div>
-                                        @if(isset($location) && $location->cover_img_path)
-                                            <img
-                                                src="{{ old('cover_img_path') ? asset(old('cover_img_path')) : asset($location->cover_img_path) }}"
-                                                alt="{{__('customLabels.instructor_profile_img')}}"
-                                                style="max-width: 100px;"
-                                                class="img-thumbnail card-img justify-content-md-center"><br>
-                                        @endif
+
+                                        <img src="{{asset($location->cover_img_path)}}"
+                                             class="card-img img-thumbnail justify-content-md-center"
+                                             alt="{{__('location.cover_img_alt')}} {{$location->name}}">
+
                                     </div>
                                 </div>
                             </div>
