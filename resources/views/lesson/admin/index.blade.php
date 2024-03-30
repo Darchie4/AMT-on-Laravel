@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('head')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/admin/lesson/clickableRowsInTable.js') }}"></script>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="my-5 text-center">
@@ -38,13 +43,13 @@
                 @foreach($lessons as $lesson)
                     @php($registrationsCount = $lesson->registrations()->where('is_active', '=', true)->count())
                     @if(!$lesson->can_signup || !$lesson->visible)
-                        <tr class="table-info">
+                        <tr class="table-info" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
                     @elseif($registrationsCount == $lesson->total_signup_space )
-                        <tr class="table-danger">
+                        <tr class="table-danger" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
                     @elseif(($registrationsCount+2) >= $lesson->total_signup_space )
-                        <tr class="table-warning">
+                        <tr class="table-warning" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
                     @else
-                        <tr>
+                        <tr data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
                     @endif
                         <td scope="row">{{$lesson->name}}</td>
                         <td>{{$lesson->age_min}}</td>
