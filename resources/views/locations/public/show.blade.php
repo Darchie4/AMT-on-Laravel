@@ -28,9 +28,9 @@
                                 <h5 class="text-secondary">{{__('location.public_show_long_description')}}</h5>
                                 {!!$location->long_description!!}
                             </div>
-                            <div class="col-md-6">
-                                <div class="row row-cols-auto">
-                                    <div class="card-img" id="map">
+                            <div class="col-md-6 justify-content-center">
+                                <div>
+                                    <div class="text-center" id="map">
                                         <?php
                                         include_once(app_path('Http/UrlSigner.php'));
 
@@ -39,20 +39,27 @@
 
                                         $address = urlencode("{$location->address->street_number} {$location->address->street_name}, {$location->address->city}, {$location->address->country}");
 
-                                        $mapURL = "https://maps.googleapis.com/maps/api/staticmap?center={$address}&markers={$address}&zoom=15&size=400x300&key={$apikey}";
+                                        $mapURL = "https://maps.googleapis.com/maps/api/staticmap?center={$address}&markers={$address}&zoom=17&size=400x400&key={$apikey}";
 
                                         $signedMapURL = signUrl($mapURL, $signature);
                                         ?>
-                                            <!-- Use PHP echo to insert PHP variables into HTML -->
-                                        <img src="<?php echo $signedMapURL; ?>" alt="Map">
+
+                                        <img class="img-fluid rounded" src="<?php echo $signedMapURL; ?>" alt="Map">
 
                                     </div>
-                                    <div>
+                                    <div class="text-center mt-3">
+                                        @if(isset($location->cover_img_path))
 
                                         <img src="{{asset($location->cover_img_path)}}"
-                                             class="card-img img-thumbnail justify-content-md-center"
+                                             class="img-fluid rounded"
+                                             style="height: 400px"
                                              alt="{{__('location.cover_img_alt')}} {{$location->name}}">
-
+                                        @else
+                                            <img src="{{asset('no_image.jpg')}}"
+                                                 class="img-fluid rounded"
+                                                 style="height: 400px"
+                                                 alt="{{__('location.cover_img_alt')}} {{$location->name}}">
+                                        @endif
                                     </div>
                                 </div>
                             </div>

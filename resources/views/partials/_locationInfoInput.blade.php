@@ -22,8 +22,8 @@
                accept="image/png, image/jpeg"><br>
         @if(isset($location) && $location->cover_img_path)
             <img
-                src="{{ old('cover_img_path') ? asset(old('cover_img_path')) : asset($location->cover_img_path) }}"
-                alt="{{__('location.create_cover_image')}}" style="max-width: 200px;"><br>
+                src="{{ asset($location->cover_img_path) }}"
+                alt="{{__('location.create_cover_image')}}" style="max-width: 200px;" class="img-fluid"><br>
         @endif
     </div>
 </div>
