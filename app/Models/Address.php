@@ -36,6 +36,6 @@ class Address extends Model
 
     public function fullAddress()
     {
-        return $this->street_name . $this->street_number . $this->zip_code . $this->city;
+        return $this->street_name .' '. $this->street_number .', '. $this->zip_code .' '. $this->city;
     }
 }
