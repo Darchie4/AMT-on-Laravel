@@ -29,13 +29,23 @@
                         <th scope="col">{{__('customlabels.lesson_index_table_instructors')}}</th>
                         <th scope="col">{{__('customlabels.lesson_index_table_danceStyle')}}</th>
                         <th scope="col">{{__('customlabels.lesson_index_table_difficulty')}}</th>
+                        <th scope="col">{{__('customlabels.lesson_index_table_signups')}}</th>
                         <th scope="col">{{__('customlabels.lesson_index_table_functions')}}</th>
                     </tr>
                 </thead>
 
                 <tbody>
                 @foreach($lessons as $lesson)
-                    <tr>
+                    @php($registrationsCount = $lesson->registrations()->where('is_active', '=', true)->count())
+                    @if(!$lesson->can_signup || !$lesson->visible)
+                        <tr class="table-info">
+                    @elseif($registrationsCount == $lesson->total_signup_space )
+                        <tr class="table-danger">
+                    @elseif(($registrationsCount+2) >= $lesson->total_signup_space )
+                        <tr class="table-warning">
+                    @else
+                        <tr>
+                    @endif
                         <td scope="row">{{$lesson->name}}</td>
                         <td>{{$lesson->age_min}}</td>
                         <td>{{$lesson->age_max}}</td>
@@ -46,6 +56,10 @@
                         </td>
                         <td>{{$lesson->danceStyle->name}}</td>
                         <td>{{$lesson->difficulty->name}}</td>
+                        <td>
+                            <a class=""
+                               href="{{route('admin.signups.lessonIndex', [$lesson->id])}}">{{$registrationsCount}} / {{$lesson->total_signup_space}}</a>
+                        </td>
                         <td>
                             <div class="container">
                                 @can('admin_panel')
