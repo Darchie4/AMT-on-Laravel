@@ -65,6 +65,12 @@ Route::middleware('permission:admin_panel') -> name('admin.')
             Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
             Route::delete('/delete/{id}', [LessonController::class, 'adminDelete'])->name('lesson.remove');
         });
+
+        Route::prefix('registrations')->group(function (){
+            Route::get('/user/{id}', [RegistrationController::class, 'adminUserSignups'])->name('signups.admin.userIndex');
+            Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
+            Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
+        });
     });
 
 Route::middleware('permission:lessons_instructor')->name('instructor.')

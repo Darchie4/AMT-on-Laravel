@@ -33,7 +33,5 @@ class RegistrationSeeder extends Seeder
                 }
             }
         });
-
-
     }
 }

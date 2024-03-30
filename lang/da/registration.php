@@ -18,11 +18,38 @@ return [
     'public_index_time' => 'Træningstider',
     'public_index_price' => 'Pris',
     'public_index_functions' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
 
+
+
+    'admin_lessonIndex_tittle_welcome' => 'Tilmeldings oversigt for :lessonName',
+    'admin_lessonIndex_pageDescription' => 'Her kan du se alle aktive og inaktive tilmeldinger for :lessonName, samt generelle informationer om tilmeldingerne',
+    'admin_lessonIndex_tittle_currentRegistrations' => 'Aktive tilmeldinger',
+    'admin_lessonIndex_userName' => 'Navn',
+    'admin_lessonIndex_userAge' => 'Alder',
+    'admin_lessonIndex_userAddress' => 'Addresse',
+    'admin_lessonIndex_fromDate' => 'Tilmeldt',
+    'admin_lessonIndex_functions' => 'Administrations funktioner',
+    'admin_lessonIndex_functions_cancelRegistration' => 'Udmeld',
+    'admin_lessonIndex_functions_confirm_cancelRegistration' => 'Er du sikker på at du vil udmelde :userName?',
+    'admin_lessonIndex_toDate' => 'Udmeldt',
+    'admin_lessonIndex_tittle_pastRegistrations' => 'Udmeldte',
+    'registration_index_noRegistrations' => 'Der er ingen tilmeldinger til dette hold',
+
+
+
+    'admin_userIndex_tittle_welcome' => 'Tilmeldings oversigt for :fname :lname', # :fname = Users first name, :lname = Users last name
+    'admin_userIndex_pageDescription' => 'Her kan du se en oversigt over hvilke hold :fname er tilmeldt til og eventuelt udmeldt fra', # :fname = Users first name, :lname = Users last name
+    'admin_userIndex_tittle_currentRegistrations' => 'Aktive tilmeldinger',
+    'admin_userIndex_lessonName' => 'Navn',
+    'admin_userIndex_fromDate' => 'Tilmeldt',
+    'admin_userIndex_price' => 'Pris',
+    'admin_userIndex_functions' => 'Administrations funktioner',
+    'admin_userIndex_functions_cancelRegistration' => 'Afmeld',
+    'admin_userIndex_functions_confirm_cancelRegistration' => 'Er du sikker på at du vil udmelde :fname :lname fra :lessonName', # :fname = Users first name, :lname = Users last name, :lessonName = The lesson that the user is being removed from
+    'admin_userIndex_tittle_pastRegistrations' => 'Tideligere tilmeldinger',
+    'admin_userIndex_toDate' => 'Udmeldt',
+
+
+    
+    '' => '',
 ];

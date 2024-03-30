@@ -73,4 +73,39 @@ class RegistrationController extends Controller
         return redirect(route('lesson.index'));
     }
 
+    /**
+     * Show the view for signing up for a lesson
+     *
+     * @param int $id
+     * @return Application|RedirectResponse|Redirector|Renderable
+     */
+    public function adminUserSignups(int $id): Application|RedirectResponse|Redirector|Renderable
+    {
+        $user = User::findOrFail($id);
+        $registrations = $user->registrations()->get();
+        return view('signUp/admin/userIndex', ['user' => $user, 'registrations' => $registrations]);
+    }
+
+    /**
+     * Show the view for signing up for a lesson
+     *
+     * @param int $id
+     * @return Application|RedirectResponse|Redirector|Renderable
+     */
+    public function adminLessonSignups(int $id): Application|RedirectResponse|Redirector|Renderable
+    {
+        $lesson = Lesson::findOrFail($id);
+        $registrations = $lesson->registrations()->get();
+        return view('signUp/admin/lessonIndex', ['lesson' => $lesson, 'registrations' => $registrations]);
+    }
+
+    public function endRegistration(int $id): Application|RedirectResponse|Redirector|Renderable
+    {
+        $registration = Registration::findOrFail($id);
+        $registration->is_active = false;
+        $registration->deactivation_date = Date::now();
+        $registration->save();
+        return back();
+    }
+
 }
