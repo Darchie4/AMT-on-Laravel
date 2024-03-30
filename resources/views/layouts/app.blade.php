@@ -49,6 +49,10 @@
                         </div>
                     </li>
 
+                    <li class="navbar-nav me-auto">
+                        <a href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
+                    </li>
+
                 </ul>
 
                 <!-- Right Side Of Navbar -->

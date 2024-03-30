@@ -26,7 +26,7 @@ class RegistrationController extends Controller
     {
         $user = Auth::user();
         if (!$user){
-            return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_hasToBeLoggedIn'));
+            return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_hasToBeLoggedIn'));
         }
         $registrations = $user->registrations()->get();
         return view('signUp/public/index', ['registrations' => $registrations]);
@@ -44,7 +44,7 @@ class RegistrationController extends Controller
         if ($lesson->canSignup()) {
             return view('signUp/public/signup', ['lesson' => $lesson]);
         }
-        return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_cannotSignUp'));
+        return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_cannotSignUp'));
     }
 
     public function doUserSignup(int $lesson_id, int $user_id): Application|Redirector|RedirectResponse
@@ -52,13 +52,13 @@ class RegistrationController extends Controller
         $lesson = Lesson::findOrFail($lesson_id);
         $user = User::findOrFail($user_id);
         if (!$lesson->canSignupUser($user)) {
-            return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_cannotSignUp'));
+            return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_cannotSignUp', ['lessonName' => $lesson->name]));
         }
 
-        $isSignedUp = $user->lessons()->where('lesson_id', '=', $lesson->id)->first();
+        $isSignedUp = $user->lessons()->where('lesson_id', '=', $lesson->id)->where('is_active', '=', true)->first();
 
         if ($isSignedUp){
-            return redirect(route('lesson.index'))->withErrors(__('public_signup_errors_alreadySignedUp'));
+            return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_alreadySignedUp', ['lessonName' => $lesson->name]));
         }
 
         $registration = new Registration();

@@ -1,7 +1,9 @@
 <?php
 
 return [
-  'about'=>'Om os',
-  'instructors'=>'Undervisere',
+    'about' => 'Om os',
+    'instructors' => 'Undervisere',
+
+    'lessons' => 'Hold',
 
 ];
