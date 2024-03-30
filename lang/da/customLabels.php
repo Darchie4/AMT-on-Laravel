@@ -9,6 +9,8 @@ return [
     */
     //Standard
     'Welcome' => 'Velkommen til!',
+    'back' => 'Tilbage',
+    'confirm' => 'Bekræft',
 
     //Register/login
     'Register' => 'Opret profil',
@@ -57,7 +59,26 @@ return [
     'filter_admins' =>'Administratorer',
     'filter_members'=>'Medlemmer',
 
+    //Users
+    'user_details' => 'Brugerdetailer',
+    'user_joined'=>'Medlem siden',
 
+    //Instructor index
+    'instructor_index_instructors' => 'Undervisere',
+    'instructor_index_lessons'=>'Hold',
+    'instructors'=>'Undervisere',
+    'instructor_details'=>'Underviserdetailjer',
+
+    //Instructor edit
+    'instructor_instructor'=>'Underviser',
+    'instructor_edit_profile_img'=>'Profilbillede',
+    'instructor_edit_short_description'=>'Kort beskrivelse',
+    'instructor_edit_long_description'=>'Lang beskrivelse',
+    'instructor_all_instructors'=>'Alle undervisere',
+
+    //Instructor create/details
+    'instructor_choose_user'=>'Vælg bruger',
+    'instructor_profile_img'=>'Profilbillede',
 
 
     //With variables
@@ -110,4 +131,5 @@ return [
     'lesson_create_error_age_minLargerThanMax' => 'Mindste alder skal være mindre end eller lig med højeste alder',
     'lesson_create_error_age_maxSmallerThanMin' => 'Højeste alder skal være større end eller lig med mindste alder',
     'lesson_create_error_valueCannotBeLesThanZero' => 'Denne værdi kan ikke være under 0',
+    'lesson_index_lessons' => 'Hold'
 ];

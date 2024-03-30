@@ -3,6 +3,7 @@
 @section('admin_content')
     <div class="container">
         <h2>{{__('customLabels.users')}}</h2>
+
         <div class="row row-cols-2">
             <!--Search box -->
             <div class="d-grid justify-content-md-start mb-2 col-md-9">
@@ -65,45 +66,43 @@
                 </div>
             </div>
         </div>
-        <!--User table-->
-        <div class="row justify-content-center">
-            <div>
-                <table class="table table-bordered border-primary">
-                    <thead class="table-primary">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">{{__('customLabels.email')}}</th>
-                        <th scope="col">{{__('customLabels.firstname')}}</th>
-                        <th scope="col">{{__('customLabels.lastname')}}</th>
-                        <th scope="col">{{__('customLabels.manage')}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($users as $user)
+
+            <div class="row justify-content-center">
+                <div>
+                    <table class="table table-bordered border-primary">
+                        <thead class="table-primary">
                         <tr>
-                            <td>{{$user->id}}</td>
-                            <td><a href="#">{{$user->email}}</a></td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->lname}}</td>
-                            <td>
-                                <a role="button" class="btn btn-outline-primary"
-                                   href="{{route('admin.users.edit', $user->id)}}">{{__('customLabels.edit')}}</a>
-                                <form class="d-inline-flex" method="post"
-                                      action="{{route('admin.users.destroy',$user->id)}}"
-                                      onsubmit="return confirm('{{__('customLabels.confirm')}}')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">{{__('customLabels.delete')}}</button>
-                                </form>
-                            </td>
+                            <th scope="col">#</th>
+                            <th scope="col">{{__('customLabels.email')}}</th>
+                            <th scope="col">{{__('customLabels.firstname')}}</th>
+                            <th scope="col">{{__('customLabels.lastname')}}</th>
+                            <th scope="col">{{__('customLabels.manage')}}</th>
                         </tr>
-                    </tbody>
-                    @endforeach
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($users as $user)
+                            <tr>
+                                <td>{{$user->id}}</td>
+                                <td><a href="{{route('admin.users.show',$user->id)}}">{{$user->email}}</a></td>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->lname}}</td>
+                                <td>
+                                    <a role="button" class="btn btn-outline-primary"
+                                       href="{{route('admin.users.edit', $user->id)}}">{{__('customLabels.edit')}}</a>
+                                    <form class="d-inline-flex" method="post"
+                                          action="{{route('admin.users.destroy',$user->id)}}"
+                                          onsubmit="return confirm('{{__('customLabels.confirm')}}')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="btn btn-danger">{{__('customLabels.delete')}}</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    @push('scripts')
-        <script src="{{ asset('js/users_reset_filter.js') }}"></script>
-    @endpush
 @endsection

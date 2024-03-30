@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Lesson::class, 'registrations');
     }
 
+    public function instructorInfo(): HasOne
+    {
+        return $this->hasOne(InstructorInfo::class);
+    }
+
     /**
      * Get the Roles for the user.
      */
