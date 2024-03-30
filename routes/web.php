@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::prefix('/instructors')->name('instructors.public.')->group(function () {
     Route::get('/', [InstructorController::class, 'publicIndex'])->name('index');
-    Route::get('/show/{id}',[InstructorController::class,'publicShow'])->name('show');
+    Route::get('/show/{id}', [InstructorController::class, 'publicShow'])->name('show');
 
 });
 Auth::routes();
@@ -45,6 +45,8 @@ Route::middleware('permission:lessons_instructor')->name('instructor.')->prefix(
         Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
     });
 });
+
+
 Route::prefix('/lesson')->group(function () {
     Route::get('/', [LessonController::class, 'index'])->name('lesson.index');
     Route::get('/show/{id}', [LessonController::class, 'show'])->name('lesson.show');
@@ -53,10 +55,10 @@ Route::prefix('/lesson')->group(function () {
     Route::get('/registrations', [RegistrationController::class, 'userIndex'])->name('signups.public.index');
 });
 
-Route::middleware('permission:admin_panel') -> name('admin.')
-    ->prefix('admin')-> group(function () {
-        Route::get('/',[AdminIndexController::class, 'index'])->name('index');
-
+Route::middleware('permission:admin_panel')->name('admin.')
+    ->prefix('admin')->group(function () {
+        Route::get('/', [AdminIndexController::class, 'index'])->name('index');
+    });
 //Both lesson_instructor and admin_panel access
 Route::middleware('permission:lessons_instructor|admin_panel')->name('admin.')->prefix('/admin')->group(function () {
     //Instructor routes (for instructors)
@@ -76,12 +78,6 @@ Route::middleware('permission:lessons_instructor|admin_panel')->name('admin.')->
 
 //Exclusively admin_panel routes
 Route::middleware('permission:admin_panel')->name('admin.')->prefix('/admin')->group(function () {
-
-        Route::prefix('registrations')->group(function (){
-            Route::get('/user/{id}', [RegistrationController::class, 'adminUserSignups'])->name('signups.admin.userIndex');
-            Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
-            Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
-        });
     Route::get('/', [AdminIndexController::class, 'index'])->name('index');
 
     //Role routes
@@ -113,6 +109,12 @@ Route::middleware('permission:admin_panel')->name('admin.')->prefix('/admin')->g
         Route::post('/doCreate', [LessonController::class, 'adminDoCreate'])->name('lesson.doCreate');
         Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
         Route::delete('/delete/{id}', [LessonController::class, 'adminDelete'])->name('lesson.remove');
+
+        Route::prefix('registrations')->group(function () {
+            Route::get('/user/{id}', [RegistrationController::class, 'adminUserSignups'])->name('signups.admin.userIndex');
+            Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
+            Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
+        });
     });
 });
 
