@@ -50,6 +50,7 @@ return [
     'admin_userIndex_toDate' => 'Udmeldt',
 
 
-    
+
+    '' => '',
     '' => '',
 ];
