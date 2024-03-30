@@ -37,13 +37,20 @@ return [
     'admin_index_table_instructors' => 'Undervisere',
     'admin_index_table_danceStyle' => 'Stilart',
     'admin_index_table_difficulty' => 'Dygtighedsgrad',
+    'admin_index_table_signups' => 'Tilmeldte',
     'admin_index_table_functions' => 'Funktioner',
 
     'admin_index_welcome' => 'Hold administration',
     'admin_index_create_new' => 'Opret nyt hold',
     'admin_index_statistics_tittle' => 'Hold Statiadmin_stikker',
-    'admin_index_statistics_count' => 'Antal hold',
+    'admin_index_statistics_lessonCount' => 'Antal hold',
+    'admin_index_statistics_totalActiveRegistrations' => 'Antal aktive tilmeldinger',
+    'admin_index_statistics_totalSpaces' => 'Antal ledige pladser',
+    'admin_index_statistics_totalFilledLessons' => 'Antal fyldte hold',
+    'admin_index_statistics_totalAlmostFilledLessons' => 'Antal hold med 2 eller færre ledige pladser',
     'admin_index_button_delete' => 'Slet',
+    'admin_index_button_confirmDelete' => 'Er du sikker på at du vil slette :lessonName',
+    'admin_index_button_edit' => 'Rediger',
     'admin_index_links' => 'Funktioner',
 
     // Lesson Create Errors
@@ -93,4 +100,39 @@ return [
     '' => '',
     '' => '',
 
+
+
+    // Lesson create
+    'lesson_create_Name' => 'Lektionens navn',
+    'lesson_create_ShortDescription' => 'Kort beskrivelse',
+    'lesson_create_LongDescription' => 'Lang beskrivelse',
+    'lesson_create_seasonStart' => 'Sæsonens start',
+    'lesson_create_seasonEnd' => 'Sæsonens slutningen',
+    'lesson_create_ageMin' => 'Minimums alder',
+    'lesson_create_ageMax' => 'Maksimum alder',
+    'lesson_create_Price' => 'Pris',
+    'lesson_create_coverImage' => 'Dæk billede',
+    'lesson_create_danceStyle' => 'Stilart',
+    'lesson_create_select_instructor_placeholder' => 'Vælg undervisere',
+    'lesson_create_difficulty' => 'Dygtigheds grad',
+    'lesson_create_instructor' => 'Unservis(ere)',
+    'lesson_create_dance_style_placeholder' => 'Ex. Pardans, Hip Hop osv...',
+    'lesson_create_difficulty_placeholder' => 'Ex. Begynder, Let Øvet osv...',
+    'lesson_create_button_add_timeslot' => 'Tilføj Træningstid',
+    'lesson_create_totalSignupSpaces' => 'Maksimal antal tilmeldinger',
+    'lesson_create_toggle_visible' => 'Synlig på hjemmeside: ',
+    'lesson_create_toggle_signup' => 'Åben for tilmelding: ',
+    'lesson_create_button_submit' => 'Opret hold',
+
+
+    // Lesson Create Errors
+    'lesson_create_error_end_or_startime_reverse' => 'Slut tidspunkt skal være før start',
+    'lesson_create_error_timeslot_overlap' => 'Det angivende tidsrum overlapper med andre tider',
+    'lesson_create_error_sortingIndexInUse' => 'Dette sorting index er allerede i brug',
+    'lesson_create_error_season_endBeforeStart' => 'Sæson slut skal være efter start',
+    'lesson_create_error_season_startAfterEnd' => 'Sæson start skal være før slut',
+    'lesson_create_error_age_minLargerThanMax' => 'Mindste alder skal være mindre end eller lig med højeste alder',
+    'lesson_create_error_age_maxSmallerThanMin' => 'Højeste alder skal være større end eller lig med mindste alder',
+    'lesson_create_error_valueCannotBeLesThanZero' => 'Denne værdi kan ikke være under 0',
+    'admin_index_lessons' => 'Hold'
 ];
