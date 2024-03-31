@@ -12,8 +12,14 @@
         <div class="row justify-content-center">
             <div>
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title mx-auto">{{$location->name}}</h4>
+                    <div class="card-header row row-cols-2">
+                        <h4 class="card-title">{{$location->name}}</h4>
+                        @can('locations_crud')
+                        <div class="d-flex justify-content-md-end">
+                            <a role="button" class="btn btn-outline-primary"
+                               href="{{route('admin.locations.edit', $location->id)}}">{{__('customLabels.edit')}}</a>
+                        </div>
+                        @endcan
                     </div>
                     <div class="card-body">
                         <div class="row row-cols-2">

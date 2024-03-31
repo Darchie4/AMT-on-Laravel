@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use function MongoDB\BSON\toJSON;
 
 class LocationController extends Controller
 {
@@ -36,7 +38,7 @@ class LocationController extends Controller
             'city'=>'string|required',
             'country'=>'string|required'
         ]);
-        $address = Address::create([
+        $address = Address::firstOrCreate([
             'street_number'=>$request->input('street_number'),
             'street_name'=>$request->input('street_name'),
             'zip_code'=>$request->input('zip_code'),
@@ -85,28 +87,31 @@ class LocationController extends Controller
             'country'=>'string|required'
         ]);
 
-        $address->update([
-            'street_number'=>$request->input('street_number'),
-            'street_name'=>$request->input('street_name'),
-            'zip_code'=>$request->input('zip_code'),
-            'city'=>$request->input('city'),
-            'country'=>$request->input('country'),
+        $address = Address::firstOrCreate([
+            'street_number' => $request->input('street_number'),
+            'street_name' => $request->input('street_name'),
+            'zip_code' => $request->input('zip_code'),
+            'city' => $request->input('city'),
+            'country' => $request->input('country'),
         ]);
 
         if ($request->hasFile('cover_img_path')) {
             $uploadedFile = $request->file('cover_img_path');
             $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
             $uploadedFile->storeAs('public/location/images', $fileName); // Updated path
-        }
-        else {
-            $uploadedFile = null;
+
+            if ($location->cover_img_path) {
+                Storage::delete($location->cover_img_path);
+            }
+
+            $location->update(['cover_img_path' => 'storage/location/images/' .$fileName]);
         }
 
         $location->update([
             'short_description'=>$request->input('short_description'),
             'long_description' => $request->input('long_description'),
             'name'=>$request->input('name'),
-            'cover_img_path' => 'storage/location/images/' .$fileName,
+            'address_id'=>$address->id
         ]);
 
         return redirect()->route('admin.locations.index')->with('success', 'Location updated successfully');
