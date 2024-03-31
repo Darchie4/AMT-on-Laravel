@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
-<head>
+@section('head')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
-
-    <script src="{{ asset('js/admin/lesson/updateMinMaxValues.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
     <script>
         $(document).ready(function () {
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
@@ -17,11 +16,13 @@
             });
         });
     </script>
+
     <script src="{{ asset('js/admin/lesson/timeSlotSelector.js') }}"
             data-locations="{{ json_encode($locations) }}"></script>
     <script src="{{ asset('js/admin/lesson/difficultySortingChangeSelector.js') }}"></script>
     <script src="{{ asset('js/admin/lesson/inputValidation.js') }}"></script>
-</head>
+    <script src="{{ asset('js/admin/lesson/updateMinMaxValues.js') }}"></script>
+@endsection
 
 @section('content')
     <div class="container">
@@ -69,7 +70,9 @@
                 <input class="form-control" type="hidden" id="sorting_index" name="sorting_index">
 
                 <label for="instructors[]">{{__('customlabels.lesson_create_instructor')}}</label><br>
-                <select id="choices-multiple-remove-button" placeholder="{{__('customlabels.lesson_create_select_instructor_placeholder')}}" multiple id="instructor"
+                <select id="choices-multiple-remove-button"
+                        placeholder="{{__('customlabels.lesson_create_select_instructor_placeholder')}}" multiple
+                        id="instructor"
                         name="instructors[]">
                     @foreach($instructors as $instructor)
                         <option value={{$instructor -> id}}>{{$instructor -> user -> name}}</option>
@@ -143,7 +146,8 @@
                 <input class="form-control" id="season_end" name="season_end" type="date" required><br>
 
                 <label for="total_signup_space">{{__('customlabels.lesson_create_totalSignupSpaces')}}</label><br>
-                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number" required><br>
+                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number"
+                       required><br>
 
                 <label for="visible">{{__('customlabels.lesson_create_toggle_visible')}}</label>
                 <input class="form-check-input" type="checkbox" id="visible" name="visible" checked><br><br>
@@ -163,5 +167,4 @@
                     value="Submit">{{__('customlabels.lesson_create_button_submit')}}</button>
         </form>
     </div>
-
 @endsection

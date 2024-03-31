@@ -1,12 +1,12 @@
 <?php
 
 return [
-  /*|--------------------------------------------------------------------------
-    | Custom labels
-    |--------------------------------------------------------------------------
-    | These labels are used in views created by us (when locale is da)
-    |
-    */
+    /*|--------------------------------------------------------------------------
+      | Custom labels
+      |--------------------------------------------------------------------------
+      | These labels are used in views created by us (when locale is da)
+      |
+      */
 
     // Lesson create
     'admin_create_Name' => 'Lektionens navn',
@@ -52,6 +52,21 @@ return [
     'admin_index_button_confirmDelete' => 'Er du sikker på at du vil slette :lessonName',
     'admin_index_button_edit' => 'Rediger',
     'admin_index_links' => 'Funktioner',
+
+    // Lesson show
+    'admin_show_title_practicalInformation' => 'Praktisk information',
+    'admin_show_danseStyle' => 'Stilart:',
+    'admin_show_difficulty' => 'Dygtigheds grad:',
+    'admin_show_ageGroup' => 'Alders gruppe:',
+    'admin_show_price' => 'Pris:',
+    'admin_show_seasonStart' => 'Sæson start:',
+    'admin_show_seasonEnd' => 'Sæson slut:',
+    'admin_show_trainingTimes' => 'Trænings tider',
+    'admin_show_teachers' => 'Trænere',
+    'admin_show_description' => 'Beskrivelse',
+    'admin_show_' => '',
+    'admin_show_' => '',
+    '' => '',
 
     // Lesson Create Errors
     'admin_create_error_end_or_startime_reverse' => 'Slut tidspunkt skal være før start',
@@ -99,7 +114,6 @@ return [
     '' => '',
     '' => '',
     '' => '',
-
 
 
     // Lesson create

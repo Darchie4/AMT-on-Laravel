@@ -49,7 +49,7 @@
                         </div>
                     </li>
 
-                    <li class="navbar-nav me-auto">
+                    <li class="nav-item nav-link">
                         <a href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
                     </li>
 
