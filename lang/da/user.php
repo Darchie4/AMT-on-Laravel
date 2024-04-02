@@ -1,7 +1,7 @@
 <?php
 return [
   //User attributes
-    'male'=>'Mand',
-    'female'=>'Kvinde',
-    'other'=>'Andet',
+    'Male'=>'Mand',
+    'Female'=>'Kvinde',
+    'Other'=>'Andet',
 ];

@@ -18,11 +18,28 @@ class RolesAndPermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
+
+
+
+
+
+
+
+
+
         // create permissions
         Permission::create(['name' => 'lessons_can_crud']);
         Permission::create(['name' =>'lessons_instructor']);
-        Permission::create(['name' => 'users_can_crud']);
+        Permission::create(['name' => 'users_crud']);
         Permission::create(['name' => 'admin_panel']);
+        Permission::create(['name' => 'locations_crud']);
+        Permission::create(['name' => 'lessons_own']);
+        Permission::create(['name' => 'lessons_crud']);
+        Permission::create(['name' => 'instructors_own']);
+        Permission::create(['name' => 'instructors_crud']);
+        Permission::create(['name' => 'roles_crud']);
+        Permission::create(['name' => 'admin_dashboard']);
+        Permission::create(['name' => 'permissions_crud']);
 
         // create roles and assign created permissions
         // this can be done as separate statements
@@ -31,7 +48,8 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // or may be done by chaining
         $role2 = Role::create(['name' => 'instructor'])
-            ->givePermissionTo(['lessons_instructor']);
+            ->givePermissionTo(['lessons_instructor',
+                'lessons_own','instructors_own','admin_dashboard']);
 
         $user = User::factory()->create([
             'name' => 'Example Admin User',
