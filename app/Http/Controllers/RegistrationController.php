@@ -26,7 +26,7 @@ class RegistrationController extends Controller
     {
         $user = Auth::user();
         if (!$user){
-            return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_hasToBeLoggedIn'));
+            return redirect(route('login'))->withErrors(__('registration.public_signup_errors_hasToBeLoggedIn'));
         }
         $registrations = $user->registrations()->get();
         return view('signUp/public/index', ['registrations' => $registrations]);
