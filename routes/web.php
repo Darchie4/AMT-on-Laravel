@@ -5,8 +5,8 @@ use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LessonController;
-use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,8 +55,10 @@ Route::prefix('/lesson')->group(function () {
     Route::get('/', [LessonController::class, 'index'])->name('lesson.index');
     Route::get('/show/{id}', [LessonController::class, 'show'])->name('lesson.show');
     Route::get('/signup/{id}', [RegistrationController::class, 'userSignUp'])->name('signups.public.signup');
-    Route::post('/dosignup/{lesson_id}/{user_id}', [RegistrationController::class, 'doUserSignup'])->name('signups.public.doSignup');
-    Route::get('/registrations', [RegistrationController::class, 'userIndex'])->name('signups.public.index');
+    Route::middleware('auth')->group(function () {
+        Route::post('/dosignup/{lesson_id}/{user_id}', [RegistrationController::class, 'doUserSignup'])->name('signups.public.doSignup');
+        Route::get('/registrations', [RegistrationController::class, 'userIndex'])->name('signups.public.index');
+    });
 });
 
 Route::middleware('permission:admin_panel')->name('admin.')
@@ -134,11 +136,12 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             Route::put('/update/{id}', [LocationController::class, 'update'])->name('update');
         });
     });
-
-    Route::prefix('registrations')->group(function () {
-        Route::get('/user/{id}', [RegistrationController::class, 'adminUserSignups'])->name('signups.admin.userIndex');
-        Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
-        Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
+    Route::middleware('permission:registration_admin')->group(function () {
+        Route::prefix('registrations')->group(function () {
+            Route::get('/user/{id}', [RegistrationController::class, 'adminUserSignups'])->name('signups.admin.userIndex');
+            Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
+            Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
+        });
     });
 });
 
