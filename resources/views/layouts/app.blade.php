@@ -44,6 +44,9 @@
                             <a class="dropdown-item" href="{{ route('instructors.public.index') }}">
                                 {{ __('navigation.instructors') }}
                             </a>
+                            <a class="dropdown-item" href="{{ route('locations.public.index') }}">
+                                {{ __('navigation.locations') }}
+                            </a>
                         </div>
                     </li>
 
