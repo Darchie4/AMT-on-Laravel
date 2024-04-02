@@ -10,6 +10,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Location extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'long_description',
+        'short_description',
+        'cover_img_path',
+        'address_id'
+    ];
     /**
      * Get the address of this location
      */
