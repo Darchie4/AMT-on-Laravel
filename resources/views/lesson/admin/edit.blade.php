@@ -1,7 +1,7 @@
 @php use Carbon\Carbon; @endphp
 @extends('layouts.app')
 
-<head>
+@section('head')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
@@ -14,16 +14,13 @@
                 renderChoiceLimit: 5
             });
         });
-
-        tinymce.init({
-            selector: 'textarea#long_description'
-        });
     </script>
     <script src="{{ asset('js/admin/lesson/timeSlotSelector.js') }}"
             data-locations="{{ json_encode($locations) }}"></script>
     <script src="{{ asset('js/admin/lesson/difficultySortingChangeSelector.js') }}"></script>
     <script src="{{ asset('js/admin/lesson/inputValidation.js') }}"></script>
-</head>
+
+@endsection
 
 @section('content')
     <div class="container">
@@ -43,7 +40,7 @@
 
                 <label for="danceStyle">{{__('customlabels.lesson_create_danceStyle')}}</label><br>
                 <input class="form-control" name="danceStyle" list="danceStyles"
-                       placeholder="Ex. Pardans, Hip Hop osv..." value="{{ $lesson->danceStyle->name }}" required><br>
+                       placeholder="{{__('customlabels.lesson_create_dance_style_placeholder')}}" value="{{ $lesson->danceStyle->name }}" required><br>
                 <datalist id="danceStyles">
                     @foreach($danceStyles as $style)
                         <option
@@ -53,7 +50,7 @@
 
                 <label for="difficulty">{{__('customlabels.lesson_create_difficulty')}}</label><br>
                 <input class="form-control" name="difficulty" id="difficulty" list="difficulties"
-                        placeholder="Ex. Begynder, Let Øvet osv..." value="{{ $lesson->difficulty->name }}" required><br>
+                        placeholder="{{__('customlabels.lesson_create_difficulty_placeholder')}}" value="{{ $lesson->difficulty->name }}" required><br>
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
                         <option
@@ -159,6 +156,18 @@
                 <input class="form-control" id="season_end" name="season_end" type="date"
                        value="{{Carbon::parse($lesson->season_end)->format("Y-m-d")}}"
                        {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} ><br>
+
+                <label for="total_signup_space">{{__('customlabels.lesson_create_totalSignupSpaces')}}</label><br>
+                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number" value="{{ $lesson->total_signup_space }}"
+                    {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }}><br>
+
+                <label for="visible">{{__('customlabels.lesson_create_toggle_visible')}}</label>
+                <input class="form-check-input" type="checkbox" id="visible" name="visible"
+                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->visible ? 'checked' : '' }}><br>
+
+                <label for="can_signup">{{__('customlabels.lesson_create_toggle_signup')}}</label>
+                <input class="form-check-input" type="checkbox" id="can_signup" name="can_signup"
+                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->can_signup ? 'checked' : '' }}><br>
 
                 <label for="cover_image">{{__('customlabels.lesson_create_coverImage')}}</label><br>
                 @if($lesson->cover_img_path)

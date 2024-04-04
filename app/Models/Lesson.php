@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +27,9 @@ class Lesson extends Model
         'cover_img_path',
         'dance_style_id',
         'difficulty_id',
+        'total_signup_space',
+        'can_signup',
+        'visible',
     ];
 
     /**
@@ -66,5 +70,25 @@ class Lesson extends Model
     public function difficulty(): BelongsTo
     {
         return $this->belongsTo(Difficulty::class);
+    }
+
+    /**
+     * Get the Registrations of the lesson
+     */
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(Registration::class);
+    }
+
+    public function canSignup(): bool
+    {
+     return ($this->can_signup);
+    }
+
+    public function canSignupUser(User $user): bool
+    {
+        $date = Carbon::parse($user->birthday);
+        $yearsSinceDate = $date->diffInYears(Carbon::now());
+        return ($this->canSignup() && $this->age_min <= $yearsSinceDate && $this->age_max >= $yearsSinceDate);
     }
 }

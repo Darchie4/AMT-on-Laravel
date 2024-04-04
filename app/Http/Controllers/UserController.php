@@ -47,7 +47,7 @@ class UserController extends Controller
     //Get create new user view
     public function create()
     {
-        return view();
+        return view('users.admin.create');
     }
 
     //POST create new user

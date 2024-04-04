@@ -33,6 +33,9 @@ class LessonFactory extends Factory
             'cover_img_path' => fake()->filePath(),
             'dance_style_id' => DanceStyle::inRandomOrder()->first()->id,
             'difficulty_id' => Difficulty::inRandomOrder()->first()->id,
+            'total_signup_space' => rand(1,20),
+            'can_signup' => rand(0,1),
+            'visible' => rand(0,1),
         ];
     }
 }

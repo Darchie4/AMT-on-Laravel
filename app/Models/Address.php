@@ -33,4 +33,9 @@ class Address extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function fullAddress()
+    {
+        return __('addressFormat', ['streetName' => $this->street_name, 'streetNumber' => $this->street_number, 'zipCode' => $this->zip_code,'city' => $this->city , 'country' => $this->country]);
+    }
 }

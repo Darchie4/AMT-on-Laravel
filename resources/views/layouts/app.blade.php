@@ -16,6 +16,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @yield('head')
 </head>
 <body>
 <div id="app">
@@ -33,6 +35,26 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
+
+                    <!--About us dropdown-->
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ __('navigation.about') }}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('instructors.public.index') }}">
+                                {{ __('navigation.instructors') }}
+                            </a>
+                            <a class="dropdown-item" href="{{ route('locations.public.index') }}">
+                                {{ __('navigation.locations') }}
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
+                    </li>
 
                 </ul>
 

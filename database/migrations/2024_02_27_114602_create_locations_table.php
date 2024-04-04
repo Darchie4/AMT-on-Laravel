@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("short_description");
             $table->text("long_description");
-            $table->string("cover_img_path")->unique();
+            $table->string("cover_img_path")->unique()->nullable();
 
             $table->foreignId("address_id")->constrained();
 
