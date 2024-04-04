@@ -25,7 +25,7 @@ jobs:
                 with:
                     SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
                     ARGS: "-rlgoDzvc -i --delete"
-                    EXCLUDE: "/storage/logs/, /storage/framework, /database/seeders, Dockerfile, .env, .env.example, /.github, /tests, .gitignore, .gitattributes, LICENSE, README.md"
+                    EXCLUDE: "/storage/logs/, /storage/framework, /storage/app, /database/seeders, Dockerfile, .env, .env.example, /.github, /tests, .gitignore, .gitattributes, LICENSE, README.md"
                     # SOURCE: "dist/"
                     REMOTE_HOST: ${{ secrets.SERVER_IP }}
                     REMOTE_USER: ${{ secrets.SERVER_USER }}
