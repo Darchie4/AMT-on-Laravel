@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -17,15 +18,6 @@ class RolesAndPermissionsSeeder extends Seeder
     {
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
-
-
-
-
-
-
-
-
 
         // create permissions
         Permission::create(['name' => 'lessons_can_crud']);
@@ -52,17 +44,37 @@ class RolesAndPermissionsSeeder extends Seeder
             ->givePermissionTo(['lessons_instructor',
                 'lessons_own','instructors_own','admin_dashboard']);
 
-        $user = User::factory()->create([
-            'name' => 'Example Admin User',
+        $address = new Address();
+        $address->street_number = 1;
+        $address->street_name = "Admin Street";
+        $address->zip_code = 9999;
+        $address->city = "Admin City";
+        $address->country = "Admin Country";
+        $address->save();
+
+
+        $user = User::create([
+            'name' => 'Example',
+            'lname'=> 'Admin',
+            'phone' => 123456789,
+            'birthday' => now(),
+            'gender' => "male",
+            'address_id' => 1,
             'email' => 'admin@example.com',
+            'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'remember_token' => Str::random(10),
         ]);
         $user->assignRole($role1);
 
         $super = Role::create(['name'=>'SuperAdmin']);
-        $superuser = User::factory()->create([
+        $superuser = User::create([
             'name' => 'Super',
             'lname'=> 'Admin',
+            'phone' => 123456788,
+            'birthday' => now(),
+            'gender' => "male",
+            'address_id' => 1,
             'email' => 'superadmin@example.com',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
