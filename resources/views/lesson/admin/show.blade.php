@@ -80,6 +80,6 @@
         </div>
     </div>
     <h2 class="pt-3">{{__('lesson.admin_show_description')}}</h2>
-    {!! $lesson->logn_description !!}
+    {!! $lesson->long_description !!}
 
 @endsection
