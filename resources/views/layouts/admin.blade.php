@@ -51,9 +51,11 @@
                 </div>
             </div>
             <main class="col ps-md-2 pt-2">
-                <a role="button" data-bs-target="#sidebar" data-bs-toggle="collapse"
-                   class="btn navbar-toggler"><i class="fa fa-bars pt-1">
-                    </i></a>
+                <button type="button" data-bs-target="#sidebar" data-bs-toggle="collapse"
+                   class="navbar-toggler">
+                    <i class="fa fa-bars pt-1">
+                    </i>
+                </button>
                 @yield('admin_content')
             </main>
         </div>
