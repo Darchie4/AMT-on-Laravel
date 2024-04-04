@@ -70,7 +70,7 @@ class RegistrationController extends Controller
         $registration->activation_date = Date::now();
         $registration->save();
 
-        return redirect(route('lesson.index'));
+        return redirect(route('signups.public.index'))->with('success', __('registration.public_signup_success', ['lessonName' => $lesson->name]));
     }
 
     /**

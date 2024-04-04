@@ -54,5 +54,6 @@ return [
     'public_signup_errors_hasToBeLoggedIn' => 'Du skal være logget ind for at kunne tilmelde dig et hold',
     'public_signup_errors_cannotSignUp' => 'Du kan ikke tilmelde dig :lessonName', # :lessonName = Name of lesson
     'public_signup_errors_alreadySignedUp' => 'Du er allerede tilmeldt :lessonName', # :lessonName = Name of lesson
+    'public_signup_success' => 'Du er blevet meldt på :lessonName', # :lessonName = Name of lesson
     '' => '',
 ];
