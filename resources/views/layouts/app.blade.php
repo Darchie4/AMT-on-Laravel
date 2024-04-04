@@ -36,6 +36,9 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
+                    </li>
                     <!--About us dropdown-->
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -52,9 +55,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
-                    </li>
+
 
                 </ul>
 

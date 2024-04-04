@@ -3,7 +3,7 @@
 @section('nav-content')
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto px-1">
+            <div class="col-auto px-sm-2 px-0">
                 <div class="collapse collapse-horizontal show border-end" id="sidebar">
                     <div class="list-group text-sm-start min-vh-100" style="width: 180px">
                         <a class="list-group-item border-end-0 d-inline-block text-truncate"
@@ -52,8 +52,8 @@
             </div>
             <main class="col ps-md-2 pt-2">
                 <a role="button" data-bs-target="#sidebar" data-bs-toggle="collapse"
-                   class="btn btn-primary"><i class="fa fa-bars pt-1">
-                    </i><span> </span></a>
+                   class="btn navbar-toggler"><i class="fa fa-bars pt-1">
+                    </i></a>
                 @yield('admin_content')
             </main>
         </div>
