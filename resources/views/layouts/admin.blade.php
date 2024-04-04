@@ -1,50 +1,61 @@
 @extends('layouts.app')
 
-@section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                <aside class="bd-sidebar">
-                    <h3>Administration</h3>
-                    <ul>
+@section('nav-content')
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto px-1">
+                <div class="collapse collapse-horizontal show border-end" id="sidebar">
+                    <div class="list-group text-sm-start min-vh-100" style="width: 180px">
+                        <a class="list-group-item border-end-0 d-inline-block text-truncate"
+                           data-bs-parent="#sidebar">
+                            <span class="fw-bolder">Administration</span>
+                        </a>
                         @can('roles_crud')
-                            <li>
-                                <a href="{{ route('admin.roles.index') }}">{{ __('customLabels.roles') }}</a>
-                            </li>
+                            <a class="list-group-item border-end-0 d-inline-block text-truncate"
+                               data-bs-parent="#sidebar" href="{{ route('admin.roles.index') }}">
+                                {{ __('customLabels.roles') }}
+                            </a>
                         @endcan
                         @can('permissions_crud')
-                            <li>
-                                <a href="{{ route('admin.permissions.index') }}">{{ __('customLabels.permissions') }}</a>
-                            </li>
+                            <a class="list-group-item border-end-0 d-inline-block text-truncate"
+                                data-bs-parent="#sidebar" href="{{ route('admin.permissions.index') }}">
+                                {{ __('customLabels.permissions') }}
+                            </a>
                         @endcan
                         @can('users_crud')
-                            <li>
-                                <a href="{{ route('admin.users.index') }}">{{ __('customLabels.users') }}</a>
-                            </li>
+                            <a class="list-group-item border-end-0 d-inline-block text-truncate"
+                                data-bs-parent="#sidebar" href="{{ route('admin.users.index') }}">
+                               {{ __('customLabels.users') }}
+                            </a>
                         @endcan
                         @can(['instructors_crud','instructors_own'])
 
-                            <li>
-                                <a href="{{ route('admin.instructors.index') }}">{{ __('customLabels.instructors') }}</a>
-                            </li>
+                            <a class="list-group-item border-end-0 d-inline-block text-truncate"
+                                data-bs-parent="#sidebar" href="{{ route('admin.instructors.index') }}">
+                                {{ __('customLabels.instructors') }}
+                            </a>
                         @endcan
                         @can(['lessons_crud','lessons_own'])
-                            <li>
-                                <a href="{{ route('admin.lesson.index') }}">{{ __('customLabels.lesson_index_lessons') }}</a>
-                            </li>
+                            <a class="list-group-item border-end-0 d-inline-block text-truncate"
+                                data-bs-parent="#sidebar" href="{{ route('admin.lesson.index') }}">
+                                {{ __('customLabels.lesson_index_lessons') }}
+                            </a>
                         @endcan
                         @can('locations_crud')
-                            <li>
-                                <a href="{{ route('admin.locations.index') }}">{{ __('location.location_index_admin') }}</a>
-                            </li>
+                            <a class="list-group-item border-end-0 d-inline-block text-truncate"
+                                data-bs-parent="#sidebar" href="{{ route('admin.locations.index') }}">
+                                {{ __('location.location_index_admin') }}
+                            </a>
                         @endcan
-                    </ul>
-                </aside>
+                    </div>
+                </div>
             </div>
-
-            <div class="col-md-10">
+            <main class="col ps-md-2 pt-2">
+                <a role="button" data-bs-target="#sidebar" data-bs-toggle="collapse"
+                   class="btn btn-primary"><i class="fa fa-bars pt-1">
+                    </i><span> </span></a>
                 @yield('admin_content')
-            </div>
+            </main>
         </div>
     </div>
 
