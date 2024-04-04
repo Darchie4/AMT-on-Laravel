@@ -16,6 +16,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @yield('head')
 </head>
 <body>
 <div id="app">
@@ -48,6 +50,10 @@
                                 {{ __('navigation.locations') }}
                             </a>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
                     </li>
 
                 </ul>
