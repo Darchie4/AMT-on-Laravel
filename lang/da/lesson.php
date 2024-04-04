@@ -42,7 +42,7 @@ return [
 
     'admin_index_welcome' => 'Hold administration',
     'admin_index_create_new' => 'Opret nyt hold',
-    'admin_index_statistics_tittle' => 'Hold Statiadmin_stikker',
+    'admin_index_statistics_tittle' => 'Hold statestikker',
     'admin_index_statistics_lessonCount' => 'Antal hold',
     'admin_index_statistics_totalActiveRegistrations' => 'Antal aktive tilmeldinger',
     'admin_index_statistics_totalSpaces' => 'Antal ledige pladser',
