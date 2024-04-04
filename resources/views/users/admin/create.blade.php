@@ -21,6 +21,9 @@
                         <p class="card-text">
 
                             @include('partials._userInfoInput')
+                            @include('partials._addressInput')
+                            @include('partials._passwordInput')
+
                             <button type="submit"
                                     class="btn btn-success mb-2 mt-2 px-3">{{__('customLabels.create')}}</button>
                     </form>

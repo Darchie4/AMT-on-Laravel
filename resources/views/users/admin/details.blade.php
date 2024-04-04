@@ -2,6 +2,13 @@
 
 @section('admin_content')
     <div class="container">
+        <!--All users button-->
+        <div class="d-grid d-md-flex gap-2"><br>
+            <a class="btn btn-outline-primary mb-2" role="button"
+               href="{{route('admin.users.index')}}">{{__('customLabels.all_users')}}</a>
+            <a class="btn btn-outline-primary mb-2" role="button"
+               href="javascript:history.back()">{{__('customLabels.back')}}</a>
+        </div>
         <div class="row justify-content-center">
             <div>
                 <div class="card">

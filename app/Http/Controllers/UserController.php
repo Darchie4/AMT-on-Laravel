@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisterController;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -51,8 +55,42 @@ class UserController extends Controller
     }
 
     //POST create new user
-    public function store()
+    public function store(Request $request)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'lname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'date'],
+            'gender' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'street_number' =>'string|required',
+            'street_name' => 'string|required',
+            'zip_code'=> 'string|required',
+            'city'=>'string|required',
+            'country'=>'string|required'
+        ]);
+        $address = Address::firstOrCreate([
+            'street_number'=>$request->input('street_number'),
+            'street_name'=>$request->input(['street_name']),
+            'zip_code'=>$request->input(['zip_code']),
+            'city'=>$request->input(['city']),
+            'country'=>$request->input(['country']),
+        ]);
+
+        User::create([
+            'name' => $request->input(['name']),
+            'lname' => $request->input(['lname']),
+            'email' => $request->input(['email']),
+            'phone' => $request->input(['phone']),
+            'birthday' => $request->input(['birthday']),
+            'gender' => $request->input(['gender']),
+            'address_id'=>$address->id,
+
+            'password' => Hash::make($request->input(['password'])),
+        ]);
+        return redirect()->route('admin.users.index')->with('success', __('user.user_created_successfully',['name' => 'name']));
     }
 
     //Show details about user
