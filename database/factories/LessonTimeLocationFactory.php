@@ -20,7 +20,7 @@ class LessonTimeLocationFactory extends Factory
     public function definition(): array
     {
         return [
-            'week_day' => rand(1,7),
+            'week_day' => rand(0,6),
             'start_time' => Carbon::parse(fake()->time())->format('H:i'),
             'end_time' => Carbon::parse(fake()->time())->format('H:i'),
 

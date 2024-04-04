@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,21 @@ Route::middleware('permission:lessons_instructor')->name('instructor.')->prefix(
         Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
     });
 });
+
+Route::prefix('/lesson')->group(function () {
+    Route::get('/', [LessonController::class, 'index'])->name('lesson.index');
+    Route::get('/show/{id}', [LessonController::class, 'show'])->name('lesson.show');
+    Route::get('/signup/{id}', [RegistrationController::class, 'userSignUp'])->name('signups.public.signup');
+    Route::middleware('auth')->group(function () {
+        Route::post('/dosignup/{lesson_id}/{user_id}', [RegistrationController::class, 'doUserSignup'])->name('signups.public.doSignup');
+        Route::get('/registrations', [RegistrationController::class, 'userIndex'])->name('signups.public.index');
+    });
+});
+
+Route::middleware('permission:admin_panel')->name('admin.')
+    ->prefix('admin')->group(function () {
+        Route::get('/', [AdminIndexController::class, 'index'])->name('index');
+    });
 
 //Admin routes
 Route::prefix('/admin')->name('admin.')->group(function () {
@@ -112,7 +128,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
 
     Route::middleware('permission:locations_crud')->group(function () {
         Route::prefix('/locations')->name('locations.')->group(function () {
-            Route::get('/',[LocationController::class,'index'])->name('index');
+            Route::get('/', [LocationController::class, 'index'])->name('index');
             Route::delete('/delete/{id}', [LocationController::class, 'destroy'])->name('destroy');
             Route::get('/create', [LocationController::class, 'create'])->name('create');
             Route::post('/store', [LocationController::class, 'store'])->name('store');
@@ -120,9 +136,14 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             Route::put('/update/{id}', [LocationController::class, 'update'])->name('update');
         });
     });
-
+    Route::middleware('permission:registration_admin')->group(function () {
+        Route::prefix('registrations')->group(function () {
+            Route::get('/user/{id}', [RegistrationController::class, 'adminUserSignups'])->name('signups.admin.userIndex');
+            Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
+            Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
+        });
+    });
 });
-
 
 
 
