@@ -17,6 +17,7 @@ return [
     'public_show_details'=>'Underviserdetaljer',
     'public_show_address'=>'Adresse',
     'public_show_long_description'=>'Beskrivelse',
+    'cover_img_alt'=>'Coverbillede af: ',
 
     //Admin
     'create_long_description'=>'Lang beskrivelse',

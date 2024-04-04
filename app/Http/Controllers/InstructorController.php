@@ -98,10 +98,19 @@ class InstructorController extends Controller
             'user_id' =>'required|exists:users,id'
         ]);
 
+        if ($request->hasFile('profile_img_path')) {
+            $uploadedFile = $request->file('profile_img_path');
+            $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
+            $uploadedFile->storeAs('public/instructor/image', $fileName); // Updated path
+        }
+        else {
+            $uploadedFile = null;
+        }
+
         InstructorInfo::create([
             'short_description'=>$request->input('short_description'),
             'long_description' => $request->input('long_description'),
-            'profile_img_path' => $request->input('profile_img_path'),
+            'profile_img_path' => 'storage/instructor/image/' .$fileName,
             'user_id' => $request->input('user_id')
         ]);
 

@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 var start = new Date('1970-01-01T' + startTime);
                 var end = new Date('1970-01-01T' + endTime);
                 if (start >= end) {
-                    return "Some time slots have end times before start times.";
+                    return "{{__('customlabels.lesson_create_error_end_or_startime_reverse')}}";
                 }
                 for (var j = i + 1; j < startTimes.length; j++) {
                     var nextStartTime = startTimes[j];
                     var nextEndTime = endTimes[j];
                     var nextDay = days[j];
-                    if (day == nextDay && ((startTime <= nextStartTime && nextStartTime < endTime) || (startTime < nextEndTime && nextEndTime <= endTime))) {
-                        return "Some time slots overlap.";
+                    if (day === nextDay && ((startTime <= nextStartTime && nextStartTime < endTime) || (startTime < nextEndTime && nextEndTime <= endTime))) {
+                        return "{{__('customlabels.lesson_create_error_timeslot_overlap')}}";
                     }
                 }
             }
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var sortingIndices = Array.from(difficultiesDatalist.options).map(option => parseInt(option.dataset.index));
 
         if (sortingIndices.includes(sortingIndex) && sortingIndex !== parseInt(getDifficultySortingIndex(getSelectedDifficultyIndex()))) {
-            return "Sorting index already exists in the list of difficulties."
+            return "{{__('customlabels.lesson_create_error_sortingIndexInUse')}}"
         }
         return true;
     }
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var seasonStart = this.value;
         var seasonEnd = document.getElementById('season_end').value;
         if (!validateDateFields(seasonStart, seasonEnd)) {
-            alert("Season start must be before season end.");
+            alert("{{__('customlabels.lesson_create_error_season_endBeforeStart')}}");
             this.value = "";
         }
     });
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var seasonStart = document.getElementById('season_start').value;
         var seasonEnd = this.value;
         if (!validateDateFields(seasonStart, seasonEnd)) {
-            alert("Season end must be after season start.");
+            alert("{{__('customlabels.lesson_create_error_season_startAfterEnd')}}");
             this.value = "";
         }
     });
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var ageMin = parseInt(this.value);
         var ageMax = parseInt(document.getElementById('age_max').value);
         if (!validateNumberFields(ageMin, ageMax)) {
-            alert("Age min must be less than or equal to age max.");
+            alert("{{__('customlabels.lesson_create_error_age_minLargerThanMax')}}");
             this.value = "";
         }
     });
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var ageMin = parseInt(document.getElementById('age_min').value);
         var ageMax = parseInt(this.value);
         if (!validateNumberFields(ageMin, ageMax)) {
-            alert("Age max must be greater than or equal to age min.");
+            alert("{{__('customlabels.lesson_create_error_age_maxSmallerThanMin')}}");
             this.value = "";
         }
     });
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('sorting_index').addEventListener('change', function () {
         var sortingIndex = parseInt(this.value);
         if (!validateNegativeValue(sortingIndex)) {
-            alert("Sorting index cannot be negative.");
+            alert("{{__('customlabels.lesson_create_error_valueCannotBeLesThanZero')}}");
             this.value = "";
         } else {
             var validationResult = validateSortingIndex(sortingIndex);
@@ -132,7 +132,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('price').addEventListener('change', function () {
         if (!validateNegativeValue(parseFloat(this.value))) {
-            alert("Price cannot be negative.");
+            alert("{{__('customlabels.lesson_create_error_valueCannotBeLesThanZero')}}");
+            this.value = "";
+        }
+    });
+
+    document.getElementById('total_signup_space').addEventListener('change', function () {
+        if (!validateNegativeValue(parseFloat(this.value))) {
+            alert("{{__('customlabels.lesson_create_error_valueCannotBeLesThanZero')}}");
             this.value = "";
         }
     });
@@ -144,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var validationResult = validateTimeSlots(Array.from(startTimes).map(el => el.value), Array.from(endTimes).map(el => el.value), Array.from(days).map(el => parseInt(el.value)));
         if (validationResult !== true) {
             alert(validationResult);
-            // You may want to clear or adjust the overlapping time slots here
         }
     });
 });
