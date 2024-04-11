@@ -40,7 +40,13 @@ function addTimeslot() {
                 </select>
             </div>
         </div>
+        <button type="button" class="btn btn-danger remove-timeslot-btn" onclick="removeTimeslot(this)">Remove Timeslot</button>
     `;
 
     container.appendChild(timeslotDiv);
+}
+
+function removeTimeslot(button) {
+    const timeslotDiv = button.parentElement;
+    timeslotDiv.remove();
 }
