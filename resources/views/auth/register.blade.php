@@ -2,15 +2,6 @@
 
 @section('content')
     <div class="container">
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -19,27 +10,8 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             @include('partials._userInfoInput')
-                            <!--Passwords-->
-                            <div class="row my-3">
-                                <div class="col-6">
-                                    <label for="password" class="form-label">{{ __('customLabels.password') }}</label>
-                                    <input class="form-control" type="password" name="password"
-                                           value="{{old('password')}}"
-                                           required autocomplete="new-password" @error('password') is-invalid @enderror>
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                <div class="col-6">
-                                    <label for="password_confirmation"
-                                           class="form-label">{{ __('customLabels.password-confirm') }}</label>
-                                    <input class="form-control" type="password" name="password_confirmation"
-                                           id="password_confirmation"
-                                           required autocomplete="new-password">
-                                </div>
-                            </div>
+                            @include('partials._addressInput')
+                            @include('partials._passwordInput')
 
                             <!--Submit-->
                             <div class="row mb-0">

@@ -23,6 +23,7 @@
                         <p class="card-text">
 
                             @include('partials._userInfoInput')
+                            @include('partials._addressInput',['addressOld' => $user->address])
                         <button type="submit"
                                 class="btn btn-success mb-2 mt-2 px-3">{{__('customLabels.edit')}}</button>
                     </form>

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisterController;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -23,11 +27,12 @@ class UserController extends Controller
 
         $users = $usersQuery->get();
         $selectedRoles = [];
-        return view('users.admin.index', compact('users','roles','selectedRoles'));
+        return view('users.admin.index', compact('users', 'roles', 'selectedRoles'));
     }
 
     //Method for filtering for roles
-    public function filter(Request $request){
+    public function filter(Request $request)
+    {
         $selectedRoles = $request->input('roles', []);
 
         $query = User::query();
@@ -51,14 +56,48 @@ class UserController extends Controller
     }
 
     //POST create new user
-    public function store()
+    public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'string|required|max:255',
+            'lname' => 'string|required|max:255',
+            'email' => 'string|required|email|max:255|unique:users',
+            'phone' => 'string|required|max:255',
+            'birthday' => 'required|date',
+            'gender' => 'string|required|max:255',
+            'password' => 'required|string|min:6|confirmed',
+            'street_number' => 'string|required',
+            'street_name' => 'string|required',
+            'zip_code' => 'string|required',
+            'city' => 'string|required',
+            'country' => 'string|required'
+        ]);
+        $address = Address::firstOrCreate([
+            'street_number' => $request->input('street_number'),
+            'street_name' => $request->input(['street_name']),
+            'zip_code' => $request->input(['zip_code']),
+            'city' => $request->input(['city']),
+            'country' => $request->input(['country']),
+        ]);
+
+        User::create([
+            'name' => $request->input(['name']),
+            'lname' => $request->input(['lname']),
+            'email' => $request->input(['email']),
+            'phone' => $request->input(['phone']),
+            'birthday' => $request->input(['birthday']),
+            'gender' => $request->input(['gender']),
+            'address_id' => $address->id,
+
+            'password' => Hash::make($request->input(['password'])),
+        ]);
+        return redirect()->route('admin.users.index')->with('success', __('user.user_created_successfully', ['name' => 'name']));
     }
 
     //Show details about user
     public function show(User $user)
     {
-        return view('users.admin.details',compact('user'));
+        return view('users.admin.details', compact('user'));
     }
 
     //Get edit view
@@ -74,7 +113,7 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255',Rule::unique('users')->ignore($id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id)],
             'phone' => ['required', 'string', 'max:255'],
             'birthday' => ['required', 'date'],
             'gender' => ['required', 'string', 'max:255'],
@@ -97,7 +136,7 @@ class UserController extends Controller
     public function destroy(int $id)
     {
         User::destroy($id);
-        return back()->with('message','User deleted');
+        return back()->with('message', 'User deleted');
     }
 
     //Roles and permissions
