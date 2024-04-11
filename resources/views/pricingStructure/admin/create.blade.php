@@ -13,12 +13,13 @@
         <div class="row justify-content-md-center">
             <div class="card">
                 <div class="card-header">
-                    {{__('pricing.location')}}
+                    {{__('pricing.price_structure')}}
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('admin.pricing.store')}}"
                           enctype="multipart/form-data">
                         @csrf
+                        @include('partials._pricingStructureInput')
                         <button type="submit"
                                 class="btn btn-success mb-2 mt-2 px-3">{{__('pricing.create')}}</button>
                     </form>

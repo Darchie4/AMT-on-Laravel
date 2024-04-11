@@ -23,14 +23,14 @@ class PricingStructureController extends Controller
             'name' => 'required|string|min:2',
             'price'=>'required|numeric|min:0',
             'payment_frequency'=>'required|in:weekly,monthly,quarterly,biannually,annually',
-            'frequency_multiplier'=>'nullable|numeric|min:0.01'
+            'frequency_multiplier'=>'nullable|numeric|min:0.01|default:1'
         ]);
 
         PricingStructure::create([
             'name'=>$request->input('name'),
             'price'=>$request->input('price'),
             'payment_frequency'=>$request->input('payment_frequency'),
-            'frequency_multiplier'=>$request->input('frequency_multiplier'),
+            'frequency_multiplier'=>$request->input('frequency_multiplier',1),
         ]);
         return redirect()->route('admin.pricing.index')->with('success',__('admin_created_successfully'));
     }
@@ -54,7 +54,7 @@ class PricingStructureController extends Controller
             'name'=>$request->input('name'),
             'price'=>$request->input('price'),
             'payment_frequency'=>$request->input('payment_frequency'),
-            'frequency_multiplier'=>$request->input('frequency_multiplier'),
+            'frequency_multiplier'=>$request->input('frequency_multiplier',1),
         ]);
 
         return redirect()->route('admin.pricing.index')->with('success',__('admin_updated_successfully'));
