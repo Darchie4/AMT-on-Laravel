@@ -51,9 +51,7 @@ class LocationController extends Controller
             $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
             $uploadedFile->storeAs('public/location/images', $fileName); // Updated path
         }
-        else {
-            $uploadedFile = null;
-        }
+
 
         Location::create([
             'short_description'=>$request->input('short_description'),

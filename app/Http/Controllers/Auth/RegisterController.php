@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -49,13 +51,18 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'lname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'max:255'],
-            'birthday' => ['required', 'date'],
-            'gender' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'name' => 'string|required|max:255',
+            'lname' => 'string|required|max:255',
+            'email' => 'string|required|email|max:255|unique:users',
+            'phone' => 'string|required|max:255',
+            'birthday' => 'required|date',
+            'gender' => 'string|required|max:255',
+            'password' => 'required|string|min:6|confirmed',
+            'street_number' =>'string|required',
+            'street_name' => 'string|required',
+            'zip_code'=> 'string|required',
+            'city'=>'string|required',
+            'country'=>'string|required'
         ]);
     }
 
@@ -65,10 +72,18 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    public function create(array $data)
     {
         //Getting genders for dropdown. To be used when gender table exists
         //$genders = Gender::pluck('name','id');
+
+        $address = Address::firstOrCreate([
+            'street_number'=>$data['street_number'],
+            'street_name'=>$data['street_name'],
+            'zip_code'=>$data['zip_code'],
+            'city'=>$data['city'],
+            'country'=>$data['country'],
+        ]);
 
         return User::create([
             'name' => $data['name'],
@@ -77,6 +92,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'birthday' => $data['birthday'],
             'gender' => $data['gender'],
+            'address_id'=>$address->id,
 
             //'genders' => $genders,
 

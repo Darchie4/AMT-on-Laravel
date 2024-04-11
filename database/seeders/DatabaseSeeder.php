@@ -14,22 +14,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            AddressSeeder::class,
-            UserSeeder::class,
-            DanceStyleSeeder::class,
-            DifficultySeeder::class,
-            RolesAndPermissionsSeeder::class,
-            LocationSeeder::class,
-            InstructorInfoSeeder::class,
-            LessonSeeder::class,
-            LessonTimeLocationSeeder::class,
-            DanceStyleLessonSeeder::class,
-            DifficultyLessonSeeder::class,
-            InstructorInfoLessonSeeder::class,
-            RegistrationSeeder::class,
-        ]);
 
+        // Determine environment
+        $environment = config('app.env');
+
+        // Conditionally run seeders based on environment
+        if ($environment === 'production') {
+            $this->call([
+                RolesAndPermissionsSeeder::class,
+
+                ]);
+        } else {
+            $this->call([
+                AddressSeeder::class,
+                UserSeeder::class,
+                DanceStyleSeeder::class,
+                DifficultySeeder::class,
+                RolesAndPermissionsSeeder::class,
+                LocationSeeder::class,
+                InstructorInfoSeeder::class,
+                LessonSeeder::class,
+                LessonTimeLocationSeeder::class,
+                DanceStyleLessonSeeder::class,
+                DifficultyLessonSeeder::class,
+                InstructorInfoLessonSeeder::class,
+                RegistrationSeeder::class,
+            ]);
+        }
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
