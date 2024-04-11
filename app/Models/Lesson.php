@@ -91,4 +91,12 @@ class Lesson extends Model
         $yearsSinceDate = $date->diffInYears(Carbon::now());
         return ($this->canSignup() && $this->age_min <= $yearsSinceDate && $this->age_max >= $yearsSinceDate);
     }
+
+    /**
+     * Get the pricing structure of the lesson
+     * */
+    public function pricingStructure()
+    {
+        return $this->hasOne(PricingStructure::class);
+    }
 }

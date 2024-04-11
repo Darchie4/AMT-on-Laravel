@@ -28,6 +28,7 @@ return new class extends Migration
 
             $table->string("cover_img_path")->unique();
 
+            $table->foreignId('pricing_structure_id');
             $table->foreignId("dance_style_id");
             $table->foreignId("difficulty_id");
 
