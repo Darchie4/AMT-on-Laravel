@@ -212,8 +212,8 @@ class LessonController extends Controller
                 ['start_time' => Carbon::parse($startTime)->format('H:i'), 'end_time' => Carbon::parse($request->input('end_times')[$index])->format('H:i'), 'location_id' => $request->input('locations')[$index]]
             );
         }
-        foreach (explode(",", $request->input('timeslotsToDeleteInput')) as $timeslotId) {
-            LessonTimeLocation::destroy(substr(substr($timeslotId,2), 0, -2));
+        foreach (json_decode($request->input('timeslotsToDeleteInput')) as $timeslotId) {
+            LessonTimeLocation::destroy($timeslotId);
         }
 
         return redirect()->route('admin.lesson.index')->with('success', 'Lesson updated successfully!');

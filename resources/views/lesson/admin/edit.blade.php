@@ -128,13 +128,13 @@
                                         <label for="day_{{$loop->index}}">{{__('lesson.admin_create_weekDay_title')}}</label> <br>
                                         <select class="form-control" id="day_{{$loop->index}}" name="days[]"
                                                 {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
-                                            <option value="0" {{ $timeslot->day == 0 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_monday')}}</option>
-                                            <option value="1" {{ $timeslot->day == 1 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_tuesday')}}</option>
-                                            <option value="2" {{ $timeslot->day == 2 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_wednesday')}}</option>
-                                            <option value="3" {{ $timeslot->day == 3 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_thursday')}}</option>
-                                            <option value="4" {{ $timeslot->day == 4 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_friday')}}</option>
-                                            <option value="5" {{ $timeslot->day == 5 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_saturday')}}</option>
-                                            <option value="6" {{ $timeslot->day == 6 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_sunday')}}</option>
+                                            <option value="0" {{ $timeslot->week_day == 0 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_monday')}}</option>
+                                            <option value="1" {{ $timeslot->week_day == 1 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_tuesday')}}</option>
+                                            <option value="2" {{ $timeslot->week_day == 2 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_wednesday')}}</option>
+                                            <option value="3" {{ $timeslot->week_day == 3 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_thursday')}}</option>
+                                            <option value="4" {{ $timeslot->week_day == 4 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_friday')}}</option>
+                                            <option value="5" {{ $timeslot->week_day == 5 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_saturday')}}</option>
+                                            <option value="6" {{ $timeslot->week_day == 6 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_sunday')}}</option>
                                         </select>
                                     </div>
                                     <div class="col">
