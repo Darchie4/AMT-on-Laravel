@@ -79,8 +79,8 @@ class LessonController extends Controller
             'cover_image' => 'nullable|image|mimes:jpeg,png|max:2048',
             'danceStyle' => 'required|string',
             'total_signup_space' => 'required|integer|min:0',
-            'visible' => 'sometimes',
-            'can_signup' => 'sometimes',
+            'visible' => 'sometimes|nullable|string',
+            'can_signup' => 'sometimes|nullable|string',
             'difficulty' => 'required|string',
             'sorting_index' => 'required|integer',
 
@@ -159,8 +159,8 @@ class LessonController extends Controller
             'difficulty' => 'required|string',
             'sorting_index' => 'sometimes|nullable|integer',
             'total_signup_space' => 'required|integer|min:0',
-            'visible' => 'sometimes',
-            'can_signup' => 'sometimes',
+            'visible' => 'sometimes|nullable|string',
+            'can_signup' => 'sometimes|nullable|string',
 
             'instructors' => 'required|array',
             'instructors.*' => 'exists:instructor_infos,id',
