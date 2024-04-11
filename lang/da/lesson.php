@@ -21,7 +21,7 @@ return [
     'admin_create_danceStyle' => 'Stilart',
     'admin_create_select_instructor_placeholder' => 'Vælg undervisere',
     'admin_create_difficulty' => 'Dygtigheds grad',
-    'admin_create_instructor' => 'Unservis(ere)',
+    'admin_create_instructor' => 'Undervis(ere)',
     'admin_create_dance_style_placeholder' => 'Ex. Pardans, Hip Hop osv...',
     'admin_create_difficulty_placeholder' => 'Ex. Begynder, Let Øvet osv...',
     'admin_create_button_add_timeslot' => 'Tilføj Træningstid',

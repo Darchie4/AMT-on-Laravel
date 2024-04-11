@@ -13,38 +13,38 @@
                         @can('roles_crud')
                             <a class="list-group-item border-end-0 d-inline-block text-truncate"
                                data-bs-parent="#sidebar" href="{{ route('admin.roles.index') }}">
-                                {{ __('customLabels.roles') }}
+                                {{ __('navigation.roles') }}
                             </a>
                         @endcan
                         @can('permissions_crud')
                             <a class="list-group-item border-end-0 d-inline-block text-truncate"
                                 data-bs-parent="#sidebar" href="{{ route('admin.permissions.index') }}">
-                                {{ __('customLabels.permissions') }}
+                                {{ __('navigation.permissions') }}
                             </a>
                         @endcan
                         @can('users_crud')
                             <a class="list-group-item border-end-0 d-inline-block text-truncate"
                                 data-bs-parent="#sidebar" href="{{ route('admin.users.index') }}">
-                               {{ __('customLabels.users') }}
+                               {{ __('navigation.users') }}
                             </a>
                         @endcan
                         @can(['instructors_crud','instructors_own'])
 
                             <a class="list-group-item border-end-0 d-inline-block text-truncate"
                                 data-bs-parent="#sidebar" href="{{ route('admin.instructors.index') }}">
-                                {{ __('customLabels.instructors') }}
+                                {{ __('navigation.instructors') }}
                             </a>
                         @endcan
                         @can(['lessons_crud','lessons_own'])
                             <a class="list-group-item border-end-0 d-inline-block text-truncate"
                                 data-bs-parent="#sidebar" href="{{ route('admin.lesson.index') }}">
-                                {{ __('customLabels.lesson_index_lessons') }}
+                                {{ __('navigation.lessons') }}
                             </a>
                         @endcan
                         @can('locations_crud')
                             <a class="list-group-item border-end-0 d-inline-block text-truncate"
                                 data-bs-parent="#sidebar" href="{{ route('admin.locations.index') }}">
-                                {{ __('location.location_index_admin') }}
+                                {{ __('navigation.locations') }}
                             </a>
                         @endcan
                     </div>

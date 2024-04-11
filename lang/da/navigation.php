@@ -10,4 +10,8 @@ return [
     'locations'=>'Lokationer',
     'back'=>'Tilbage',
 
+    'roles'=>'Roller',
+    'permissions'=>'Tilladelser',
+    'users'=>'Brugere',
+
 ];
