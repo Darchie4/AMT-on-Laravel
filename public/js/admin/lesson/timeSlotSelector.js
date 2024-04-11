@@ -52,8 +52,6 @@ function removeTimeslot(button) {
     timeslotsToDelete.push(timeslotId);
     const timeslotDiv = button.parentElement;
     timeslotDiv.remove();
-    console.log("Test:")
-    console.log(timeslotsToDelete);
 }
 
 // Function to submit the form
