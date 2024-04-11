@@ -9,15 +9,18 @@ return [
       */
 
     // Lesson create
+    'admin_create_title' => 'Opret hold',
+    'admin_create_button_showAll' => 'Vis alle hold',
+
     'admin_create_Name' => 'Lektionens navn',
-    'admin_create_ShortDescription' => 'Kort beskrivelse',
+    'admin_create_shortDescription' => 'Kort beskrivelse',
     'admin_create_LongDescription' => 'Lang beskrivelse',
     'admin_create_seasonStart' => 'Sæsonens start',
     'admin_create_seasonEnd' => 'Sæsonens slutningen',
     'admin_create_ageMin' => 'Minimums alder',
     'admin_create_ageMax' => 'Maksimum alder',
     'admin_create_price' => 'Pris',
-    'admin_create_title_timeAndLocation' => 'Slut tidspunkt',
+    'admin_create_title_timeAndLocation' => 'Lokale bookning',
     'admin_create_startTime' => 'Start tidspunkt',
     'admin_create_endTime' => 'Slut tidspunkt',
     'admin_create_weekDay_title' => 'Ugedag',
@@ -42,6 +45,9 @@ return [
     'admin_create_toggle_visible' => 'Synlig på hjemmeside: ',
     'admin_create_toggle_signup' => 'Åben for tilmelding: ',
     'admin_create_button_submit' => 'Opret hold',
+
+    'admin_edit_button_submit' => 'Rediger hold',
+
 
     // Lesson Index lang
     'admin_index_table_name' => 'Navn',
@@ -91,6 +97,8 @@ return [
     'admin_create_error_age_maxSmallerThanMin' => 'Højeste alder skal være større end eller lig med mindste alder',
     'admin_create_error_valueCannotBeLesThanZero' => 'Denne værdi kan ikke være under 0',
 
+    'admin_edit_title' => 'Rediger hold',
+
     '' => '',
     'public_index_welcomeTittle' => 'Hold oversigt',
     'public_index_welcomeDescription' => 'Her hos $assosiation har vi mange spændende hold man kan melde sig på!<br>Her kan du se en liste over dem alle sammen og forhåbenligt en dag også søge i dem',
@@ -124,7 +132,6 @@ return [
     'public_signup_public_signup_' => '',
     'public_signup_public_signup_' => '',
     'public_signup_public_signup_' => '',
-    '' => '',
     '' => '',
     '' => '',
 
@@ -161,5 +168,12 @@ return [
     'lesson_create_error_age_minLargerThanMax' => 'Mindste alder skal være mindre end eller lig med højeste alder',
     'lesson_create_error_age_maxSmallerThanMin' => 'Højeste alder skal være større end eller lig med mindste alder',
     'lesson_create_error_valueCannotBeLesThanZero' => 'Denne værdi kan ikke være under 0',
-    'admin_index_lessons' => 'Hold'
+    'admin_index_lessons' => 'Hold',
+
+
+    // Lesson Create Links
+    'admin_create_link_instructor' => 'Mangler underviser?',
+    'admin_create_link_priceStructure' => 'Mangler prisstruktur?',
+    'admin_create_link_location' => 'Mangler lokation?',
+
 ];

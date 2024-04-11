@@ -1,5 +1,5 @@
 @php use Carbon\Carbon; @endphp
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('head')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
@@ -22,9 +22,18 @@
 
 @endsection
 
-@section('content')
+@section('admin_content')
     <div class="container">
+        <div class="my-5 text-center">
+            <h1>{{__('lesson.admin_edit_title')}}</h1>
+        </div>
+        <div class="my-3 d-grid d-md-flex gap-2"><br>
 
+            <a class="btn btn-outline-primary mb-2" role="button"
+               href="{{route('admin.lesson.index')}}">{{__('lesson.admin_create_button_showAll')}}</a>
+            <a class="btn btn-outline-primary mb-2" role="button"
+               href="javascript:history.back()">{{__('customLabels.back')}}</a>
+        </div>
         <form class="row g-3" action="{{route((Auth::user()->can('admin_panel') ? 'admin.lesson.doEdit' : 'instructor.lesson.doEdit') , ['id'=>$lesson->id])}}" method="post"
               enctype="multipart/form-data">
             @csrf
@@ -34,7 +43,7 @@
                 <label for="name">{{__('lesson.admin_create_Name')}}</label> <br>
                 <input class="form-control" id="name" name="name" type="text" value="{{$lesson->name}}" required> <br>
 
-                <label for="short_description">{{__('lesson.admin_create_danceStyle')}}</label><br>
+                <label for="short_description">{{__('lesson.admin_create_shortDescription')}}</label><br>
                 <input class="form-control" id="short_description" name="short_description"
                        value="{{$lesson->short_description}}" type="text" required> <br>
 
@@ -61,7 +70,7 @@
                 </datalist>
                 <input class="form-control" type="hidden" id="sorting_index" name="sorting_index">
 
-                <label for="instructors">{{__('lesson.admin_create_instructor')}}</label><br>
+                <label for="instructors">{{__('lesson.admin_create_instructor')}}</label> <a href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
                 <select id="choices-multiple-remove-button" placeholder="{{__('lesson.admin_create_placeholder_selectInstructor')}}" multiple
                         {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} name="instructors[]">
                     @foreach($instructors as $instructor)
@@ -84,29 +93,31 @@
                 <input class="form-control" id="age_max" name="age_max" value="{{ $lesson-> age_max}}" type="number"
                        required><br>
 
-                <label for="price">{{__('lesson.admin_create_price')}}</label><br>
+                <label for="price">{{__('lesson.admin_create_price')}}</label> <a href="#">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
                 <input class="form-control" id="price" name="price" type="number" value="{{ $lesson-> price}}" {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }}  required><br>
 
                 <div class="form-control">
                     <div id="timeslotsContainer">
+                        <h3>{{__('lesson.admin_create_title_timeAndLocation')}}</h3>
+                        <a href="{{route('admin.locations.create')}}">{{__('lesson.admin_create_link_location')}}</a><br>
+                        <hr class="hr">
                         @foreach($lesson->lessonTimeLocations as $timeslot)
                             @if(!$loop->first)
                                 <hr>
                             @endif
-                            <h3>{{__('lesson.admin_create_title_timeAndLocation')}}</h3>
                             <div class="row g-2">
                                 <div class="col">
                                     <label for="start_time_{{$loop->index}}">{{__('lesson.admin_create_startTime')}}</label> <br>
                                     <input class="form-control" type="time" id="start_time_{{$loop->index}}"
                                            name="start_times[]"
-                                           value="{{$timeslot->start_time }}"
+                                           value="{{Carbon::parse($timeslot->start_time)->format('H:i')}}"
                                            {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
                                 </div>
                                 <div class="col">
                                     <label for="end_time_{{$loop->index}}">{{__('lesson.admin_create_endTime')}}</label> <br>
                                     <input class="form-control" type="time" id="end_time_{{$loop->index}}"
                                            name="end_times[]"
-                                           value="{{ $timeslot->end_time }}"
+                                           value="{{ Carbon::parse($timeslot->end_time)->format('H:i') }}"
                                            {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
                                 </div>
                             </div>
@@ -163,11 +174,11 @@
 
                 <label for="visible">{{__('lesson.admin_create_toggle_visible')}}</label>
                 <input class="form-check-input" type="checkbox" id="visible" name="visible"
-                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->visible ? 'checked' : '' }}><br>
+                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->visible ? 'checked' : '' }}><br><br>
 
                 <label for="can_signup">{{__('lesson.admin_create_toggle_signup')}}</label>
                 <input class="form-check-input" type="checkbox" id="can_signup" name="can_signup"
-                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->can_signup ? 'checked' : '' }}><br>
+                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->can_signup ? 'checked' : '' }}><br><br>
 
                 <label for="cover_image">{{__('lesson.admin_create_coverImage')}}</label><br>
                 @if($lesson->cover_img_path)
@@ -182,7 +193,7 @@
             <label for="long_description">{{__('lesson.admin_create_LongDescription')}}</label><br>
             <textarea id="long_description" name="long_description"
                       required>{{ $lesson->long_description }}</textarea><br>
-            <button class="btn btn-success" type="submit" value="Submit">{{__('lesson.admin_create_button_submit')}}</button>
+            <button class="btn btn-success" type="submit" value="Submit">{{__('lesson.admin_edit_button_submit')}}</button>
 
         </form>
     </div>

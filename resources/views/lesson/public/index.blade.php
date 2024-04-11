@@ -22,8 +22,12 @@
                 @if($lesson->visible)
                     <div class="col">
                         <div class="card w-100">
-                            <div class="card-header text-center">
+                            <div class="card-header text-center flex-row">
+                                <a class="btn btn-outline-primary mb-2" role="button"
+                                   href="{{route('admin.lesson.index')}}">{{__('lesson.admin_create_button_showAll')}}</a>
                                 <h4 class="card-title text-primary mx-auto">{{$lesson->name}}</h4>
+                                <a class="btn btn-outline-primary mb-2" role="button"
+                                   href="{{route('admin.lesson.index')}}">{{__('lesson.admin_create_button_showAll')}}</a>
                             </div>
                             <img src="{{asset($lesson->cover_img_path)}}" class="card-img"
                                  alt="{{__('lesson.public_index_imgAltText')}} {{$lesson->name}}">

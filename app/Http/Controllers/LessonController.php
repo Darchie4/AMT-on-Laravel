@@ -48,7 +48,7 @@ class LessonController extends Controller
     {
         return view('lesson/admin/show', ['lesson' => Lesson::findOrFail($id)]);
     }
-    
+
     /**
      * Show the view for creating a new Lesson
      *
@@ -142,8 +142,9 @@ class LessonController extends Controller
         $lesson = Lesson::findOrFail($id);
         return view('lesson/admin/edit', ['lesson'=> $lesson,'instructors' => InstructorInfo::all(), 'locations' => Location::all(), 'danceStyles' => DanceStyle::all(), 'difficulties' => Difficulty::all()]);
     }
-    public function adminDoEdit(Request $request, Lesson $lesson): RedirectResponse
+    public function adminDoEdit(Request $request, int $lessonID): RedirectResponse
     {
+        $lesson = Lesson::findOrFail($lessonID);
         $request->validate([
             'name' => 'required|string',
             'short_description' => 'required|string|max:255',
@@ -156,7 +157,7 @@ class LessonController extends Controller
             'cover_image' => 'nullable|image|mimes:jpeg,png|max:2048',
             'danceStyle' => 'required|string',
             'difficulty' => 'required|string',
-            'sorting_index' => 'required|integer',
+            'sorting_index' => 'sometimes|nullable|integer',
             'total_signup_space' => 'required|integer|min:0',
             'visible' => 'required',
             'can_signup' => 'required',
@@ -185,9 +186,10 @@ class LessonController extends Controller
         // Update dance style and difficulty
         $danceStyle = DanceStyle::firstOrCreate(['name' => $request->input('danceStyle')]);
         $lesson->dance_style_id = $danceStyle->id;
-
-        $difficulty = Difficulty::updateOrCreate(['name' => $request->input('difficulty')], ['name' => $request->input('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
-        $lesson->difficulty_id = $difficulty->id;
+        if ($request->input('sorting_index')){
+            $difficulty = Difficulty::updateOrCreate(['name' => $request->input('difficulty')], ['name' => $request->input('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
+            $lesson->difficulty_id = $difficulty->id;
+        }
 
         // Update cover image if provided
         if ($request->hasFile('cover_image')) {
