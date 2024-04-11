@@ -128,46 +128,7 @@ return [
     'public_signup_public_signup_goBack' => 'Gå tilbage',
     'public_signup_public_signup_welcome' => 'Tilmedling',
     'public_signup_public_signup_nameOfLesson' => 'Du er ved at tilmelde dig til: ',
-    'public_signup_public_signup_' => '',
-    'public_signup_public_signup_' => '',
-    'public_signup_public_signup_' => '',
-    'public_signup_public_signup_' => '',
-    '' => '',
-    '' => '',
 
-
-    // Lesson create
-    'lesson_create_Name' => 'Lektionens navn',
-    'lesson_create_ShortDescription' => 'Kort beskrivelse',
-    'lesson_create_LongDescription' => 'Lang beskrivelse',
-    'lesson_create_seasonStart' => 'Sæsonens start',
-    'lesson_create_seasonEnd' => 'Sæsonens slutningen',
-    'lesson_create_ageMin' => 'Minimums alder',
-    'lesson_create_ageMax' => 'Maksimum alder',
-    'lesson_create_Price' => 'Pris',
-    'lesson_create_coverImage' => 'Dæk billede',
-    'lesson_create_danceStyle' => 'Stilart',
-    'lesson_create_select_instructor_placeholder' => 'Vælg undervisere',
-    'lesson_create_difficulty' => 'Dygtigheds grad',
-    'lesson_create_instructor' => 'Unservis(ere)',
-    'lesson_create_dance_style_placeholder' => 'Ex. Pardans, Hip Hop osv...',
-    'lesson_create_difficulty_placeholder' => 'Ex. Begynder, Let Øvet osv...',
-    'lesson_create_button_add_timeslot' => 'Tilføj Træningstid',
-    'lesson_create_totalSignupSpaces' => 'Maksimal antal tilmeldinger',
-    'lesson_create_toggle_visible' => 'Synlig på hjemmeside: ',
-    'lesson_create_toggle_signup' => 'Åben for tilmelding: ',
-    'lesson_create_button_submit' => 'Opret hold',
-
-
-    // Lesson Create Errors
-    'lesson_create_error_end_or_startime_reverse' => 'Slut tidspunkt skal være før start',
-    'lesson_create_error_timeslot_overlap' => 'Det angivende tidsrum overlapper med andre tider',
-    'lesson_create_error_sortingIndexInUse' => 'Dette sorting index er allerede i brug',
-    'lesson_create_error_season_endBeforeStart' => 'Sæson slut skal være efter start',
-    'lesson_create_error_season_startAfterEnd' => 'Sæson start skal være før slut',
-    'lesson_create_error_age_minLargerThanMax' => 'Mindste alder skal være mindre end eller lig med højeste alder',
-    'lesson_create_error_age_maxSmallerThanMin' => 'Højeste alder skal være større end eller lig med mindste alder',
-    'lesson_create_error_valueCannotBeLesThanZero' => 'Denne værdi kan ikke være under 0',
     'admin_index_lessons' => 'Hold',
 
 
@@ -175,5 +136,5 @@ return [
     'admin_create_link_instructor' => 'Mangler underviser?',
     'admin_create_link_priceStructure' => 'Mangler prisstruktur?',
     'admin_create_link_location' => 'Mangler lokation?',
-
+    '' => '',
 ];

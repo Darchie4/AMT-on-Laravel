@@ -46,7 +46,20 @@ function addTimeslot() {
     container.appendChild(timeslotDiv);
 }
 
+let timeslotsToDelete = [];
 function removeTimeslot(button) {
+    const timeslotId = button.parentElement.getElementsByClassName("timeslot").namedItem("timeslot").value;
+    timeslotsToDelete.push(timeslotId);
     const timeslotDiv = button.parentElement;
     timeslotDiv.remove();
+    console.log("Test:")
+    console.log(timeslotsToDelete);
+}
+
+// Function to submit the form
+function submitForm() {
+    console.log(timeslotsToDelete);
+    // Add the array of timeslot IDs to a hidden input field in the form
+    document.getElementById('timeslotsToDeleteInput').value = JSON.stringify(timeslotsToDelete);
+    document.getElementById('lessonForm').submit();
 }

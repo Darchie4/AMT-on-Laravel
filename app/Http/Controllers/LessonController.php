@@ -159,8 +159,8 @@ class LessonController extends Controller
             'difficulty' => 'required|string',
             'sorting_index' => 'sometimes|nullable|integer',
             'total_signup_space' => 'required|integer|min:0',
-            'visible' => 'required',
-            'can_signup' => 'required',
+            'visible' => 'sometimes',
+            'can_signup' => 'sometimes',
 
             'instructors' => 'required|array',
             'instructors.*' => 'exists:instructor_infos,id',
@@ -185,10 +185,11 @@ class LessonController extends Controller
 
         // Update dance style and difficulty
         $danceStyle = DanceStyle::firstOrCreate(['name' => $request->input('danceStyle')]);
-        $lesson->dance_style_id = $danceStyle->id;
+        $lesson->danceStyle()->associate($danceStyle);
+
         if ($request->input('sorting_index')){
             $difficulty = Difficulty::updateOrCreate(['name' => $request->input('difficulty')], ['name' => $request->input('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
-            $lesson->difficulty_id = $difficulty->id;
+            $lesson->difficulty()->associate($difficulty);
         }
 
         // Update cover image if provided
@@ -210,6 +211,9 @@ class LessonController extends Controller
                 ['lesson_id' => $lesson->id, 'week_day' => $request->input('days')[$index]],
                 ['start_time' => Carbon::parse($startTime)->format('H:i'), 'end_time' => Carbon::parse($request->input('end_times')[$index])->format('H:i'), 'location_id' => $request->input('locations')[$index]]
             );
+        }
+        foreach (explode(",", $request->input('timeslotsToDeleteInput')) as $timeslotId) {
+            LessonTimeLocation::destroy(substr(substr($timeslotId,2), 0, -2));
         }
 
         return redirect()->route('admin.lesson.index')->with('success', 'Lesson updated successfully!');
