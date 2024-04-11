@@ -34,6 +34,8 @@ return [
     'admin_create_danceStyle' => 'Stilart',
     'admin_create_placeholder_selectInstructor' => 'Vælg undervisere',
     'admin_create_difficulty' => 'Dygtigheds grad',
+
+    'admin_create_instructor' => 'Undervis(ere)',
     'admin_create_instructor' => 'Unservis(ere)',
     'admin_create_placeholder_danceStyle' => 'Ex. Pardans, Hip Hop osv...',
     'admin_create_placeholder_difficulty' => 'Ex. Begynder, Let Øvet osv...',

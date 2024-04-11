@@ -36,6 +36,9 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
+                    </li>
                     <!--About us dropdown-->
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -52,9 +55,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
-                    </li>
+
 
                 </ul>
 
@@ -102,7 +103,7 @@
             </div>
         </div>
     </nav>
-
+@yield('nav-content')
     <main class="py-4">
         <div class="container">
             @if ($errors->any())
@@ -128,6 +129,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+                @if(session('message'))
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
         </div>
         @yield('content')
     </main>
