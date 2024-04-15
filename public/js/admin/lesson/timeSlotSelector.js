@@ -40,7 +40,24 @@ function addTimeslot() {
                 </select>
             </div>
         </div>
+        <button type="button" class="btn btn-danger remove-timeslot-btn" onclick="removeTimeslot(this)">Remove Timeslot</button>
     `;
 
     container.appendChild(timeslotDiv);
+}
+
+let timeslotsToDelete = [];
+function removeTimeslot(button) {
+    const timeslotId = button.parentElement.getElementsByClassName("timeslot").namedItem("timeslot").value;
+    timeslotsToDelete.push(timeslotId);
+    const timeslotDiv = button.parentElement;
+    timeslotDiv.remove();
+}
+
+// Function to submit the form
+function submitForm() {
+    console.log(timeslotsToDelete);
+    // Add the array of timeslot IDs to a hidden input field in the form
+    document.getElementById('timeslotsToDeleteInput').value = JSON.stringify(timeslotsToDelete);
+    document.getElementById('lessonForm').submit();
 }
