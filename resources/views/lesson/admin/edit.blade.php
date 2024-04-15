@@ -1,5 +1,5 @@
 @php use Carbon\Carbon; @endphp
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('head')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
@@ -22,19 +22,29 @@
 
 @endsection
 
-@section('content')
+@section('admin_content')
     <div class="container">
+        <div class="my-5 text-center">
+            <h1>{{__('lesson.admin_edit_title')}}</h1>
+        </div>
+        <div class="my-3 d-grid d-md-flex gap-2"><br>
 
+            <a class="btn btn-outline-primary mb-2" role="button"
+               href="{{route('admin.lesson.index')}}">{{__('lesson.admin_create_button_showAll')}}</a>
+            <a class="btn btn-outline-primary mb-2" role="button"
+               href="javascript:history.back()">{{__('customLabels.back')}}</a>
+        </div>
         <form class="row g-3" action="{{route((Auth::user()->can('admin_panel') ? 'admin.lesson.doEdit' : 'instructor.lesson.doEdit') , ['id'=>$lesson->id])}}" method="post"
-              enctype="multipart/form-data">
+              enctype="multipart/form-data" id="lessonForm">
             @csrf
             @method('PUT')
+            <input type="hidden" id="timeslotsToDeleteInput" name="timeslotsToDeleteInput" value="">
 
             <div class="col form-group">
                 <label for="name">{{__('lesson.admin_create_Name')}}</label> <br>
                 <input class="form-control" id="name" name="name" type="text" value="{{$lesson->name}}" required> <br>
 
-                <label for="short_description">{{__('lesson.admin_create_danceStyle')}}</label><br>
+                <label for="short_description">{{__('lesson.admin_create_shortDescription')}}</label><br>
                 <input class="form-control" id="short_description" name="short_description"
                        value="{{$lesson->short_description}}" type="text" required> <br>
 
@@ -61,7 +71,7 @@
                 </datalist>
                 <input class="form-control" type="hidden" id="sorting_index" name="sorting_index">
 
-                <label for="instructors">{{__('lesson.admin_create_instructor')}}</label><br>
+                <label for="instructors">{{__('lesson.admin_create_instructor')}}</label> <a href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
                 <select id="choices-multiple-remove-button" placeholder="{{__('lesson.admin_create_placeholder_selectInstructor')}}" multiple
                         {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} name="instructors[]">
                     @foreach($instructors as $instructor)
@@ -84,56 +94,62 @@
                 <input class="form-control" id="age_max" name="age_max" value="{{ $lesson-> age_max}}" type="number"
                        required><br>
 
-                <label for="price">{{__('lesson.admin_create_price')}}</label><br>
+                <label for="price">{{__('lesson.admin_create_price')}}</label> <a href="#">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
                 <input class="form-control" id="price" name="price" type="number" value="{{ $lesson-> price}}" {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }}  required><br>
 
                 <div class="form-control">
                     <div id="timeslotsContainer">
+                        <h3>{{__('lesson.admin_create_title_timeAndLocation')}}</h3>
+                        <a href="{{route('admin.locations.create')}}">{{__('lesson.admin_create_link_location')}}</a><br>
+                        <hr class="hr">
                         @foreach($lesson->lessonTimeLocations as $timeslot)
-                            @if(!$loop->first)
+                            <div>
+                                @if(!$loop->first)
                                 <hr>
                             @endif
-                            <h3>{{__('lesson.admin_create_title_timeAndLocation')}}</h3>
                             <div class="row g-2">
                                 <div class="col">
                                     <label for="start_time_{{$loop->index}}">{{__('lesson.admin_create_startTime')}}</label> <br>
                                     <input class="form-control" type="time" id="start_time_{{$loop->index}}"
                                            name="start_times[]"
-                                           value="{{$timeslot->start_time }}"
+                                           value="{{Carbon::parse($timeslot->start_time)->format('H:i')}}"
                                            {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
                                 </div>
                                 <div class="col">
                                     <label for="end_time_{{$loop->index}}">{{__('lesson.admin_create_endTime')}}</label> <br>
                                     <input class="form-control" type="time" id="end_time_{{$loop->index}}"
                                            name="end_times[]"
-                                           value="{{ $timeslot->end_time }}"
+                                           value="{{ Carbon::parse($timeslot->end_time)->format('H:i') }}"
                                            {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
                                 </div>
                             </div>
                             <div class="row g-2">
-                                <div class="col">
-                                    <label for="day_{{$loop->index}}">{{__('lesson.admin_create_weekDay_title')}}</label> <br>
-                                    <select class="form-control" id="day_{{$loop->index}}" name="days[]"
-                                            {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
-                                        <option value="0" {{ $timeslot->day == 0 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_monday')}}</option>
-                                        <option value="1" {{ $timeslot->day == 1 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_tuesday')}}</option>
-                                        <option value="2" {{ $timeslot->day == 2 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_wednesday')}}</option>
-                                        <option value="3" {{ $timeslot->day == 3 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_thursday')}}</option>
-                                        <option value="4" {{ $timeslot->day == 4 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_friday')}}</option>
-                                        <option value="5" {{ $timeslot->day == 5 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_saturday')}}</option>
-                                        <option value="6" {{ $timeslot->day == 6 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_sunday')}}</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="location_{{$loop->index}}">{{__('lesson.admin_create_location')}}</label> <br>
-                                    <select class="form-control" id="location_{{$loop->index}}" name="locations[]"
+                                    <div class="col">
+                                        <label for="day_{{$loop->index}}">{{__('lesson.admin_create_weekDay_title')}}</label> <br>
+                                        <select class="form-control" id="day_{{$loop->index}}" name="days[]"
+                                                {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
+                                            <option value="0" {{ $timeslot->week_day == 0 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_monday')}}</option>
+                                            <option value="1" {{ $timeslot->week_day == 1 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_tuesday')}}</option>
+                                            <option value="2" {{ $timeslot->week_day == 2 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_wednesday')}}</option>
+                                            <option value="3" {{ $timeslot->week_day == 3 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_thursday')}}</option>
+                                            <option value="4" {{ $timeslot->week_day == 4 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_friday')}}</option>
+                                            <option value="5" {{ $timeslot->week_day == 5 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_saturday')}}</option>
+                                            <option value="6" {{ $timeslot->week_day == 6 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_sunday')}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label for="location_{{$loop->index}}">{{__('lesson.admin_create_location')}}</label> <br>
+                                        <select class="form-control" id="location_{{$loop->index}}" name="locations[]"
                                             {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} >
-                                        @foreach($locations as $location)
-                                            <option
-                                                value="{{ $location->id }}" {{ $timeslot->location_id == $location->id ? 'selected' : '' }}>{{ $location->name }}</option>
-                                        @endforeach
-                                    </select>
+                                            @foreach($locations as $location)
+                                                <option
+                                                    value="{{ $location->id }}" {{ $timeslot->location_id == $location->id ? 'selected' : '' }}>{{ $location->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
+                                    <input type="hidden" class="timeslot" id="timeslot" name="timeslot" value="{{$timeslot->id}}">
+                                    <button type="button" class="btn btn-danger remove-timeslot-btn" onclick="removeTimeslot(this)">Remove Timeslot</button>
                             </div>
                         @endforeach
                     </div>
@@ -163,11 +179,11 @@
 
                 <label for="visible">{{__('lesson.admin_create_toggle_visible')}}</label>
                 <input class="form-check-input" type="checkbox" id="visible" name="visible"
-                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->visible ? 'checked' : '' }}><br>
+                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->visible ? 'checked' : '' }}><br><br>
 
                 <label for="can_signup">{{__('lesson.admin_create_toggle_signup')}}</label>
                 <input class="form-check-input" type="checkbox" id="can_signup" name="can_signup"
-                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->can_signup ? 'checked' : '' }}><br>
+                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->can_signup ? 'checked' : '' }}><br><br>
 
                 <label for="cover_image">{{__('lesson.admin_create_coverImage')}}</label><br>
                 @if($lesson->cover_img_path)
@@ -178,12 +194,10 @@
                 <input class="form-control" id="cover_image" name="cover_image" type="file"
                        accept="image/png, image/jpeg">
             </div>
-
             <label for="long_description">{{__('lesson.admin_create_LongDescription')}}</label><br>
             <textarea id="long_description" name="long_description"
                       required>{{ $lesson->long_description }}</textarea><br>
-            <button class="btn btn-success" type="submit" value="Submit">{{__('lesson.admin_create_button_submit')}}</button>
-
+            <button class="btn btn-success" onclick="submitForm()" value="Submit">{{__('lesson.admin_edit_button_submit')}}</button>
         </form>
     </div>
 @endsection
