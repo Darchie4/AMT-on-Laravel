@@ -15,7 +15,8 @@
                     <b>{{__('lesson.admin_show_danseStyle')}}</b> {{$lesson->danceStyle->name}}<br>
                     <b>{{__('lesson.admin_show_difficulty')}}</b> {{$lesson->difficulty->name}}<br>
                     <b>{{__('lesson.admin_show_ageGroup')}}</b> {{$lesson->age_min}} - {{$lesson->age_max}} år<br>
-                    <b>{{__('lesson.admin_show_price')}}</b> {{$lesson->price}} DKK.<br>
+                    <b>{{__('lesson.admin_show_price')}}</b> {{$lesson->pricingStructure->name.' ('.$lesson->pricingStructure->price.' kr. - '.
+__('pricing.'.$lesson->pricingStructure->payment_frequency).')'}}<br>
                     <b>{{__('lesson.admin_show_seasonStart')}}</b> {{Carbon::parse($lesson->season_start)->format("d-m-Y")}}
                     <br>
                     <b>{{__('lesson.admin_show_seasonEnd')}}</b> {{Carbon::parse($lesson->season_end)->format("d-m-Y")}}

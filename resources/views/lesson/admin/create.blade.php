@@ -75,7 +75,8 @@
                         id="instructor"
                         name="instructors[]">
                     @foreach($instructors as $instructor)
-                        <option value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->fname}}</option>
+                        <option
+                            value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->fname}}</option>
                     @endforeach
                 </select>
             </div>
@@ -89,8 +90,14 @@
                 <label for="age_max">{{__('lesson.admin_create_ageMax')}}</label><br>
                 <input class="form-control" id="age_max" name="age_max" type="number" required><br>
 
-                <label for="price">{{__('lesson.admin_create_price')}}</label><br>
-                <input class="form-control" id="price" name="price" type="number" required><br>
+                <label for="pricing_structure">{{__('lesson.admin_create_price')}}</label><br>
+                <select class="form-control form-select" id="pricing_structure" name="pricing_structure" required>
+                    <option disabled selected>{{ __('pricing.choose')}}</option>
+                    @foreach($pricings as $pricing)
+                        <option
+                            value="{{$pricing->id}}">{{$pricing->name .' ('. $pricing->price.' '.'kr. - '}} {{__('pricing.' . $pricing->payment_frequency) . ')'}}</option>
+                    @endforeach
+                </select><br>
 
                 <div class="form-control">
                     <div id="timeslotsContainer">

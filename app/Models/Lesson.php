@@ -95,8 +95,8 @@ class Lesson extends Model
     /**
      * Get the pricing structure of the lesson
      * */
-    public function pricingStructure()
+    public function pricingStructure():BelongsTo
     {
-        return $this->hasOne(PricingStructure::class);
+        return $this->belongsTo(PricingStructure::class);
     }
 }
