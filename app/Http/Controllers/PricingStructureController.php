@@ -61,4 +61,10 @@ class PricingStructureController extends Controller
 
     }
 
+    public function destroy(int $id){
+        $pricing = PricingStructure::findOrFail($id);
+        $pricing->delete();
+        return back()->with('success',__('pricing.admin_deleted_successfully'));
+    }
+
 }
