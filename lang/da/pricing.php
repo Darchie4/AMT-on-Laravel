@@ -22,6 +22,7 @@ return [
     'annually'=>'Årligt',
     'does_not_exist'=>'Information ikke tilgængelig',
     'frequency_multiplier_tooltip'=>'Angiv et tal, som skal multipliceres med betalingsfrekvensen. (For eksempel, hvis betalingsfrekvensen er månedlig og faktoren er 2, vil den endelige betalingsfrekvens være to gange om måneden)',
+    'currency'=>'kr.',
 
 
 ];

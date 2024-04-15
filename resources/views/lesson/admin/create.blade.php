@@ -106,7 +106,7 @@
                     <option disabled selected>{{ __('pricing.choose')}}</option>
                     @foreach($pricings as $pricing)
                         <option
-                            value="{{$pricing->id}}">{{$pricing->name .' ('. $pricing->price.' '.'kr. - '}} {{__('pricing.' . $pricing->payment_frequency) . ')'}}</option>
+                            value="{{$pricing->id}}">{{$pricing->name .' ('. $pricing->price.' '.__('pricing.currency').' - '}} {{__('pricing.' . $pricing->payment_frequency) . ')'}}</option>
                     @endforeach
                 </select><br>
 

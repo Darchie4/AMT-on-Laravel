@@ -103,7 +103,7 @@
                     <option disabled {{is_null($selectedPricing)? 'selected':''}}>{{ __('pricing.choose')}}</option>
                     @foreach($pricings as $pricingOption)
                         <option
-                            value="{{$pricingOption->id}}" {{ $selectedPricing == $pricingOption->id ? 'selected' : '' }}>{{$pricingOption->name .' ('. $pricingOption->price.' '.'kr. - '}} {{__('pricing.' . $pricingOption->payment_frequency) . ')'}}</option>
+                            value="{{$pricingOption->id}}" {{ $selectedPricing == $pricingOption->id ? 'selected' : '' }}>{{$pricingOption->name .' ('. $pricingOption->price.' '.__('pricing.currency').' - '}} {{__('pricing.' . $pricingOption->payment_frequency) . ')'}}</option>
                     @endforeach
                 </select>
                     <br>
