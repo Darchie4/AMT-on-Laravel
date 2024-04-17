@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use function request;
 
 class RegistrationController extends Controller
 {
@@ -25,7 +26,7 @@ class RegistrationController extends Controller
     public function userIndex(): Application|RedirectResponse|Redirector|Renderable
     {
         $user = Auth::user();
-        if (!$user){
+        if (!$user) {
             return redirect(route('login'))->withErrors(__('registration.public_signup_errors_hasToBeLoggedIn'));
         }
         $registrations = $user->registrations()->get();
@@ -57,7 +58,7 @@ class RegistrationController extends Controller
 
         $isSignedUp = $user->lessons()->where('lesson_id', '=', $lesson->id)->where('is_active', '=', true)->first();
 
-        if ($isSignedUp){
+        if ($isSignedUp) {
             return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_alreadySignedUp', ['lessonName' => $lesson->name]));
         }
 
@@ -108,4 +109,38 @@ class RegistrationController extends Controller
         return back();
     }
 
+    public function moveUser($request)
+    {
+        $request->validate([
+            'fromLessonId' => 'required|exists:lessons,id',
+            'toLessonId' => 'required|exists:lessons,id',
+            'userID' => 'required|exists:users,id',
+        ]);
+
+        $user = User::find(request('fromLessonId'));
+        $fromLesson = Lesson::find(request('toLessonId'));
+        $toLesson = Lesson::find(request('userID'));
+
+        $fromRegistration = $user->registrations()->where('lesson_id', $fromLesson->id)->get();
+
+        if ($fromRegistration->isEmpty()) {
+            return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_fromRegistrationNotFound'));
+        }
+
+        $fromRegistration->deactivation_date = Date::now();
+        $fromRegistration->is_active = false;
+
+        $fromRegistration->save();
+
+
+        $newRegistration = new Registration();
+
+        $newRegistration->user()->associate($user);
+        $newRegistration->lesson()->associate($toLesson);
+        $newRegistration->activation_date = Date::now();
+
+        $newRegistration->save();
+
+        return back()->with('success', __('registration.public_signup_success', ['fromLessonName' => $fromLesson->name, 'toLessonName' => $toLesson->name, 'userName' => $user->name]));
+    }
 }
