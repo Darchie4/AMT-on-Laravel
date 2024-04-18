@@ -4,15 +4,15 @@
     @include('partials._systemFeedback')
 
     <div class="container">
-        <h2>{{__('location.public_show_all_locations')}}</h2>
+        <h2>{{__('pricing.admin_show_all_pricings')}}</h2>
         <div class="row row-cols-2">
             <!--Search box -->
             <div class="d-grid justify-content-md-start mb-2 col-md-9">
-                <form action="{{route('admin.locations.index')}}" method="GET">
+                <form action="{{route('admin.pricing.index')}}" method="GET">
                     <div class="input-group">
                         <input class="form-control"
                                type="search"
-                               placeholder="{{__('customLabels.users_search_here')}}"
+                               placeholder="{{__('pricing.pricing_search_here')}}"
                                name="search"
                                id="usertable-search-input"
                                value="{{request('search')}}"/>
@@ -27,7 +27,7 @@
             <!--Create new btn-->
             <div class="d-grid justify-content-md-end col-md-2 mb-2"><br>
                 <a class="btn btn-outline-primary mb-2" role="button"
-                   href="{{route('admin.locations.create')}}">{{__('customLabels.create')}}</a>
+                   href="{{route('admin.pricing.create')}}">{{__('pricing.create')}}</a>
             </div>
         </div>
 
@@ -38,31 +38,34 @@
                     <thead class="table-primary">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">{{__('location.name')}}</th>
-                        <th scope="col">{{__('address.city')}}</th>
-                        <th scope="col">{{__('customLabels.manage')}}</th>
+                        <th scope="col">{{__('pricing.name')}}</th>
+                        <th scope="col">{{__('pricing.price')}}</th>
+                        <th scope="col">{{__('pricing.frequency')}}</th>
+                        <th scope="col">{{__('pricing.administration')}}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($locations as $location)
+                    @foreach($pricingStructures as $pricing)
                         <tr>
-                            <td>{{$location->id}}</td>
+                            <td>{{$pricing->id}}</td>
                             <td>
-                                <a href="{{route('locations.public.show',$location->id)}}">{{$location->name}}</a>
+                                <p>{{$pricing->name}}</p>
                             </td>
                             <td>
-                                <p>{{$location->address->city}}</p>
+                                <p>{{$pricing->price}}</p>
                             </td>
-
+                            <td>
+                                <p>{{$pricing->payment_frequency}}*{{$pricing->frequency_multiplier}}</p>
+                            </td>
                             <td>
                                 <a role="button" class="btn btn-outline-primary"
-                                   href="{{route('admin.locations.edit', $location->id)}}">{{__('customLabels.edit')}}</a>
+                                   href="{{route('admin.pricing.edit', $pricing->id)}}">{{__('pricing.edit')}}</a>
                                 <form class="d-inline-flex" method="post"
-                                      action="{{route('admin.locations.destroy',$location->id)}}"
-                                      onsubmit="return confirm('{{__('customLabels.confirm')}}')">
+                                      action="{{route('admin.pricing.destroy',$pricing->id)}}"
+                                      onsubmit="return confirm('{{__('pricing.confirm')}}')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">{{__('customLabels.delete')}}</button>
+                                    <button type="submit" class="btn btn-danger">{{__('pricing.delete')}}</button>
                                 </form>
                             </td>
                         </tr>

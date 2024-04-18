@@ -23,7 +23,7 @@
                     <div class="col">
                         <div class="card w-100">
                             <div class="card-header">
-                                @can('admin_panel')
+                                @can(['lessons_crud','lessons_own'])
                                 <div class="row row-cols-3 justify-content-md-between">
                                     <div class="d-grid col-md-3 d-grid justify-content-md-start">
                                         <a class="btn my-auto text-dark btn-outline-danger" role="button"

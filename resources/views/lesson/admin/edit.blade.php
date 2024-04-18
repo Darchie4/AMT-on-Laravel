@@ -23,18 +23,18 @@
 @endsection
 
 @section('admin_content')
+    @include('partials._systemFeedback')
     <div class="container">
         <div class="my-5 text-center">
             <h1>{{__('lesson.admin_edit_title')}}</h1>
         </div>
         <div class="my-3 d-grid d-md-flex gap-2"><br>
-
             <a class="btn btn-outline-primary mb-2" role="button"
                href="{{route('admin.lesson.index')}}">{{__('lesson.admin_create_button_showAll')}}</a>
             <a class="btn btn-outline-primary mb-2" role="button"
                href="javascript:history.back()">{{__('customLabels.back')}}</a>
         </div>
-        <form class="row g-3" action="{{route((Auth::user()->can('admin_panel') ? 'admin.lesson.doEdit' : 'instructor.lesson.doEdit') , ['id'=>$lesson->id])}}" method="post"
+        <form class="row g-3" action="{{route((Auth::user()->can('lessons_crud') ? 'admin.lesson.doEdit' : 'instructor.lesson.doEdit') , ['id'=>$lesson->id])}}" method="post"
               enctype="multipart/form-data" id="lessonForm">
             @csrf
             @method('PUT')
@@ -50,33 +50,35 @@
 
                 <label for="danceStyle">{{__('lesson.admin_create_danceStyle')}}</label><br>
                 <input class="form-control" name="danceStyle" list="danceStyles"
-                       placeholder="{{__('lesson.admin_create_placeholder_danceStyle')}}" value="{{ $lesson->danceStyle->name }}" required><br>
+                       placeholder="{{__('lesson.admin_create_placeholder_danceStyle')}}"
+                       value="{{ $lesson->danceStyle->name }}" required><br>
                 <datalist id="danceStyles">
                     @foreach($danceStyles as $style)
                         <option
-                            value="{{$style->name}}" {{ $style->id == $lesson->danceStyle->id ? 'selected' : '' }}>{{$style->name}}</option>
+                                value="{{$style->name}}" {{ $style->id == $lesson->danceStyle->id ? 'selected' : '' }}>{{$style->name}}</option>
                     @endforeach
                 </datalist>
 
                 <label for="difficulty">{{__('lesson.admin_create_difficulty')}}</label><br>
                 <input class="form-control" name="difficulty" id="difficulty" list="difficulties"
-                        placeholder="{{__('lesson.admin_create_placeholder_difficulty')}}" value="{{ $lesson->difficulty->name }}" required><br>
+                       placeholder="{{__('lesson.admin_create_placeholder_difficulty')}}"
+                       value="{{ $lesson->difficulty->name }}" required><br>
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
                         <option
-                            {{ $difficulty->id == $lesson->difficulty->id ? 'selected' : '' }} value="{{$difficulty->name}}"
-                            data-id="{{$difficulty->id}}"
-                            data-index="{{$difficulty->sorting_index}}">{{$difficulty->name}}</option>
+                                {{ $difficulty->id == $lesson->difficulty->id ? 'selected' : '' }} value="{{$difficulty->name}}"
+                                data-id="{{$difficulty->id}}"
+                                data-index="{{$difficulty->sorting_index}}">{{$difficulty->name}}</option>
                     @endforeach
                 </datalist>
                 <input class="form-control" type="hidden" id="sorting_index" name="sorting_index">
-
                 <label for="instructors">{{__('lesson.admin_create_instructor')}}</label> <a href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
                 <select id="choices-multiple-remove-button" placeholder="{{__('lesson.admin_create_placeholder_selectInstructor')}}" multiple
-                        {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} name="instructors[]">
+                        {{ Auth::user()->can('lessons_crud') ? '' : 'disabled' }} name="instructors[]">
+
                     @foreach($instructors as $instructor)
                         <option
-                            value="{{ $instructor->id }}" {{ in_array($instructor->id, $lesson->instructors->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                value="{{ $instructor->id }}" {{ in_array($instructor->id, $lesson->instructors->pluck('id')->toArray()) ? 'selected' : '' }}>
                             {{ $instructor->user->name.' '.$instructor->user->fname }}
                         </option>
                     @endforeach
@@ -93,10 +95,19 @@
                 <label for="age_max">{{__('lesson.admin_create_ageMax')}}</label><br>
                 <input class="form-control" id="age_max" name="age_max" value="{{ $lesson-> age_max}}" type="number"
                        required><br>
-
-                <label for="price">{{__('lesson.admin_create_price')}}</label> <a href="#">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
-                <input class="form-control" id="price" name="price" type="number" value="{{ $lesson-> price}}" {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }}  required><br>
-
+                <label for="pricing_structure">{{__('lesson.admin_create_price')}}</label> <a href="{{route("admin.pricing.create")}}">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
+                <select class="form-control form-select" id="pricing_structure" name="pricing_structure"
+                       {{ Auth::user()->can('lessons_crud') ? '' : 'disabled' }}  required>
+                    @php
+                        $selectedPricing = old('pricing_structure_id', $lesson->pricing_structure_id ?? null);
+                    @endphp
+                    <option disabled {{is_null($selectedPricing)? 'selected':''}}>{{ __('pricing.choose')}}</option>
+                    @foreach($pricings as $pricingOption)
+                        <option
+                            value="{{$pricingOption->id}}" {{ $selectedPricing == $pricingOption->id ? 'selected' : '' }}>{{$pricingOption->name .' ('. $pricingOption->price.' '.__('pricing.currency').' - '}} {{__('pricing.' . $pricingOption->payment_frequency) . ')'}}</option>
+                    @endforeach
+                </select>
+                    <br>
                 <div class="form-control">
                     <div id="timeslotsContainer">
                         <h3>{{__('lesson.admin_create_title_timeAndLocation')}}</h3>
@@ -109,25 +120,27 @@
                             @endif
                             <div class="row g-2">
                                 <div class="col">
-                                    <label for="start_time_{{$loop->index}}">{{__('lesson.admin_create_startTime')}}</label> <br>
+                                    <label for="start_time_{{$loop->index}}">{{__('lesson.admin_create_startTime')}}</label>
+                                    <br>
                                     <input class="form-control" type="time" id="start_time_{{$loop->index}}"
                                            name="start_times[]"
                                            value="{{Carbon::parse($timeslot->start_time)->format('H:i')}}"
-                                           {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
+                                           {{ Auth::user()->can('lessons_crud') ? 'required' : 'disabled' }} required>
                                 </div>
                                 <div class="col">
-                                    <label for="end_time_{{$loop->index}}">{{__('lesson.admin_create_endTime')}}</label> <br>
+                                    <label for="end_time_{{$loop->index}}">{{__('lesson.admin_create_endTime')}}</label>
+                                    <br>
                                     <input class="form-control" type="time" id="end_time_{{$loop->index}}"
                                            name="end_times[]"
                                            value="{{ Carbon::parse($timeslot->end_time)->format('H:i') }}"
-                                           {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
+                                           {{ Auth::user()->can('lessons_crud') ? 'required' : 'disabled' }} required>
                                 </div>
                             </div>
                             <div class="row g-2">
                                     <div class="col">
                                         <label for="day_{{$loop->index}}">{{__('lesson.admin_create_weekDay_title')}}</label> <br>
                                         <select class="form-control" id="day_{{$loop->index}}" name="days[]"
-                                                {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} required>
+                                                {{ Auth::user()->can('lessons_crud') ? 'required' : 'disabled' }} required>
                                             <option value="0" {{ $timeslot->week_day == 0 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_monday')}}</option>
                                             <option value="1" {{ $timeslot->week_day == 1 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_tuesday')}}</option>
                                             <option value="2" {{ $timeslot->week_day == 2 ? 'selected' : '' }}>{{__('lesson.admin_create_weekDay_wednesday')}}</option>
@@ -140,7 +153,7 @@
                                     <div class="col">
                                         <label for="location_{{$loop->index}}">{{__('lesson.admin_create_location')}}</label> <br>
                                         <select class="form-control" id="location_{{$loop->index}}" name="locations[]"
-                                            {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} >
+                                            {{ Auth::user()->can('lessons_crud') ? 'required' : 'disabled' }} >
                                             @foreach($locations as $location)
                                                 <option
                                                     value="{{ $location->id }}" {{ $timeslot->location_id == $location->id ? 'selected' : '' }}>{{ $location->name }}</option>
@@ -154,7 +167,8 @@
                         @endforeach
                     </div>
                     <div class="mx-auto mt-3 text-center">
-                        <button class="mx-auto btn btn-primary" type="button" onclick="addTimeslot()" {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} >{{__('lesson.admin_create_button_addTimeslot')}}
+                        <button class="mx-auto btn btn-primary" type="button" onclick="addTimeslot()" {{ Auth::user()->can('lessons_crud
+') ? '' : 'disabled' }} >{{__('lesson.admin_create_button_addTimeslot')}}
                         </button>
                     </div>
                 </div>
@@ -166,24 +180,28 @@
                 <label for="season_start">{{__('lesson.admin_create_seasonStart')}}</label><br>
                 <input class="form-control" id="season_start" name="season_start" type="date"
                        value="{{Carbon::parse($lesson->season_start)->format("Y-m-d")}}"
-                       {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} ><br>
+                        {{ Auth::user()->can('lessons_crud
+ ') ? 'required' : 'disabled' }} ><br>
 
                 <label for="season_end">{{__('lesson.admin_create_seasonEnd')}}</label><br>
                 <input class="form-control" id="season_end" name="season_end" type="date"
                        value="{{Carbon::parse($lesson->season_end)->format("Y-m-d")}}"
-                       {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }} ><br>
+                        {{ Auth::user()->can('lessons_crud
+ ') ? 'required' : 'disabled' }} ><br>
 
                 <label for="total_signup_space">{{__('lesson.admin_create_totalSignupSpaces')}}</label><br>
-                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number" value="{{ $lesson->total_signup_space }}"
-                    {{ Auth::user()->can('admin_panel') ? 'required' : 'disabled' }}><br>
+                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number"
+                       value="{{ $lesson->total_signup_space }}"
+                        {{ Auth::user()->can('lessons_crud
+    ') ? 'required' : 'disabled' }}><br>
 
                 <label for="visible">{{__('lesson.admin_create_toggle_visible')}}</label>
                 <input class="form-check-input" type="checkbox" id="visible" name="visible"
-                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->visible ? 'checked' : '' }}><br><br>
+                    {{ Auth::user()->can('lessons_crud') ? '' : 'disabled' }} {{ $lesson->visible ? 'checked' : '' }}><br><br>
 
                 <label for="can_signup">{{__('lesson.admin_create_toggle_signup')}}</label>
                 <input class="form-check-input" type="checkbox" id="can_signup" name="can_signup"
-                    {{ Auth::user()->can('admin_panel') ? '' : 'disabled' }} {{ $lesson->can_signup ? 'checked' : '' }}><br><br>
+                    {{ Auth::user()->can('lessons_crud') ? '' : 'disabled' }} {{ $lesson->can_signup ? 'checked' : '' }}><br><br>
 
                 <label for="cover_image">{{__('lesson.admin_create_coverImage')}}</label><br>
                 @if($lesson->cover_img_path)
