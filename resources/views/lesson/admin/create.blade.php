@@ -25,6 +25,7 @@
 @endsection
 
 @section('admin_content')
+    @include('partials._systemFeedback')
     <div class="container">
         @if($errors->any())
             <b class="textRed">Der er fejl!</b>

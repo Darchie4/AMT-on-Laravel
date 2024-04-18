@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('admin_content')
+    @include('partials._systemFeedback')
+
     <div class="container">
         <!--All locations button + back-->
         <div class="d-grid d-md-flex gap-2"><br>

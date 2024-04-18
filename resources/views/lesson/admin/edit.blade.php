@@ -23,6 +23,7 @@
 @endsection
 
 @section('admin_content')
+    @include('partials._systemFeedback')
     <div class="container">
         <div class="my-5 text-center">
             <h1>{{__('lesson.admin_edit_title')}}</h1>

@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('admin_content')
+    @include('partials._systemFeedback')
+
     <div class="container">
         <h2>{{__('location.public_show_all_locations')}}</h2>
         <div class="row row-cols-2">

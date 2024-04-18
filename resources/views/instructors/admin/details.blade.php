@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('admin_content')
+    @include('partials._systemFeedback')
+
     <div class="container">
         <div class="row justify-content-center">
             <div>

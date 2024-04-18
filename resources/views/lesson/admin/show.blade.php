@@ -3,7 +3,7 @@
 
 
 @section('content')
-
+    @include('partials._systemFeedback')
     <div class="container">
         <div class="row">
             <h1 class="text-center">{{$lesson -> name}}</h1>
