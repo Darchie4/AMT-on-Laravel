@@ -6,12 +6,12 @@ use App\Models\Lesson;
 use App\Models\PaymentStructure;
 use App\Models\Registration;
 use App\Models\User;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -106,11 +106,55 @@ class RegistrationController extends Controller
     public function endRegistration(int $id): Application|RedirectResponse|Redirector|Renderable
     {
         $registration = Registration::findOrFail($id);
-        $registration->is_active = false;
-        $registration->deactivation_date = Date::now();
-        $registration->save();
-        return back();
+        $this->endRegistrationHelper($registration);
+        return back()->with('success', __('registration.admin_removeSingle_success', ['lessonName' => $registration->lesson()->first()->name, 'userName' => $registration->user()->first()->name]));
+
     }
+
+    public function endRegistrations(Request $request): Application|RedirectResponse|Redirector|Renderable
+    {
+        $request->validate([
+            'lessonId' => 'required|exists:lessons,id',
+        ]);
+
+        $lesson = Lesson::findOrFail($request->lessonId);
+        $users = [];
+
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key, 'selected_') === 0) {
+                $userId = substr($key, strlen('selected_'));
+
+                $user = User::findOrFail($userId);
+                if ($user) {
+                    $users[] = $user;
+                }
+            }
+        }
+        return view('signUp/admin/endRegistration', ['lesson' =>$lesson, 'users' => $users]);
+    }
+
+    public function endAllRegistrations(Lesson $lesson): Application|RedirectResponse|Redirector|Renderable
+    {
+        $users = [];
+        foreach ($lesson->registrations()->get() as $registration){
+            $users[] = $registration->user()->first();
+        }
+        return view('signUp/admin/endRegistration', ['lesson' => $lesson, 'users' => $users]);
+    }
+
+    public function doEndRegistration(Request $request)
+    {
+        $lesson = Lesson::findOrFail($request->lessonId);
+        foreach (explode(',', $request->users) as $userID) {
+            $user = User::findOrFail($userID);
+
+            $registration = $user->registrations()->where('lesson_id', $lesson->id)->first();
+            $this->endRegistrationHelper($registration);
+        }
+        return redirect(route('admin.signups.lessonIndex', ['id'=>$lesson->id]))->with('success', __('registration.admin_removeAll_success', ['lessonName' => $lesson->name, 'count' => count(explode(',', $request->users))]));
+
+    }
+
 
     public function doMoveUser($request)
     {
@@ -147,11 +191,13 @@ class RegistrationController extends Controller
         return back()->with('success', __('registration.admin_moveSingle_success', ['fromLessonName' => $fromLesson->name, 'toLessonName' => $toLesson->name, 'userName' => $user->name]));
     }
 
-    public function moveUser(Lesson $lesson, User $user){
+    public function moveUser(Lesson $lesson, User $user)
+    {
         return view('signUp/admin/move/move', ['fromLesson' => $lesson, 'users' => [$user], 'lessons' => Lesson::all()]);
     }
 
-    public function moveUsers(Request $request){
+    public function moveUsers(Request $request)
+    {
         $request->validate([
             'lessonId' => 'required|exists:lessons,id',
         ]);
@@ -175,7 +221,7 @@ class RegistrationController extends Controller
     public function moveAllUsers(Lesson $lesson): View|Application|Factory
     {
         $users = [];
-        foreach ($lesson->registrations()->get() as $registration){
+        foreach ($lesson->registrations()->get() as $registration) {
             $users[] = $registration->user()->first();
         }
 
@@ -216,6 +262,17 @@ class RegistrationController extends Controller
         }
 
         return redirect(route('admin.lesson.index'))->with('success', __('registration.admin_moveMultiple_success', ['count' => count(explode(',', $request->users)), 'fromLessonName' => $fromLesson->name, 'toLessonName' => $toLesson->name]));
+    }
+
+    /**
+     * @param $registration
+     * @return void
+     */
+    public function endRegistrationHelper($registration): void
+    {
+        $registration->is_active = false;
+        $registration->deactivation_date = Date::now();
+        $registration->save();
     }
 
 }

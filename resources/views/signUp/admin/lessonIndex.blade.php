@@ -1,54 +1,12 @@
 @php use Carbon\Carbon; @endphp
 @extends('layouts.admin')
 
+@section('head')
+    <script src="{{ asset('js/admin/registration/indexFormControl.js') }}"></script>
+
+@endsection
+
 @section('admin_content')
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const checkboxes = document.querySelectorAll("input[type='checkbox']");
-            const moveAllButton = document.getElementById("moveAllButton");
-            const moveSelectedButton = document.getElementById("moveSelectedButton");
-            const rows = document.querySelectorAll("tr");
-
-            // Function to check if any checkbox is checked
-            function anyCheckboxChecked() {
-                for (const checkbox of checkboxes) {
-                    if (checkbox.checked) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            rows.forEach(row => {
-                row.addEventListener("click", function () {
-                    const checkbox = row.querySelector("input[type='checkbox']");
-                    if (checkbox) {
-                        checkbox.checked = !checkbox.checked;
-                        updateButtonsVisibility()
-                    }
-                });
-            });
-
-            // Function to update the visibility of buttons
-            function updateButtonsVisibility() {
-                if (anyCheckboxChecked()) {
-                    moveAllButton.style.display = "none";
-                    moveSelectedButton.style.display = "block"; // Show the move selected button
-                } else {
-                    moveAllButton.style.display = "block"; // Show the move all button
-                    moveSelectedButton.style.display = "none";
-                }
-            }
-
-            // Listen for changes in checkboxes
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener("change", updateButtonsVisibility);
-            });
-
-            // Initialize button visibility
-            updateButtonsVisibility();
-        });
-    </script>
     @include('partials._systemFeedback')
 
     <div class="container">
@@ -80,17 +38,20 @@
                         <div class="col">
                             <h2>{{__('registration.admin_index_links')}}</h2>
                             <div class="my-2 row">
-                                <a class="btn btn-sm btn-danger"
-                                   href="{{route('admin.lesson.create')}}">{{__('registration.admin_index_inactivateAll')}}</a>
+                                <a class="btn btn-sm btn-danger" id="deleteAllButton"
+                                   href="{{route('admin.registrations.endAll', ['lesson' => $lesson->id])}}">{{__('registration.admin_index_inactivateAll')}}</a>
+                                <button type="submit" class="form-control btn btn-danger" id="deleteSelectedButton" formaction="{{route("admin.registrations.endMultiple")}}">{{__('registration.admin_index_deleteSelected')}}</button>
                             </div>
                             <div class="my-2 row">
                                 <a class="btn btn-sm btn-primary" id="moveAllButton"
                                    href="{{route('admin.registrations.moveAll', ['lesson' => $lesson->id])}}">{{__('registration.admin_index_moveAll')}}</a>
-                                <button type="submit" id="moveSelectedButton">{{__('registration.admin_index_moveSelected')}}</button>
+                                <button type="submit" class="form-control btn btn-primary" id="moveSelectedButton" formaction="{{route("admin.registrations.moveMultiple")}}">{{__('registration.admin_index_moveSelected')}}</button>
                             </div>
                         </div>
                     @endcan
                 </div>
+                <h2 class="text-center text-primary">{{__('registration.admin_lessonIndex_tittle_currentRegistrations')}}</h2>
+
                 <table class="table table-striped table-hover" >
                 <thead>
                 <tr>
@@ -137,7 +98,6 @@
                         <h2 class="text-warning text-center">{{__('registration.registration_index_noRegistrations')}}</h2>
                 @endif
             </form>
-            <h2 class="text-center text-primary">{{__('registration.admin_lessonIndex_tittle_currentRegistrations')}}</h2>
 
         @php($inactiveRegistrations = $registrations->where('is_active', false)->all())
         @if(count($inactiveRegistrations) != 0)

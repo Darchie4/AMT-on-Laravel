@@ -56,7 +56,6 @@ return [
     'public_signup_errors_alreadySignedUp' => 'Du er allerede tilmeldt :lessonName', # :lessonName = Name of lesson
     'public_signup_success' => 'Du er blevet meldt på :lessonName', # :lessonName = Name of lesson
     'admin_lessonIndex_functions_moveUser' => 'Flyt',
-    '' => '',
 
     'admin_index_statistics_tittle' => 'Tilmeldingsstatestikker',
     'admin_index_statistics_signupActiveCount' => 'Antal aktive tildmeldinger',
@@ -77,6 +76,19 @@ return [
     'admin_move_newLesson' => 'Nyt hold',
     'admin_move_placeholder_newLesson' => 'Eg, Pardans, Sportsdans, osv.',
     'admin_moveMultiple_success' => 'Flyttede :count medlemmer fra :fromLessonName til :toLessonName', # :count = no. of users moved, :fromLessonName = Lesson user moved from, :toLessonName = Lesson users moved to
+    'admin_index_moveSelected' => 'Flyt valgte',
+
+
+    'admin_index_deleteSelected' => 'Afmeld valgte',
+
+
+    'admin_delete_confirm_title' => 'Afmeldings side',
+    'admin_delete_confirm_lesson' => 'Afmeldes fra',
+    'admin_delete_confirm_users' => 'Medlemmer',
+    'admin_delete_confirm_sure' => 'Er du sikker?',
+    'admin_delete_confirm_submit' => 'Ja, Afmeld',
+    'admin_delete_confirm_user_name' => 'Navn',
+    'admin_delete_confirm_user_email' => 'Email',
 
 
 ];
