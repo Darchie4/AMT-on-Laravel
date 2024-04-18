@@ -130,13 +130,13 @@ class RegistrationController extends Controller
                 }
             }
         }
-        return view('signUp/admin/endRegistration', ['lesson' =>$lesson, 'users' => $users]);
+        return view('signUp/admin/endRegistration', ['lesson' => $lesson, 'users' => $users]);
     }
 
     public function endAllRegistrations(Lesson $lesson): Application|RedirectResponse|Redirector|Renderable
     {
         $users = [];
-        foreach ($lesson->registrations()->get() as $registration){
+        foreach ($lesson->registrations()->get() as $registration) {
             $users[] = $registration->user()->first();
         }
         return view('signUp/admin/endRegistration', ['lesson' => $lesson, 'users' => $users]);
@@ -151,8 +151,7 @@ class RegistrationController extends Controller
             $registration = $user->registrations()->where('lesson_id', $lesson->id)->first();
             $this->endRegistrationHelper($registration);
         }
-        return redirect(route('admin.signups.lessonIndex', ['id'=>$lesson->id]))->with('success', __('registration.admin_removeAll_success', ['lessonName' => $lesson->name, 'count' => count(explode(',', $request->users))]));
-
+        return redirect(route('admin.signups.lessonIndex', ['id' => $lesson->id]))->with('success', __('registration.admin_removeAll_success', ['lessonName' => $lesson->name, 'count' => count(explode(',', $request->users))]));
     }
 
 

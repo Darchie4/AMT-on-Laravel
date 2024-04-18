@@ -22,37 +22,39 @@
             </p>
         </div>
 
-            <form action="{{route("admin.registrations.moveMultiple")}}" method="post"
-                  enctype="multipart/form-data">
+        <form action="{{route("admin.registrations.moveMultiple")}}" method="post"
+              enctype="multipart/form-data">
             @csrf
-                <input name="lessonId" value="{{$lesson->id}}" hidden>
-                <div class="my-5 row g2">
-                    <div class="col">
-                        <h2>{{__('registration.admin_index_statistics_tittle')}}</h2>
-                        <b>{{__('registration.admin_index_statistics_signupActiveCount')}}
-                            : </b> {{$registrations->where('is_active', true)->count()}} <br>
-                        <b>{{__('registration.admin_index_statistics_signupDeActiveCount')}}
-                            : </b> {{$registrations->where('is_active', false)->count()}} <br>
-                    </div>
-                    @can('admin_panel')
-                        <div class="col">
-                            <h2>{{__('registration.admin_index_links')}}</h2>
-                            <div class="my-2 row">
-                                <a class="btn btn-sm btn-danger" id="deleteAllButton"
-                                   href="{{route('admin.registrations.endAll', ['lesson' => $lesson->id])}}">{{__('registration.admin_index_inactivateAll')}}</a>
-                                <button type="submit" class="form-control btn btn-danger" id="deleteSelectedButton" formaction="{{route("admin.registrations.endMultiple")}}">{{__('registration.admin_index_deleteSelected')}}</button>
-                            </div>
-                            <div class="my-2 row">
-                                <a class="btn btn-sm btn-primary" id="moveAllButton"
-                                   href="{{route('admin.registrations.moveAll', ['lesson' => $lesson->id])}}">{{__('registration.admin_index_moveAll')}}</a>
-                                <button type="submit" class="form-control btn btn-primary" id="moveSelectedButton" formaction="{{route("admin.registrations.moveMultiple")}}">{{__('registration.admin_index_moveSelected')}}</button>
-                            </div>
-                        </div>
-                    @endcan
+            <input name="lessonId" value="{{$lesson->id}}" hidden>
+            <div class="my-5 row g2">
+                <div class="col">
+                    <h2>{{__('registration.admin_index_statistics_tittle')}}</h2>
+                    <b>{{__('registration.admin_index_statistics_signupActiveCount')}}
+                        : </b> {{$registrations->where('is_active', true)->count()}} <br>
+                    <b>{{__('registration.admin_index_statistics_signupDeActiveCount')}}
+                        : </b> {{$registrations->where('is_active', false)->count()}} <br>
                 </div>
-                <h2 class="text-center text-primary">{{__('registration.admin_lessonIndex_tittle_currentRegistrations')}}</h2>
+                @can('registration_admin')
+                    <div class="col">
+                        <h2>{{__('registration.admin_index_links')}}</h2>
+                        <div class="my-2 row">
+                            <a class="btn btn-sm btn-danger" id="deleteAllButton"
+                               href="{{route('admin.registrations.endAll', ['lesson' => $lesson->id])}}">{{__('registration.admin_index_inactivateAll')}}</a>
+                            <button type="submit" class="form-control btn btn-danger" id="deleteSelectedButton"
+                                    formaction="{{route("admin.registrations.endMultiple")}}">{{__('registration.admin_index_deleteSelected')}}</button>
+                        </div>
+                        <div class="my-2 row">
+                            <a class="btn btn-sm btn-primary" id="moveAllButton"
+                               href="{{route('admin.registrations.moveAll', ['lesson' => $lesson->id])}}">{{__('registration.admin_index_moveAll')}}</a>
+                            <button type="submit" class="form-control btn btn-primary" id="moveSelectedButton"
+                                    formaction="{{route("admin.registrations.moveMultiple")}}">{{__('registration.admin_index_moveSelected')}}</button>
+                        </div>
+                    </div>
+                @endcan
+            </div>
+            <h2 class="text-center text-primary">{{__('registration.admin_lessonIndex_tittle_currentRegistrations')}}</h2>
 
-                <table class="table table-striped table-hover" >
+            <table class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th>#
@@ -85,19 +87,20 @@
                                 </form>
                             </div>
                             <div class="col">
-                                <a href="{{route('admin.registrations.moveSingle', ['lesson' => $lesson->id, 'user'=>$user->id])}}" class="btn btn-warning">{{__('registration.admin_lessonIndex_functions_moveUser')}}</a>
+                                <a href="{{route('admin.registrations.moveSingle', ['lesson' => $lesson->id, 'user'=>$user->id])}}"
+                                   class="btn btn-warning">{{__('registration.admin_lessonIndex_functions_moveUser')}}</a>
                             </div>
                         </td>
                     </tr>
                 @endforeach
 
                 </tbody>
-                </table>
-                <table class="table table-striped table-hover" >
-                    @if($registrations->where('is_active', true)->count() == 0)
-                        <h2 class="text-warning text-center">{{__('registration.registration_index_noRegistrations')}}</h2>
-                @endif
-            </form>
+            </table>
+            <table class="table table-striped table-hover">
+                @if($registrations->where('is_active', true)->count() == 0)
+                    <h2 class="text-warning text-center">{{__('registration.registration_index_noRegistrations')}}</h2>
+            @endif
+        </form>
 
         @php($inactiveRegistrations = $registrations->where('is_active', false)->all())
         @if(count($inactiveRegistrations) != 0)
