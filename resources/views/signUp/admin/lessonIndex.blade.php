@@ -4,18 +4,51 @@
 @section('admin_content')
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            const checkboxes = document.querySelectorAll("input[type='checkbox']");
+            const moveAllButton = document.getElementById("moveAllButton");
+            const moveSelectedButton = document.getElementById("moveSelectedButton");
             const rows = document.querySelectorAll("tr");
+
+            // Function to check if any checkbox is checked
+            function anyCheckboxChecked() {
+                for (const checkbox of checkboxes) {
+                    if (checkbox.checked) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             rows.forEach(row => {
                 row.addEventListener("click", function () {
                     const checkbox = row.querySelector("input[type='checkbox']");
                     if (checkbox) {
                         checkbox.checked = !checkbox.checked;
+                        updateButtonsVisibility()
                     }
                 });
             });
+
+            // Function to update the visibility of buttons
+            function updateButtonsVisibility() {
+                if (anyCheckboxChecked()) {
+                    moveAllButton.style.display = "none";
+                    moveSelectedButton.style.display = "block"; // Show the move selected button
+                } else {
+                    moveAllButton.style.display = "block"; // Show the move all button
+                    moveSelectedButton.style.display = "none";
+                }
+            }
+
+            // Listen for changes in checkboxes
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", updateButtonsVisibility);
+            });
+
+            // Initialize button visibility
+            updateButtonsVisibility();
         });
     </script>
-
     @include('partials._systemFeedback')
 
     <div class="container">
@@ -30,34 +63,35 @@
                 @endif
             </p>
         </div>
-        <form>
 
-        <h2 class="text-center text-primary">{{__('registration.admin_lessonIndex_tittle_currentRegistrations')}}</h2>
-
-        <div class="my-5 row g2">
-            <div class="col">
-                <h2>{{__('registration.admin_index_statistics_tittle')}}</h2>
-                <b>{{__('registration.admin_index_statistics_signupActiveCount')}}
-                    : </b> {{$registrations->where('is_active', true)->count()}} <br>
-                <b>{{__('registration.admin_index_statistics_signupDeActiveCount')}}
-                    : </b> {{$registrations->where('is_active', false)->count()}} <br>
-            </div>
-            @can('admin_panel')
-                <div class="col">
-                    <h2>{{__('registration.admin_index_links')}}</h2>
-                    <div class="my-2 row">
-                        <a class="btn btn-sm btn-danger"
-                           href="{{route('admin.lesson.create')}}">{{__('registration.admin_index_inactivateAll')}}</a>
+            <form action="{{route("admin.registrations.moveMultiple")}}" method="post"
+                  enctype="multipart/form-data">
+            @csrf
+                <input name="lessonId" value="{{$lesson->id}}" hidden>
+                <div class="my-5 row g2">
+                    <div class="col">
+                        <h2>{{__('registration.admin_index_statistics_tittle')}}</h2>
+                        <b>{{__('registration.admin_index_statistics_signupActiveCount')}}
+                            : </b> {{$registrations->where('is_active', true)->count()}} <br>
+                        <b>{{__('registration.admin_index_statistics_signupDeActiveCount')}}
+                            : </b> {{$registrations->where('is_active', false)->count()}} <br>
                     </div>
-                    <div class="my-2 row">
-                        <a class="btn btn-sm btn-primary"
-                           href="{{route('admin.lesson.create')}}">{{__('registration.admin_index_moveAll')}}</a>
-                    </div>
+                    @can('admin_panel')
+                        <div class="col">
+                            <h2>{{__('registration.admin_index_links')}}</h2>
+                            <div class="my-2 row">
+                                <a class="btn btn-sm btn-danger"
+                                   href="{{route('admin.lesson.create')}}">{{__('registration.admin_index_inactivateAll')}}</a>
+                            </div>
+                            <div class="my-2 row">
+                                <a class="btn btn-sm btn-primary" id="moveAllButton"
+                                   href="{{route('admin.registrations.moveAll', ['lesson' => $lesson->id])}}">{{__('registration.admin_index_moveAll')}}</a>
+                                <button type="submit" id="moveSelectedButton">{{__('registration.admin_index_moveSelected')}}</button>
+                            </div>
+                        </div>
+                    @endcan
                 </div>
-            @endcan
-        </div>
-
-            <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" >
                 <thead>
                 <tr>
                     <th>#
@@ -97,11 +131,13 @@
                 @endforeach
 
                 </tbody>
-            </table>
-            @if($registrations->where('is_active', true)->count() == 0)
-                <h2 class="text-warning text-center">{{__('registration.registration_index_noRegistrations')}}</h2>
-            @endif
-        </form>
+                </table>
+                <table class="table table-striped table-hover" >
+                    @if($registrations->where('is_active', true)->count() == 0)
+                        <h2 class="text-warning text-center">{{__('registration.registration_index_noRegistrations')}}</h2>
+                @endif
+            </form>
+            <h2 class="text-center text-primary">{{__('registration.admin_lessonIndex_tittle_currentRegistrations')}}</h2>
 
         @php($inactiveRegistrations = $registrations->where('is_active', false)->all())
         @if(count($inactiveRegistrations) != 0)

@@ -148,6 +148,8 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
             Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
             Route::get('/moveUser/{lesson}/{user}', [RegistrationController::class, 'moveUser'])->name('registrations.moveSingle');
+            Route::post('/moveUsers', [RegistrationController::class, 'moveUsers'])->name('registrations.moveMultiple');
+            Route::get('/moveAllUsers/{lesson}', [RegistrationController::class, 'moveAllUsers'])->name('registrations.moveAll');
             Route::post('/doMoveUser', [RegistrationController::class, 'doMoveUsers'])->name('registrations.DoMove');
         });
     });

@@ -6,6 +6,8 @@ use App\Models\Lesson;
 use App\Models\PaymentStructure;
 use App\Models\Registration;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Application;
@@ -149,11 +151,38 @@ class RegistrationController extends Controller
         return view('signUp/admin/move/move', ['fromLesson' => $lesson, 'users' => [$user], 'lessons' => Lesson::all()]);
     }
 
-    public function moveUsers($request){
+    public function moveUsers(Request $request){
+        $request->validate([
+            'lessonId' => 'required|exists:lessons,id',
+        ]);
 
+        $lesson = Lesson::findOrFail($request->lessonId);
+        $users = [];
+
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key, 'selected_') === 0) {
+                $userId = substr($key, strlen('selected_'));
+
+                $user = User::findOrFail($userId);
+                if ($user) {
+                    $users[] = $user;
+                }
+            }
+        }
+        return view('signUp/admin/move/move', ['fromLesson' => $lesson, 'users' => $users, 'lessons' => Lesson::all()]);
     }
 
-    public function doMoveUsers(Request $request)
+    public function moveAllUsers(Lesson $lesson): View|Application|Factory
+    {
+        $users = [];
+        foreach ($lesson->registrations()->get() as $registration){
+            $users[] = $registration->user()->first();
+        }
+
+        return view('signUp/admin/move/move', ['fromLesson' => $lesson, 'users' => $users, 'lessons' => Lesson::all()]);
+    }
+
+    public function doMoveUsers(Request $request): Application|Redirector|RedirectResponse
     {
         $request->validate([
             'fromLessonId' => 'required|exists:lessons,id',
