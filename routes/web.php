@@ -147,6 +147,8 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             Route::get('/user/{id}', [RegistrationController::class, 'adminUserSignups'])->name('signups.admin.userIndex');
             Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
             Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
+            Route::get('/moveUser/{lesson}/{user}', [RegistrationController::class, 'moveUser'])->name('registrations.moveSingle');
+            Route::post('/doMoveUser', [RegistrationController::class, 'doMoveUsers'])->name('registrations.DoMove');
         });
     });
 

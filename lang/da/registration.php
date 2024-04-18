@@ -55,5 +55,27 @@ return [
     'public_signup_errors_cannotSignUp' => 'Du kan ikke tilmelde dig :lessonName', # :lessonName = Name of lesson
     'public_signup_errors_alreadySignedUp' => 'Du er allerede tilmeldt :lessonName', # :lessonName = Name of lesson
     'public_signup_success' => 'Du er blevet meldt på :lessonName', # :lessonName = Name of lesson
+    'admin_lessonIndex_functions_moveUser' => 'Flyt',
     '' => '',
+
+    'admin_index_statistics_tittle' => 'Tilmeldingsstatestikker',
+    'admin_index_statistics_signupActiveCount' => 'Antal aktive tildmeldinger',
+    'admin_index_statistics_signupDeActiveCount' => 'Antal afmeldte',
+
+    'admin_index_links' => 'Funktioner',
+    'admin_index_inactivateAll' => 'Afmeld alle',
+    'admin_index_moveAll' => 'Flyt alle',
+
+    'admin_moveSingle_title' => 'Flyt medlem',
+    'admin_moveMultiple_title' => 'Flyt medlemmer',
+    'admin_moveMultiple_selectedUsers' => 'Valgte medlemmer',
+    'admin_moveSingle_selectedUser' => 'Valgt medlem',
+    'admin_moveMultiple_moveFrom' => 'Flyttes fra',
+    'admin_moveSingle_moveFrom' => 'Flyttes fra',
+    'admin_moveMultiple_confirmMove' => 'Flyt medlemmer',
+    'admin_moveSingle_confirmMove' => 'Flyt medlem',
+    'admin_move_newLesson' => 'Nyt hold',
+    'admin_move_placeholder_newLesson' => 'Eg, Pardans, Sportsdans, osv.',
+
+
 ];

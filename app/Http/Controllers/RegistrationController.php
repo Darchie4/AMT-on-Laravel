@@ -6,6 +6,7 @@ use App\Models\Lesson;
 use App\Models\PaymentStructure;
 use App\Models\Registration;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -109,7 +110,7 @@ class RegistrationController extends Controller
         return back();
     }
 
-    public function moveUser($request)
+    public function doMoveUser($request)
     {
         $request->validate([
             'fromLessonId' => 'required|exists:lessons,id',
@@ -141,6 +142,51 @@ class RegistrationController extends Controller
 
         $newRegistration->save();
 
-        return back()->with('success', __('registration.public_signup_success', ['fromLessonName' => $fromLesson->name, 'toLessonName' => $toLesson->name, 'userName' => $user->name]));
+        return back()->with('success', __('registration.admin_moveSingle_success', ['fromLessonName' => $fromLesson->name, 'toLessonName' => $toLesson->name, 'userName' => $user->name]));
     }
+
+    public function moveUser(Lesson $lesson, User $user){
+        return view('signUp/admin/move/move', ['fromLesson' => $lesson, 'users' => [$user], 'lessons' => Lesson::all()]);
+    }
+
+    public function moveUsers($request){
+
+    }
+
+    public function doMoveUsers(Request $request)
+    {
+        $request->validate([
+            'fromLessonId' => 'required|exists:lessons,id',
+            'toLesson' => 'required|exists:lessons,id',
+        ]);
+
+        $fromLesson = Lesson::findOrFail($request->fromLessonId);
+        $toLesson = Lesson::findOrFail($request->toLesson);
+
+        foreach (explode(',', $request->users) as $userID) {
+            $user = User::findOrFail($userID);
+
+            $fromRegistration = $user->registrations()->where('lesson_id', $fromLesson->id)->first();
+
+            if (!$fromRegistration) {
+                return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_fromRegistrationNotFound'));
+            }
+
+            $fromRegistration->deactivation_date = now();
+            $fromRegistration->is_active = false;
+
+            $fromRegistration->save();
+
+            $newRegistration = new Registration();
+            $newRegistration->user()->associate($user);
+            $newRegistration->lesson()->associate($toLesson);
+            $newRegistration->paymentStructure()->associate($toLesson->paymentstructure);
+            $newRegistration->activation_date = now();
+
+            $newRegistration->save();
+        }
+
+        return back()->with('success', __('registration.admin_moveMultiple_success', ['count' => count($request->fromLessonId), 'lessonName' => $request->fromLessonId[0]->name]));
+    }
+
 }
