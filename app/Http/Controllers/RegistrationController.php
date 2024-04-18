@@ -180,13 +180,13 @@ class RegistrationController extends Controller
             $newRegistration = new Registration();
             $newRegistration->user()->associate($user);
             $newRegistration->lesson()->associate($toLesson);
-            $newRegistration->paymentStructure()->associate($toLesson->paymentstructure);
+            $newRegistration->pricingStructure()->associate($toLesson->pricing_structure_id);
             $newRegistration->activation_date = now();
 
             $newRegistration->save();
         }
 
-        return back()->with('success', __('registration.admin_moveMultiple_success', ['count' => count($request->fromLessonId), 'lessonName' => $request->fromLessonId[0]->name]));
+        return redirect(route('admin.lesson.index'))->with('success', __('registration.admin_moveMultiple_success', ['count' => count(explode(',', $request->users)), 'fromLessonName' => $fromLesson->name, 'toLessonName' => $toLesson->name]));
     }
 
 }

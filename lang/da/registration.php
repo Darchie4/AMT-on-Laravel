@@ -76,6 +76,7 @@ return [
     'admin_moveSingle_confirmMove' => 'Flyt medlem',
     'admin_move_newLesson' => 'Nyt hold',
     'admin_move_placeholder_newLesson' => 'Eg, Pardans, Sportsdans, osv.',
+    'admin_moveMultiple_success' => 'Flyttede :count medlemmer fra :fromLessonName til :toLessonName', # :count = no. of users moved, :fromLessonName = Lesson user moved from, :toLessonName = Lesson users moved to
 
 
 ];

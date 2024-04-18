@@ -15,7 +15,7 @@
             });
         });
     </script>
-@section('content')
+
     @include('partials._systemFeedback')
 
     <div class="container">
