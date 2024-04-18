@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Lesson;
 use App\Models\PaymentStructure;
+use App\Models\PricingStructure;
 use App\Models\Registration;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -37,9 +38,8 @@ class RegistrationSeeder extends Seeder
         $registration = new Registration();
         $registration->user()->associate($user);
         $registration->lesson()->associate($lesson);
-        $paymentStructure = new PaymentStructure();
-        $paymentStructure->save();
-        $registration->paymentStructure()->associate($paymentStructure);
+        $paymentStructure = PricingStructure::inRandomOrder()->first()->id;
+        $registration->pricingStructure()->associate($paymentStructure);
         $registration->activation_date = Date::now();
         $registration->save();
     }

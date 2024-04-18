@@ -29,9 +29,9 @@ class Registration extends Model
     /**
      * Get the User that is signed up
      */
-    public function paymentStructure(): BelongsTo
+    public function pricingStructure(): BelongsTo
     {
-        return $this->belongsTo(PaymentStructure::class);
+        return $this->belongsTo(PricingStructure::class);
     }
 
 }

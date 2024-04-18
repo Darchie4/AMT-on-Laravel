@@ -3,7 +3,7 @@
 
 
 @section('content')
-
+    @include('partials._systemFeedback')
     <div class="container">
         <div class="row">
             <h1 class="text-center">{{$lesson -> name}}</h1>
@@ -15,7 +15,12 @@
                     <b>{{__('lesson.admin_show_danseStyle')}}</b> {{$lesson->danceStyle->name}}<br>
                     <b>{{__('lesson.admin_show_difficulty')}}</b> {{$lesson->difficulty->name}}<br>
                     <b>{{__('lesson.admin_show_ageGroup')}}</b> {{$lesson->age_min}} - {{$lesson->age_max}} år<br>
-                    <b>{{__('lesson.admin_show_price')}}</b> {{$lesson->price}} DKK.<br>
+                    <b>{{__('lesson.admin_show_price')}}</b>
+                    @if(isset($lesson->pricingStructure->name)){{$lesson->pricingStructure->name.' ('.$lesson->pricingStructure->price.' '. __('pricing.currency').' - '.
+__('pricing.'.$lesson->pricingStructure->payment_frequency).')'}}
+                    @else
+                        {{__('pricing.does_not_exist')}}
+                    @endif<br>
                     <b>{{__('lesson.admin_show_seasonStart')}}</b> {{Carbon::parse($lesson->season_start)->format("d-m-Y")}}
                     <br>
                     <b>{{__('lesson.admin_show_seasonEnd')}}</b> {{Carbon::parse($lesson->season_end)->format("d-m-Y")}}
