@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('lesson_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('payment_structure_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('pricing_structure_id')->constrained()->cascadeOnDelete();
         });
     }
 

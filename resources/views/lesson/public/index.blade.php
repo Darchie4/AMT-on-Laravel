@@ -22,8 +22,26 @@
                 @if($lesson->visible)
                     <div class="col">
                         <div class="card w-100">
-                            <div class="card-header text-center">
-                                <h4 class="card-title text-primary mx-auto">{{$lesson->name}}</h4>
+                            <div class="card-header">
+                                @can(['lessons_crud','lessons_own'])
+                                <div class="row row-cols-3 justify-content-md-between">
+                                    <div class="d-grid col-md-3 d-grid justify-content-md-start">
+                                        <a class="btn my-auto text-dark btn-outline-danger" role="button"
+                                           href="{{route('admin.lesson.remove', ['id' => $lesson->id])}}">{{__('lesson.admin_index_button_delete')}}</a>
+                                    </div>
+                                    <div class="d-grid col-md-3 justify-content-md-center text-center">
+                                        <h4 class="card-title text-primary mx-auto">{{$lesson->name}}</h4>
+                                    </div>
+                                    <div class="d-grid col-md-3 d-grid justify-content-md-end">
+                                        <a class="btn my-auto text-dark btn-outline-warning" role="button"
+                                           href="{{route('admin.lesson.edit', ['id' => $lesson->id])}}">{{__('lesson.admin_index_button_edit')}}</a>
+                                    </div>
+                                </div>
+                                @else
+                                    <div class="text-center">
+                                        <h4 class="card-title text-primary mx-auto">{{$lesson->name}}</h4>
+                                    </div>
+                                @endcan
                             </div>
                             <img src="{{asset($lesson->cover_img_path)}}" class="card-img"
                                  alt="{{__('lesson.public_index_imgAltText')}} {{$lesson->name}}">

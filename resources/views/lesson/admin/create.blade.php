@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('head')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
@@ -24,7 +24,8 @@
     <script src="{{ asset('js/admin/lesson/updateMinMaxValues.js') }}"></script>
 @endsection
 
-@section('content')
+@section('admin_content')
+    @include('partials._systemFeedback')
     <div class="container">
         @if($errors->any())
             <b class="textRed">Der er fejl!</b>
@@ -35,7 +36,17 @@
 
             </ul>
         @endif
+            <div class="my-5 text-center">
+                <h1>{{__('lesson.admin_create_title')}}</h1>
+            </div>
+            <div class="my-3 d-grid d-md-flex gap-2"><br>
 
+                <a class="btn btn-outline-primary mb-2" role="button"
+                   href="{{route('admin.lesson.index')}}">{{__('lesson.admin_create_button_showAll')}}</a>
+                <a class="btn btn-outline-primary mb-2" role="button"
+                   href="javascript:history.back()">{{__('customLabels.back')}}</a>
+            </div>
+        <hr class="hr">
         <form class="row g-3" action="{{route("admin.lesson.doCreate")}}" method="post"
               enctype="multipart/form-data">
             @csrf
@@ -45,7 +56,7 @@
                 <label for="name">{{__('lesson.admin_create_Name')}}</label> <br>
                 <input class="form-control" id="name" name="name" type="text" required> <br>
 
-                <label for="short_description">{{__('lesson.admin_create_ShortDescription')}}</label><br>
+                <label for="short_description">{{__('lesson.admin_create_shortDescription')}}</label><br>
                 <input class="form-control" id="short_description" name="short_description" type="text" required> <br>
 
                 <label for="danceStyle">{{__('lesson.admin_create_danceStyle')}}</label><br>
@@ -69,13 +80,14 @@
                 </datalist>
                 <input class="form-control" type="hidden" id="sorting_index" name="sorting_index">
 
-                <label for="instructors[]">{{__('lesson.admin_create_instructor')}}</label><br>
+                <label for="instructors[]">{{__('lesson.admin_create_instructor')}}</label> <a href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
                 <select id="choices-multiple-remove-button"
                         placeholder="{{__('lesson.admin_create_placeholder_selectInstructor')}}" multiple
                         id="instructor"
                         name="instructors[]">
                     @foreach($instructors as $instructor)
-                        <option value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->fname}}</option>
+                        <option
+                            value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->fname}}</option>
                     @endforeach
                 </select>
             </div>
@@ -89,12 +101,22 @@
                 <label for="age_max">{{__('lesson.admin_create_ageMax')}}</label><br>
                 <input class="form-control" id="age_max" name="age_max" type="number" required><br>
 
-                <label for="price">{{__('lesson.admin_create_price')}}</label><br>
-                <input class="form-control" id="price" name="price" type="number" required><br>
+
+                <label for="pricing_structure">{{__('lesson.admin_create_price')}}</label><a href="{{route("admin.pricing.create")}}">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
+                <select class="form-control form-select" id="pricing_structure" name="pricing_structure" required>
+                    <option disabled selected>{{ __('pricing.choose')}}</option>
+                    @foreach($pricings as $pricing)
+                        <option
+                            value="{{$pricing->id}}">{{$pricing->name .' ('. $pricing->price.' '.__('pricing.currency').' - '}} {{__('pricing.' . $pricing->payment_frequency) . ')'}}</option>
+                    @endforeach
+                </select><br>
+
 
                 <div class="form-control">
                     <div id="timeslotsContainer">
                         <h3>{{__('lesson.admin_create_title_timeAndLocation')}}</h3>
+                        <a href="{{route('admin.locations.create')}}">{{__('lesson.admin_create_link_location')}}</a><br>
+
                         <div class="row g-2">
                             <div class="col">
                                 <label for="start_time_0">{{__('lesson.admin_create_startTime')}}</label>

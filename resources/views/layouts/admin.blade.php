@@ -47,6 +47,12 @@
                                 {{ __('navigation.locations') }}
                             </a>
                         @endcan
+                        @can('pricing_crud')
+                            <a class="list-group-item border-end-0 d-inline-block text-truncate"
+                               data-bs-parent="#sidebar" href="{{ route('admin.pricing.index') }}">
+                                {{ __('navigation.pricing') }}
+                            </a>
+                        @endcan
                     </div>
                 </div>
             </div>

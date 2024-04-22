@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\PricingStructureController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -111,6 +112,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
         });
 
 
+    //Lesson routes
     Route::middleware('permission:lessons_crud')->prefix('/lesson')
         ->group(function () {
             Route::get('/create', [LessonController::class, 'adminCreate'])->name('lesson.create');
@@ -119,6 +121,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             Route::delete('/delete/{id}', [LessonController::class, 'adminDelete'])->name('lesson.remove');
         });
 
+    //Lesson routes (with own)
     Route::middleware('permission:lessons_own|lessons_crud')->prefix('/lesson')->group(function () {
         Route::get('/', [LessonController::class, 'adminIndex'])->name('lesson.index');
         Route::get('/show/{id}', [LessonController::class, 'adminShow'])->name('lesson.show');
@@ -126,6 +129,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     });
 
 
+    //Locations routes
     Route::middleware('permission:locations_crud')->group(function () {
         Route::prefix('/locations')->name('locations.')->group(function () {
             Route::get('/', [LocationController::class, 'index'])->name('index');
@@ -136,12 +140,33 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             Route::put('/update/{id}', [LocationController::class, 'update'])->name('update');
         });
     });
+
+    //Lesson registration routes
     Route::middleware('permission:registration_admin')->group(function () {
         Route::prefix('registrations')->group(function () {
             Route::get('/user/{id}', [RegistrationController::class, 'adminUserSignups'])->name('signups.admin.userIndex');
             Route::get('/lesson/{id}', [RegistrationController::class, 'adminLessonSignups'])->name('signups.lessonIndex');
+
             Route::post('/endRegistration/{id}', [RegistrationController::class, 'endRegistration'])->name('registrations.end');
+            Route::post('/endRegistrations', [RegistrationController::class, 'endRegistrations'])->name('registrations.endMultiple');
+            Route::get('/endAllRegistration/{lesson}', [RegistrationController::class, 'endAllRegistrations'])->name('registrations.endAll');
+            Route::post('/doEndRegistration', [RegistrationController::class, 'doEndRegistration'])->name('registrations.doEnd');
+
+            Route::get('/moveUser/{lesson}/{user}', [RegistrationController::class, 'moveUser'])->name('registrations.moveSingle');
+            Route::post('/moveUsers', [RegistrationController::class, 'moveUsers'])->name('registrations.moveMultiple');
+            Route::get('/moveAllUsers/{lesson}', [RegistrationController::class, 'moveAllUsers'])->name('registrations.moveAll');
+            Route::post('/doMoveUser', [RegistrationController::class, 'doMoveUsers'])->name('registrations.DoMove');
         });
+    });
+
+    //Pricing structure routes
+    Route::middleware('permission:pricing_crud')->name('pricing.')->prefix('/pricing')->group(function (){
+        Route::get('/', [PricingStructureController::class, 'index'])->name('index');
+        Route::delete('/delete/{id}', [PricingStructureController::class, 'destroy'])->name('destroy');
+        Route::get('/create', [PricingStructureController::class, 'create'])->name('create');
+        Route::post('/store', [PricingStructureController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [PricingStructureController::class, 'edit'])->name('edit');
+        Route::put('/update/{id}', [PricingStructureController::class, 'update'])->name('update');
     });
 });
 

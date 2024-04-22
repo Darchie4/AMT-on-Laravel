@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 
 @section('admin_content')
+    @include('partials._systemFeedback')
+
     <div class="container">
         <h2>{{__('customLabels.instructor_index_instructors')}}</h2>
         <div class="row row-cols-2">
