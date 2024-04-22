@@ -55,5 +55,40 @@ return [
     'public_signup_errors_cannotSignUp' => 'Du kan ikke tilmelde dig :lessonName', # :lessonName = Name of lesson
     'public_signup_errors_alreadySignedUp' => 'Du er allerede tilmeldt :lessonName', # :lessonName = Name of lesson
     'public_signup_success' => 'Du er blevet meldt på :lessonName', # :lessonName = Name of lesson
-    '' => '',
+    'admin_lessonIndex_functions_moveUser' => 'Flyt',
+
+    'admin_index_statistics_tittle' => 'Tilmeldingsstatestikker',
+    'admin_index_statistics_signupActiveCount' => 'Antal aktive tildmeldinger',
+    'admin_index_statistics_signupDeActiveCount' => 'Antal afmeldte',
+
+    'admin_index_links' => 'Funktioner',
+    'admin_index_inactivateAll' => 'Afmeld alle',
+    'admin_index_moveAll' => 'Flyt alle',
+
+    'admin_moveSingle_title' => 'Flyt medlem',
+    'admin_moveMultiple_title' => 'Flyt medlemmer',
+    'admin_moveMultiple_selectedUsers' => 'Valgte medlemmer',
+    'admin_moveSingle_selectedUser' => 'Valgt medlem',
+    'admin_moveMultiple_moveFrom' => 'Flyttes fra',
+    'admin_moveSingle_moveFrom' => 'Flyttes fra',
+    'admin_moveMultiple_confirmMove' => 'Flyt medlemmer',
+    'admin_moveSingle_confirmMove' => 'Flyt medlem',
+    'admin_move_newLesson' => 'Nyt hold',
+    'admin_move_placeholder_newLesson' => 'Eg, Pardans, Sportsdans, osv.',
+    'admin_moveMultiple_success' => 'Flyttede :count medlemmer fra :fromLessonName til :toLessonName', # :count = no. of users moved, :fromLessonName = Lesson user moved from, :toLessonName = Lesson users moved to
+    'admin_index_moveSelected' => 'Flyt valgte',
+
+
+    'admin_index_deleteSelected' => 'Afmeld valgte',
+
+
+    'admin_delete_confirm_title' => 'Afmeldings side',
+    'admin_delete_confirm_lesson' => 'Afmeldes fra',
+    'admin_delete_confirm_users' => 'Medlemmer',
+    'admin_delete_confirm_sure' => 'Er du sikker?',
+    'admin_delete_confirm_submit' => 'Ja, Afmeld',
+    'admin_delete_confirm_user_name' => 'Navn',
+    'admin_delete_confirm_user_email' => 'Email',
+
+
 ];
