@@ -90,21 +90,20 @@
                                    href="{{route('admin.signups.lessonIndex', [$lesson->id])}}">{{$registrationsCount}}
                                     / {{$lesson->total_signup_space}}</a>
                             </td>
-                            <td>
-                                <div class="container">
-                                    @can('admin_panel')
-                                        <form method="POST"
-                                              action="{{route('admin.lesson.remove', [$lesson->id])}}"
-                                              onsubmit="return confirm('{{__('lesson.admin_index_button_confirmDelete', ['lessonName' => $lesson->name])}}')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                    class="btn btn-danger">{{__('lesson.admin_index_button_delete')}}</button>
-                                        </form>
-                                    @endcan
-                                    <a class="btn btn-primary"
-                                       href="{{route('admin.lesson.edit', [$lesson->id])}}">{{__('lesson.admin_index_button_edit')}}</a>
-                                </div>
+                            <td class="bg-white">
+                                <a class=" btn btn-outline-primary"
+                                   href="{{route('admin.lesson.edit', [$lesson->id])}}">{{__('lesson.admin_index_button_edit')}}</a>
+                            @can('admin_panel')
+                                    <form class="d-inline-flex"
+                                                  method="POST"
+                                                  action="{{route('admin.lesson.remove', [$lesson->id])}}"
+                                                  onsubmit="return confirm('{{__('lesson.admin_index_button_confirmDelete', ['lessonName' => $lesson->name])}}')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        class="btn btn-danger">{{__('lesson.admin_index_button_delete')}}</button>
+                                            </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach
