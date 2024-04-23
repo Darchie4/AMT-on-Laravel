@@ -15,7 +15,7 @@
                     @csrf
                     @method('PUT')
                     <label for="name">{{__('customLabels.role_name')}}</label>
-                    <input type="text" name="name" value="{{$role->name}}" required @error('name') is-invalid @enderror>
+                    <input type="text" class="form-control" name="name" value="{{$role->name}}" required @error('name') is-invalid @enderror>
                     @error('name')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -35,7 +35,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <li>
-                                        <button type="submit" class="btn btn-link">{{$role_permission->name}}</button>
+                                        <button type="submit" class="btn btn-outline-primary">{{$role_permission->name}}</button>
                                     </li>
                                 </form>
                             @endforeach
@@ -44,8 +44,8 @@
                 </ul>
                 <form method="POST" action="{{route('admin.roles.permission.assign',$role->id)}}">
                     @csrf
-                    <label for="permission">{{__('customLabels.role_name')}}</label>
-                    <select type="text" name="permission" autocomplete="permission-name">
+                    <label for="permission">{{__('customLabels.permissions')}}</label>
+                    <select type="text" class="form-select" name="permission" autocomplete="permission-name">
                         @foreach($permissions as $permission)
                             <option value="{{$permission->name}}">{{$permission->name}}</option>
                         @endforeach
@@ -59,6 +59,5 @@
                 </form>
             </div>
         </div>
-    </div>
     </div>
 @endsection

@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label for="phone" class="form-label">{{ __('customLabels.phone') }}</label>
-                                    <input class="form-control" type="phone" name="phone" value="{{old('phone', $user->phone ?? '')}}"
+                                    <input class="form-control" type="tel" name="phone" value="{{old('phone', $user->phone ?? '')}}"
                                            required autocomplete="phone" @error('phone') is-invalid @enderror>
                                     @error('phone')
                                     <span class="invalid-feedback" role="alert">

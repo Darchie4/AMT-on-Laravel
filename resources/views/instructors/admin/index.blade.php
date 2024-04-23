@@ -52,15 +52,13 @@
                             <td>
                                 <a href="{{route('admin.instructors.show',$instructor->id)}}">{{$instructor->user->email}}</a>
                             </td>
-                            <td>
-                                @foreach($instructor->lessons as $lesson)
-                                    <a href="{{route('admin.lesson.show',$lesson->id)}}">
-                                    {{$lesson->id.(!$loop->last ? ',' : '')}}
-                                    </a>
-                                @endforeach
-                            </td>
                             <td>{{$instructor->user->name}}</td>
                             <td>{{$instructor->user->lname}}</td>
+                            <td>
+                        @foreach($instructor->lessons as $lesson)
+                                <a href="{{route('admin.lesson.show',$lesson->id)}}">{{$lesson->id}}</a>{{($loop->last ? '' : ', ')}}
+                            @endforeach
+                            </td>
                             <td>
                                 <a role="button" class="btn btn-outline-primary"
                                    href="{{route('admin.instructors.edit', $instructor->id)}}">{{__('customLabels.edit')}}</a>

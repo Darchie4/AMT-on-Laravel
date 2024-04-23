@@ -68,10 +68,12 @@ __('pricing.'.$lesson->pricingStructure->payment_frequency).')'}}
                         <div class="row">
                             @endif
                             <div class="col text-center p-0 mx-0">
-                                <img src="{{asset($instructor->profile_img_path)}}"
-                                     class="w-50 img-fluid mx-auto d-block img-thumbnail rounded-circle"
-                                     alt="Billede af: {{$instructor->user->name}}">
-                                {{$instructor->user->name}}
+                                <a href="{{route('instructors.public.show', ['id' => $instructor->id])}}">
+                                    <img src="{{asset($instructor->profile_img_path)}}"
+                                         class="w-50 img-fluid mx-auto d-block img-thumbnail rounded-circle"
+                                         alt="Billede af: {{$instructor->user->name}}">
+                                    {{$instructor->user->name}}
+                                </a>
                             </div>
                             @if($loop->index % 2 != 0 && !$loop->last)
                         </div>
