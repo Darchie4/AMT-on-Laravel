@@ -70,7 +70,7 @@
             <div class="row justify-content-center">
                 <div>
                     <table class="table table-bordered border-primary">
-                        <thead class="table-primary">
+                    <thead class="table-primary">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">{{__('customLabels.email')}}</th>

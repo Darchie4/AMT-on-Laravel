@@ -47,9 +47,10 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-sm">
-                <thead class="table-dark">
+            <table class="table table-bordered border-primary">
+                <thead class="table-primary">
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">{{__('lesson.admin_index_table_name')}}</th>
                     <th scope="col">{{__('lesson.admin_index_table_age_min')}}</th>
                     <th scope="col">{{__('lesson.admin_index_table_age_max')}}</th>
@@ -64,15 +65,16 @@
                 <tbody>
                 @foreach($lessons as $lesson)
                     @php($registrationsCount = $lesson->registrations()->where('is_active', '=', true)->count())
-                    @if(!$lesson->can_signup || !$lesson->visible)
-                        <tr class="table-info" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
-                    @elseif($registrationsCount == $lesson->total_signup_space )
+                    @if($registrationsCount == $lesson->total_signup_space )
                         <tr class="table-danger" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
-                    @elseif(($registrationsCount+2) >= $lesson->total_signup_space )
+                    @elseif(($registrationsCount+2) >= $lesson->total_signup_space  && !($lesson->total_signup_space <= 2))
                         <tr class="table-warning" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
-                    @else
+                    @elseif(!$lesson->can_signup || !$lesson->visible)
                         <tr data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
-                            @endif
+                    @else
+                        <tr class="table-info" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
+                    @endif
+                            <td>{{$lesson->id}}</td>
                             <td scope="row">{{$lesson->name}}</td>
                             <td>{{$lesson->age_min}}</td>
                             <td>{{$lesson->age_max}}</td>
