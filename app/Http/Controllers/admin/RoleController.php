@@ -19,7 +19,7 @@ class RoleController extends Controller
 
     public function create()
     {
-        return view('rolesAndPermissions.rolesCreate');
+        return view('rolesAndPermissions.rolesCreate', ['permissions'=>Permission::all()]);
     }
 
     //Post
@@ -27,15 +27,20 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:2',
+
+            'permissions' => 'required|array',
+            'permissions.*' => 'exists:permissions,name',
         ]);
 
         //Check if already exists
         if (Role::where('name', '=', $request->input('name'))->exists()) {
             return redirect()->back()->with('error','Role with this name already exist');
         }
-        Role::create([
-            'name' => $request->input('name')
+        $role = Role::create([
+            'name' => $request->input('name'),
         ]);
+
+        $role->givePermissionTo($request->input('permissions'));
 
         return redirect()->route('admin.roles.index')->with('success', 'Role created successfully');
     }

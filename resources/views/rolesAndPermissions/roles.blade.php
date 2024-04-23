@@ -22,7 +22,7 @@
                     @foreach($roles as $role)
                         <tr>
                             <td>{{$role->id}}</td>
-                            <td><a href="#">{{$role->name}}</a></td>
+                            <td>{{$role->name}}</td>
                             <td>
                                 <a role="button" class="btn btn-outline-primary" href="{{route('admin.roles.edit', $role->id)}}">{{__('customLabels.edit')}}</a>
                                 <form class="d-inline-flex" method="post" action="{{route('admin.roles.destroy',$role->id)}}"

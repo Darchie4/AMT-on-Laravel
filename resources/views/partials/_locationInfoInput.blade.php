@@ -57,5 +57,5 @@
 
 </div>
 
-@include('partials._addressInput',['addressOld' => $location->address])
+@include('partials._addressInput',['addressOld' => isset($location) ? $location->address : null])
 
