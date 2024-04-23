@@ -87,7 +87,7 @@
                         name="instructors[]">
                     @foreach($instructors as $instructor)
                         <option
-                            value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->fname}}</option>
+                            value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->lname}}</option>
                     @endforeach
                 </select>
             </div>
@@ -152,7 +152,7 @@
                     </div>
                     <div class="mx-auto mt-3 text-center">
                         <button class="mx-auto btn btn-primary" type="button" onclick="addTimeslot()">
-                            {{__('lesson.lesson_create_button_add_timeslot')}}
+                            {{__('lesson.admin_create_button_add_timeslot')}}
                         </button>
                     </div>
                 </div>
