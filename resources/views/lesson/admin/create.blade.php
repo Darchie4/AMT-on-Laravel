@@ -87,7 +87,7 @@
                         name="instructors[]">
                     @foreach($instructors as $instructor)
                         <option
-                            value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->fname}}</option>
+                            value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->lname}}</option>
                     @endforeach
                 </select>
             </div>
@@ -102,7 +102,7 @@
                 <input class="form-control" id="age_max" name="age_max" type="number" required><br>
 
 
-                <label for="pricing_structure">{{__('lesson.admin_create_price')}}</label><a href="{{route("admin.pricing.create")}}">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
+                <label for="pricing_structure">{{__('lesson.admin_create_price')}}</label> <a href="{{route("admin.pricing.create")}}">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
                 <select class="form-control form-select" id="pricing_structure" name="pricing_structure" required>
                     <option disabled selected>{{ __('pricing.choose')}}</option>
                     @foreach($pricings as $pricing)
@@ -152,7 +152,7 @@
                     </div>
                     <div class="mx-auto mt-3 text-center">
                         <button class="mx-auto btn btn-primary" type="button" onclick="addTimeslot()">
-                            {{__('lesson.lesson_create_button_add_timeslot')}}
+                            {{__('lesson.admin_create_button_add_timeslot')}}
                         </button>
                     </div>
                 </div>

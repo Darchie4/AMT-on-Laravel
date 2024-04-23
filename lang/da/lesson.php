@@ -32,7 +32,6 @@ return [
     'admin_create_weekDay_saturday' => 'Lørdag',
     'admin_create_weekDay_sunday' => 'Søndag',
     'admin_create_location' => 'Lokation',
-    'admin_create_button_addTimeslot' => 'Tilføj timeslot',
     'admin_create_coverImage' => 'Dæk billede',
     'admin_create_danceStyle' => 'Stilart',
     'admin_create_placeholder_selectInstructor' => 'Vælg undervisere',
