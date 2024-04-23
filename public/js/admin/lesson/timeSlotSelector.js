@@ -9,38 +9,40 @@ function addTimeslot() {
     timeslotDiv.classList.add('timeslot');
 
     timeslotDiv.innerHTML = `
-        <hr class="hr">
-        <div class="row g-2">
-            <div class="col">
-                <label for="start_time_${timeslotCount}">Start Time</label>
-                <input class="form-control" type="time" id="start_time_${timeslotCount}" name="start_times[]" required>
+        <div id="timeslot">
+            <hr class="hr">
+            <div class="row g-2">
+                <div class="col">
+                    <label for="start_time_${timeslotCount}"><b>{{__('lesson.admin_create_startTime')}}</b></label>
+                    <input class="form-control" type="time" id="start_time_${timeslotCount}" name="start_times[]" required>
+                </div>
+                <div class="col">
+                    <label for="end_time_${timeslotCount}"><b>{{__('lesson.admin_create_endTime')}}</b></label>
+                    <input class="form-control" type="time" id="end_time_${timeslotCount}" name="end_times[]" required>
+                </div>
             </div>
-            <div class="col">
-                <label for="end_time_${timeslotCount}">End Time</label>
-                <input class="form-control" type="time" id="end_time_${timeslotCount}" name="end_times[]" required>
+            <div class="row g-2">
+                <div class="col">
+                    <label for="day_${timeslotCount}"><b>{{__('lesson.admin_create_weekDay_title')}}</b></label>
+                    <select class="form-control" id="day_${timeslotCount}" name="days[]" required>
+                        <option value="0">{{__('lesson.admin_create_weekDay_monday')}}</option>
+                        <option value="1">{{__('lesson.admin_create_weekDay_tuesday')}}</option>
+                        <option value="2">{{__('lesson.admin_create_weekDay_wednesday')}}</option>
+                        <option value="3">{{__('lesson.admin_create_weekDay_thursday')}}</option>
+                        <option value="4">{{__('lesson.admin_create_weekDay_friday')}}</option>
+                        <option value="5">{{__('lesson.admin_create_weekDay_saturday')}}</option>
+                        <option value="6">{{__('lesson.admin_create_weekDay_sunday')}}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="location_${timeslotCount}"><b>{{__('lesson.admin_create_location')}}</b> <a href="{{route('admin.locations.create')}}">{{__('lesson.admin_create_link_location')}}</a></label>
+                    <select class="form-control" id="location_${timeslotCount}" name="locations[]" required>
+                        ${locations.map(location => `<option value="${location.id}">${location.name}</option>`).join('')}
+                    </select>
+                </div>
             </div>
+            <button type="button" class="btn btn-danger remove-timeslot-btn" onclick="removeTimeslot(this)">Remove Timeslot</button>
         </div>
-        <div class="row g-2">
-            <div class="col">
-                <label for="day_${timeslotCount}">Day of Week</label>
-                <select class="form-control" id="day_${timeslotCount}" name="days[]" required>
-                    <option value="0">Monday</option>
-                    <option value="1">Tuesday</option>
-                    <option value="2">Wednesday</option>
-                    <option value="3">Thursday</option>
-                    <option value="4">Friday</option>
-                    <option value="5">Saturday</option>
-                    <option value="6">Sunday</option>
-                </select>
-            </div>
-            <div class="col">
-                <label for="location_${timeslotCount}">Location</label>
-                <select class="form-control" id="location_${timeslotCount}" name="locations[]" required>
-                    ${locations.map(location => `<option value="${location.id}">${location.name}</option>`).join('')}
-                </select>
-            </div>
-        </div>
-        <button type="button" class="btn btn-danger remove-timeslot-btn" onclick="removeTimeslot(this)">Remove Timeslot</button>
     `;
 
     container.appendChild(timeslotDiv);
@@ -48,7 +50,7 @@ function addTimeslot() {
 
 let timeslotsToDelete = [];
 function removeTimeslot(button) {
-    const timeslotId = button.parentElement.getElementsByClassName("timeslot").namedItem("timeslot").value;
+    const timeslotId = button.parentElement.value;
     timeslotsToDelete.push(timeslotId);
     const timeslotDiv = button.parentElement;
     timeslotDiv.remove();

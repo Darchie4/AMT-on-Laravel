@@ -130,13 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.getElementById('price').addEventListener('change', function () {
-        if (!validateNegativeValue(parseFloat(this.value))) {
-            alert("{{__('customlabels.lesson_create_error_valueCannotBeLesThanZero')}}");
-            this.value = "";
-        }
-    });
-
     document.getElementById('total_signup_space').addEventListener('change', function () {
         if (!validateNegativeValue(parseFloat(this.value))) {
             alert("{{__('customlabels.lesson_create_error_valueCannotBeLesThanZero')}}");
