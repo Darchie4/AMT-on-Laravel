@@ -37,7 +37,7 @@
                 }}
                 <br>
             </div>
-            @can('admin_panel')
+            @can('lessons_crud')
                 <div class="col">
                     <h2>{{__('lesson.admin_index_links')}}</h2>
                     <a class="btn btn-primary"
