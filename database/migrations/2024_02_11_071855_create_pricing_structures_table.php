@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price');
             $table->enum('payment_frequency',$allowedFrequencies);
-            $table->decimal('frequency_multiplier',5)->default(1)->after('payment_frequency');
+            $table->decimal('frequency_multiplier',5)->default(1);
             $table->timestamps();
         });
     }

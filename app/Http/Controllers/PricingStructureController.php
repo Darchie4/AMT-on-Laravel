@@ -23,7 +23,7 @@ class PricingStructureController extends Controller
             'name' => 'required|string|min:2',
             'price'=>'required|numeric|min:0',
             'payment_frequency'=>'required|in:weekly,monthly,quarterly,biannually,annually',
-            'frequency_multiplier'=>'nullable|numeric|min:0.01|default:1'
+            'frequency_multiplier'=>'nullable|numeric|min:0.01'
         ]);
 
         PricingStructure::create([
