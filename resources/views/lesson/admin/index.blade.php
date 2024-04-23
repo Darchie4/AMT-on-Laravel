@@ -37,7 +37,7 @@
                 }}
                 <br>
             </div>
-            @can('admin_panel')
+            @can('lessons_crud')
                 <div class="col">
                     <h2>{{__('lesson.admin_index_links')}}</h2>
                     <a class="btn btn-primary"
@@ -47,9 +47,10 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-sm">
-                <thead class="table-dark">
+            <table class="table table-bordered border-primary">
+                <thead class="table-primary">
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">{{__('lesson.admin_index_table_name')}}</th>
                     <th scope="col">{{__('lesson.admin_index_table_age_min')}}</th>
                     <th scope="col">{{__('lesson.admin_index_table_age_max')}}</th>
@@ -64,15 +65,16 @@
                 <tbody>
                 @foreach($lessons as $lesson)
                     @php($registrationsCount = $lesson->registrations()->where('is_active', '=', true)->count())
-                    @if(!$lesson->can_signup || !$lesson->visible)
-                        <tr class="table-info" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
-                    @elseif($registrationsCount == $lesson->total_signup_space )
+                    @if($registrationsCount == $lesson->total_signup_space )
                         <tr class="table-danger" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
-                    @elseif(($registrationsCount+2) >= $lesson->total_signup_space )
+                    @elseif(($registrationsCount+2) >= $lesson->total_signup_space  && !($lesson->total_signup_space <= 2))
                         <tr class="table-warning" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
-                    @else
+                    @elseif(!$lesson->can_signup || !$lesson->visible)
                         <tr data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
-                            @endif
+                    @else
+                        <tr class="table-info" data-url="{{route('admin.lesson.show', ['id' => $lesson->id])}}">
+                    @endif
+                            <td>{{$lesson->id}}</td>
                             <td scope="row">{{$lesson->name}}</td>
                             <td>{{$lesson->age_min}}</td>
                             <td>{{$lesson->age_max}}</td>
@@ -88,21 +90,20 @@
                                    href="{{route('admin.signups.lessonIndex', [$lesson->id])}}">{{$registrationsCount}}
                                     / {{$lesson->total_signup_space}}</a>
                             </td>
-                            <td>
-                                <div class="container">
-                                    @can('admin_panel')
-                                        <form method="POST"
-                                              action="{{route('admin.lesson.remove', [$lesson->id])}}"
-                                              onsubmit="return confirm('{{__('lesson.admin_index_button_confirmDelete', ['lessonName' => $lesson->name])}}')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                    class="btn btn-danger">{{__('lesson.admin_index_button_delete')}}</button>
-                                        </form>
-                                    @endcan
-                                    <a class="btn btn-primary"
-                                       href="{{route('admin.lesson.edit', [$lesson->id])}}">{{__('lesson.admin_index_button_edit')}}</a>
-                                </div>
+                            <td class="bg-white">
+                                <a class=" btn btn-outline-primary"
+                                   href="{{route('admin.lesson.edit', [$lesson->id])}}">{{__('lesson.admin_index_button_edit')}}</a>
+                            @can('admin_panel')
+                                    <form class="d-inline-flex"
+                                                  method="POST"
+                                                  action="{{route('admin.lesson.remove', [$lesson->id])}}"
+                                                  onsubmit="return confirm('{{__('lesson.admin_index_button_confirmDelete', ['lessonName' => $lesson->name])}}')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        class="btn btn-danger">{{__('lesson.admin_index_button_delete')}}</button>
+                                            </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

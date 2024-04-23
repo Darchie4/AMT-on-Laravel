@@ -168,7 +168,7 @@
                     </div>
                     <div class="mx-auto mt-3 text-center">
                         <button class="mx-auto btn btn-primary" type="button" onclick="addTimeslot()" {{ Auth::user()->can('lessons_crud
-') ? '' : 'disabled' }} >{{__('lesson.admin_create_button_addTimeslot')}}
+') ? '' : 'disabled' }} >{{__('lesson.admin_create_button_add_timeslot')}}
                         </button>
                     </div>
                 </div>
