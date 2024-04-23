@@ -12,4 +12,8 @@ return [
     //public show
     'public_show_lessons'=>'Hold',
     'public_show_details'=>'Underviserdetaljer',
+
+
+    'public_show_age'=>'Alder',
+    'public_show_age_time'=>'år',
 ];

@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('layouts.app')
 @section('content')
     <div class="container">
@@ -18,14 +19,14 @@
                         <div class="row row-cols-2">
                             <div class="col-md-6">
                                 <h5 class="card-title"></h5>
-                                <p class="card-text">{{__('customLabels.email')}}: {{ $instructor->user->email }}</p>
-                                <p class="card-text">{{__('customLabels.phone')}}: {{ $instructor->user->phone }}</p>
-                                <p class="card-text">{{__('customLabels.birthday')}}: {{ $instructor->user->birthday }}</p>
+                                <p class="card-text">{{__('customLabels.email')}}: <a href="mailto:{{ $instructor->user->email }}">{{ $instructor->user->email }}</a></p>
+                                <p class="card-text">{{__('customLabels.phone')}}: <a href="tel:{{ $instructor->user->phone }}"> {{ $instructor->user->phone }}</a></p>
+                                <p class="card-text">{{__('instructor.public_show_age')}}: {{Carbon::parse($instructor->user->birthday)->diff(Carbon::now())->y}} {{__('instructor.public_show_age_time')}} ({{Carbon::parse($instructor->user->birthday)->translatedFormat('j. F Y')}})</p>
                                 <p class="card-text">{{__('customLabels.gender')}}: {{__('user.'.$instructor->user->gender) }}</p>
                                 <p class="card-text">
                                     {{__('instructor.public_show_lessons')}}:
                                     @foreach($instructor->lessons as $lesson)
-                                        {{($lesson->name).(!$loop->last ? ', ' : '')}}
+                                        <a href="{{route('lesson.show', ['id'=> $lesson->id])}}">{{($lesson->name)}}</a>{!!($loop->index%5 && $loop->index != 0 && !$loop->last || $loop->first) ? ', ' : '<br>'!!}
                                     @endforeach
                                 </p>
                                 <p class="card-text">{{__('customLabels.user_joined')}}:
