@@ -26,13 +26,13 @@ class PricingStructureController extends Controller
             'frequency_multiplier'=>'nullable|numeric|min:0.01'
         ]);
 
-        PricingStructure::create([
-            'name'=>$request->input('name'),
-            'price'=>$request->input('price'),
-            'payment_frequency'=>$request->input('payment_frequency'),
-            'frequency_multiplier'=>$request->input('frequency_multiplier',1),
+        $pricingStructure = PricingStructure::create([
+            'name' => $request->input('name'),
+            'price' => $request->input('price'),
+            'payment_frequency' => $request->input('payment_frequency'),
+            'frequency_multiplier' => $request->input('frequency_multiplier', 1),
         ]);
-        return redirect()->route('admin.pricing.index')->with('success',__('admin_created_successfully'));
+        return redirect()->route('admin.pricing.index')->with('success',__('pricing.admin_created_successfully', ['name'=>$pricingStructure->name]));
     }
 
     public function edit(int $id)
@@ -57,14 +57,14 @@ class PricingStructureController extends Controller
             'frequency_multiplier'=>$request->input('frequency_multiplier',1),
         ]);
 
-        return redirect()->route('admin.pricing.index')->with('success',__('admin_updated_successfully'));
+        return redirect()->route('admin.pricing.index')->with('success',__('pricing.admin_updated_successfully', ['name' => $pricingStructure->name]));
 
     }
 
     public function destroy(int $id){
         $pricing = PricingStructure::findOrFail($id);
         $pricing->delete();
-        return back()->with('success',__('pricing.admin_deleted_successfully'));
+        return back()->with('success',__('pricing.admin_deleted_successfully', ['name'=>$pricing->name]));
     }
 
 }
