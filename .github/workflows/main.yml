@@ -1,0 +1,37 @@
+on:
+  push:
+      branches:
+      - main
+
+name: 🚀 Deploy website to test
+jobs:
+    build:
+        name: Build and Deploy
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout Repository
+                uses: actions/checkout@master
+            -   name: Setup Enviroment
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.2'
+            -   name: Install Packages
+                run: |
+                    composer install --no-dev
+                    npm install
+                    npm run build
+            -   name: Deploy to Server
+                uses: easingthemes/ssh-deploy@main
+                with:
+                    SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+                    ARGS: "-rlgoDzvc -i --delete"
+                    EXCLUDE: "/storage/logs/, /storage/framework, /storage/app, /database/seeders, Dockerfile, .env, .env.example, /.github, /tests, .gitignore, .gitattributes, LICENSE, README.md"
+                    # SOURCE: "dist/"
+                    REMOTE_HOST: ${{ secrets.SERVER_IP }}
+                    REMOTE_USER: ${{ secrets.SERVER_USER }}
+                    TARGET: ${{ secrets.SERVER_TARGET }}
+                    SSH_CMD_ARGS: "-o StrictHostKeyChecking=no"
+                    SCRIPT_BEFORE: |
+                      sudo docker-compose -f /home/ubuntu/web/websites/docker-compose.yml down
+                    SCRIPT_AFTER: |
+                      sudo docker-compose -f /home/ubuntu/web/websites/docker-compose.yml up -d --build
