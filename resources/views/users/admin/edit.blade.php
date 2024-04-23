@@ -37,17 +37,16 @@
                 </div>
                 <div class="card-body">
                     <!--See roles-->
-                    <p>Current roles for user:</p>
                     <ul>
                         @if($user->roles)
                             @foreach($user->roles as $user_role)
                                 <form method="POST"
                                       action="{{route('admin.users.roles.remove', [$user->id,$user_role->id])}}"
-                                      onsubmit="return confirm('{{__('customLabels.confirm')}}')">
+                                      onsubmit="return confirm('{{__('role.confirm_delete_role')}}')">
                                     @csrf
                                     @method('DELETE')
                                     <li>
-                                        <button type="submit" class="btn btn-link">{{$user_role->name}}</button>
+                                        <button type="submit" class="btn btn-outline-primary">{{$user_role->name}}</button>
                                     </li>
                                 </form>
                             @endforeach
@@ -58,7 +57,7 @@
                     <form method="POST" action="{{route('admin.users.roles.assign',$user->id)}}">
                         @csrf
                         <label for="role">{{__('customLabels.role_name')}}</label>
-                        <select type="text" name="role" autocomplete="role-name">
+                        <select type="text" class="form-select" id="role" name="role">
                             @foreach($roles as $role)
                                 <option value="{{$role->name}}">{{$role->name}}</option>
                             @endforeach

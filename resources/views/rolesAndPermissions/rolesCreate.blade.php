@@ -1,5 +1,18 @@
 @extends('layouts.admin')
+@section('head')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                maxItemCount: 10,
+            });
+        });
+    </script>
+@endsection
 @section('admin_content')
     @include('partials._systemFeedback')
 
@@ -13,12 +26,20 @@
             <form method="POST" action="{{route('admin.roles.store')}}">
                 @csrf
                 <label for="name">{{__('customLabels.role_name')}}</label>
-                <input type="text" name="name" required @error('name') is-invalid @enderror>
+                <input type="text" name="name" id="name" class="form-control mb-2" required @error('name') is-invalid @enderror>
                 @error('name')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                 @enderror
+                <label for="permissions[]">{{__('customLabels.permissions')}}</label>
+                <select class="form-select mb-2" name="permissions[]" multiple
+                        id="choices-multiple-remove-button">
+                    @foreach($permissions as $permission)
+                        <option value="{{$permission->name}}">{{$permission->name}}</option>
+                    @endforeach
+                </select>
+
                 <button type="submit" class="btn btn-success px-3">{{__('customLabels.create')}}</button>
             </form>
         </div>
