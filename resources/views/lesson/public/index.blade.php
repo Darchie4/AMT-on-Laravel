@@ -59,7 +59,7 @@
                                     <div class="col">
                                         <h5 class="text-secondary">{{$lesson->instructors->count() >1 ? __('lesson.public_index_teacherPlural') : __('lesson.public_index_teacherSingle')}}</h5>
                                         @foreach($lesson->instructors as $instructor)
-                                            {{$instructor->user->name}} <br>
+                                            <a href="{{route('instructors.public.show', ['id' => $instructor->id])}}">{{$instructor->user->name}}</a><br>
                                         @endforeach
                                     </div>
                                 </div>
