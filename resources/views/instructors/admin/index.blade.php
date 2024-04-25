@@ -4,7 +4,7 @@
     @include('partials._systemFeedback')
 
     <div class="container">
-        <h2>{{__('customLabels.instructor_index_instructors')}}</h2>
+        <h2 class="text-center mb-5">{{__('customLabels.instructor_index_instructors')}}</h2>
         <div class="row row-cols-2">
             <!--Search box -->
             <div class="d-grid justify-content-md-start mb-2 col-md-9">
@@ -24,16 +24,18 @@
                     </div>
                 </form>
             </div>
+            @can('instructors_crud')
             <!--Create new btn-->
-            <div class="d-grid justify-content-md-end col-md-2 mb-2"><br>
-                <a class="btn btn-outline-primary mb-2" role="button"
+            <div class="d-grid d-md-flex justify-content-md-end col-md-3 mb-2 ">
+                <a class="btn btn-primary mb-2 w-100 fs-5" role="button"
                    href="{{route('admin.instructors.create')}}">{{__('customLabels.create')}}</a>
             </div>
+            @endcan
         </div>
 
         <!--Instructor table-->
         <div class="row justify-content-center">
-            <div>
+            <div class="table-responsive">
                 <table class="table table-bordered border-primary">
                     <thead class="table-primary">
                     <tr>
