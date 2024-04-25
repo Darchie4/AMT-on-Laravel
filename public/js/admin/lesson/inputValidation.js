@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!startDate || !endDate) return true; // Allow if any date field is empty
         var start = new Date(startDate);
         var end = new Date(endDate);
+        if (end < new Date("2000-01-01")){
+            return true
+        }
         return start < end;
     }
 
