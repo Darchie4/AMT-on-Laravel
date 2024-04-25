@@ -94,11 +94,14 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                @can('admin_panel')
+                @can('admin_dashboard')
                     <a class="dropdown-item" href="{{ route('admin.index') }}">
-                        {{ __('customLabels.admin_settings') }}
+                        {{ __('navigation.admin_settings') }}
                     </a>
                 @endcan
+                    <a class="dropdown-item" href="{{ route('home') }}">
+                        {{ __('navigation.home') }}
+                    </a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">

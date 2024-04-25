@@ -14,5 +14,7 @@ return [
     'pricing'=>'Betalingsstrukturer',
     'frontpage'=>'Forside',
     'events'=>'Events',
+    'home'=>'Profil',
+    'admin_settings'=>'Administrator dashboard',
 
 ];

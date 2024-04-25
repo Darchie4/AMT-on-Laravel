@@ -1,4 +1,17 @@
 @extends('layouts.admin')
+@section('head')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+            });
+        });
+    </script>
+@endsection
 
 @section('admin_content')
     @include('partials._systemFeedback')
@@ -25,37 +38,21 @@
                 </form>
             </div>
             <div class="card">
-                <p>Current permissions for role:</p>
-                <ul>
-                        @if($role->permissions)
-                            @foreach($role->permissions as $role_permission)
-                                <form method="POST"
-                                      action="{{route('admin.roles.permission.remove', [$role->id,$role_permission->id])}}"
-                                      onsubmit="return confirm('{{__('customLabels.confirm')}}')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <li>
-                                        <button type="submit" class="btn btn-outline-primary">{{$role_permission->name}}</button>
-                                    </li>
-                                </form>
-                            @endforeach
-                        @endif
-
-                </ul>
-                <form method="POST" action="{{route('admin.roles.permission.assign',$role->id)}}">
+                <form method="POST" action="{{route('admin.roles.permission.sync',$role->id)}}">
                     @csrf
-                    <label for="permission">{{__('customLabels.permissions')}}</label>
-                    <select type="text" class="form-select" name="permission" autocomplete="permission-name">
+                    <label for="permissions">{{__('customLabels.permissions')}}</label>
+                    <select class="form-select mb-2" name="permissions[]" multiple
+                            id="choices-multiple-remove-button" >
                         @foreach($permissions as $permission)
-                            <option value="{{$permission->name}}">{{$permission->name}}</option>
+                            <option value="{{ $permission->name }}" {{ in_array($permission->name, $role->permissions->pluck('name')->toArray()) ? 'selected' : '' }}>{{$permission->name}}</option>
                         @endforeach
                     </select>
-                    @error('name')
+                    @error('permissions')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                    <button type="submit" class="btn btn-success mb-2 mt-2 px-3">{{__('customLabels.assign')}}</button>
+                    <button type="submit" class="btn btn-success mb-2 mt-2 px-3">{{__('role.save_changes')}}</button>
                 </form>
             </div>
         </div>
