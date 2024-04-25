@@ -11,6 +11,10 @@ return [
     'roles'=>'Roller',
     'permissions'=>'Tilladelser',
     'users'=>'Brugere',
-    'pricing'=>'Betalingsstrukturer'
+    'pricing'=>'Betalingsstrukturer',
+    'frontpage'=>'Forside',
+    'events'=>'Events',
+    'home'=>'Profil',
+    'admin_settings'=>'Administrator dashboard',
 
 ];

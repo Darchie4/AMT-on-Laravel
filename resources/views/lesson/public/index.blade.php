@@ -69,11 +69,12 @@
                                 <h5 class="text-secondary"> {{__('lesson.public_index_trainingTimes')}}</h5>
                                 <div>
 
+
                                     @foreach($lesson->lessonTimeLocations as $lessonTimeLocation)
                                         @if($loop -> first || $loop->index % 3 == 0)
-                                            <div class="row row-cols-auto">
+                                            <div class="row">
                                         @endif
-                                        <div class="col row-cols-auto">
+                                        <div class="col">
                                             <b>{{__('lesson.public_index_location')}}</b> {{$lessonTimeLocation ->location->name}}
                                             <br>
                                             <b>{{__('lesson.public_index_weekDay')}}</b> {{trans(Carbon::getDays()[$lessonTimeLocation->week_day])}}

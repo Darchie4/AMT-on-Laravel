@@ -77,6 +77,12 @@ class RoleController extends Controller
         return back()->with('message', 'Permission added to role');
     }
 
+    public function syncPermissions(Request $request, Role $role){
+
+        $role->syncPermissions($request->permissions);
+        return back()->with('message', 'Permissions added to role');
+    }
+
     public function removePermission(Role $role,Permission $permission){
         if ($role->hasPermissionTo($permission)){
             $role->revokePermissionTo($permission);

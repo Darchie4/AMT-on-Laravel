@@ -76,6 +76,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     Route::middleware('permission:roles_crud')->group(function () {
         Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'removePermission'])->name('roles.permission.remove');
         Route::post('/roles/{role}/permissions', [RoleController::class, 'assignPermission'])->name('roles.permission.assign');
+        Route::post('/roles/{role}/permissions',[RoleController::class, 'syncPermissions'])->name('roles.permission.sync');
         Route::resource('/roles', RoleController::class);
     });
 
