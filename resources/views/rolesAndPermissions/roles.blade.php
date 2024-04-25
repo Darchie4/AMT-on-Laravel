@@ -4,12 +4,19 @@
     @include('partials._systemFeedback')
 
     <div class="container">
-        <h2>{{__('customLabels.roles')}}</h2>
-        <div class="d-grid d-md-flex justify-content-md-end"> <br>
-            <a class="btn btn-outline-primary mb-2" role="button" href="{{route('admin.roles.create')}}">{{__('customLabels.create')}}</a>
+        <h2 class="text-center mb-5">{{__('customLabels.roles')}}</h2>
+        <div class="row row-cols-2">
+            <div class="d-grid justify-content-md-start mb-2 col-md-9">
+
+            </div>
+            <div class="d-grid d-md-flex justify-content-md-end col-md-3 mb-2"><br>
+                <a class="btn btn-primary mb-2 w-100 fs-5" role="button"
+                   href="{{route('admin.roles.create')}}">{{__('customLabels.create')}}</a>
+            </div>
         </div>
+
         <div class="row justify-content-center">
-            <div>
+            <div class="table-responsive">
                 <table class="table table-bordered border-primary">
                     <thead class="table-primary">
                     <tr>
@@ -24,8 +31,10 @@
                             <td>{{$role->id}}</td>
                             <td>{{$role->name}}</td>
                             <td>
-                                <a role="button" class="btn btn-outline-primary" href="{{route('admin.roles.edit', $role->id)}}">{{__('customLabels.edit')}}</a>
-                                <form class="d-inline-flex" method="post" action="{{route('admin.roles.destroy',$role->id)}}"
+                                <a role="button" class="btn btn-outline-primary"
+                                   href="{{route('admin.roles.edit', $role->id)}}">{{__('customLabels.edit')}}</a>
+                                <form class="d-inline-flex" method="post"
+                                      action="{{route('admin.roles.destroy',$role->id)}}"
                                       onsubmit="return confirm('{{__('customLabels.confirm')}}')">
                                     @csrf
                                     @method('DELETE')

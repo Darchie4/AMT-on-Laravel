@@ -4,7 +4,7 @@
     @include('partials._systemFeedback')
 
     <div class="container">
-        <h2>{{__('pricing.admin_show_all_pricings')}}</h2>
+        <h2 class="text-center mb-5">{{__('pricing.admin_show_all_pricings')}}</h2>
         <div class="row row-cols-2">
             <!--Search box -->
             <div class="d-grid justify-content-md-start mb-2 col-md-9">
@@ -25,8 +25,8 @@
                 </form>
             </div>
             <!--Create new btn-->
-            <div class="d-grid justify-content-md-end col-md-2 mb-2"><br>
-                <a class="btn btn-outline-primary mb-2" role="button"
+            <div class="d-grid d-md-flex justify-content-md-end col-md-3 mb-2"><br>
+                <a class="btn btn-primary mb-2 w-100 fs-5" role="button"
                    href="{{route('admin.pricing.create')}}">{{__('pricing.create')}}</a>
             </div>
         </div>
