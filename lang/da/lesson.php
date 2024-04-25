@@ -137,5 +137,5 @@ return [
     'admin_create_link_instructor' => 'Mangler underviser?',
     'admin_create_link_priceStructure' => 'Mangler prisstruktur?',
     'admin_create_link_location' => 'Mangler lokation?',
-    '' => '',
+    'admin_create_button_removeTimeslot' => 'Slet bookning',
 ];

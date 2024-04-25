@@ -2,13 +2,11 @@
 @extends('layouts.admin')
 
 @section('head')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/admin/lesson/clickableRowsInTable.js') }}"></script>
 @endsection
 
 @section('admin_content')
     @include('partials._systemFeedback')
-
     <div class="container">
         <div class="my-5 text-center">
             <h1>{{__('lesson.admin_index_welcome')}}</h1>
