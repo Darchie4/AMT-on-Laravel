@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean("can_signup");
             $table->boolean("visible");
 
-            $table->string("cover_img_path")->unique();
+            $table->string("cover_img_path")->unique()->nullable();
 
             $table->foreignId('pricing_structure_id');
             $table->foreignId("dance_style_id");

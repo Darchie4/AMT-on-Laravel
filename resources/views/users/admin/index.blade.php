@@ -2,11 +2,10 @@
 
 @section('admin_content')
     <div class="container">
-        <h2>{{__('customLabels.users')}}</h2>
-
+        <h2 class="text-center mb-5">{{__('customLabels.users')}}</h2>
         <div class="row row-cols-2">
             <!--Search box -->
-            <div class="d-grid justify-content-md-start mb-2 col-md-9">
+            <div class="d-grid justify-content-md-start mb-2 col-md-8">
                 <form action="{{route('admin.users.index')}}" method="GET">
                     <div class="input-group">
                         <input class="form-control"
@@ -24,11 +23,11 @@
                 </form>
             </div>
             <!--Filter and create new-->
-            <div class="row row-cols-2 col-md-3">
+            <div class="d-grid d-md-flex justify-content-md-end col-md-4 mb-2">
                 <!--Filter dropdown-->
-                <div class="d-grid justify-content-md-end">
+                <div class="me-md-2">
                     <div class="dropdown">
-                        <button class="btn btn-outline-primary" type="button" id="filterDropdownButton"
+                        <button class="btn btn-primary fs-5" type="button" id="filterDropdownButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-filter"></i>
                         </button>
@@ -60,8 +59,8 @@
                     </div>
                 </div>
                 <!--Create new btn-->
-                <div class="d-grid justify-content-md-start mb-3"><br>
-                    <a class="btn btn-outline-primary" role="button"
+                <div class="w-75">
+                    <a class="btn btn-primary w-100 fs-5" role="button"
                        href="{{route('admin.users.create')}}">{{__('customLabels.create')}}</a>
                 </div>
             </div>

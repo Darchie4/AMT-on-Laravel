@@ -171,6 +171,9 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     });
 });
 
-
-
+Route::get('/lang/{file}/{label}', function (string $file, string $label) {
+    return response()->json([
+        "label" => __($file.'.'.$label),
+    ]);
+});
 
