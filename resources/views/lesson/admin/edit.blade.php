@@ -90,7 +90,7 @@
                 @else
                     @foreach($lesson->instructors as $instructor)
                         <input value="{{$instructor->id}}" name="instructors[]"
-                            class="badge fs-6 bg-primary text-white">{{ $instructor->user->name.' '.$instructor->user->fname }}</input>
+                            class="badge fs-6 bg-primary text-white">{{ $instructor->user->name.' '.$instructor->user->lname }}
                     @endforeach
                 @endcan
             </div>
