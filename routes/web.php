@@ -45,11 +45,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //lesson_instructor routes
-Route::middleware('permission:lessons_instructor')->name('instructor.')->prefix('/instructor')->group(function () {
+Route::middleware('permission:lessons_own')->name('instructor.')->prefix('/instructor/lesson')->group(function () {
     //Lesson routes
-    Route::prefix('/lesson')->group(function () {
-        Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
-    });
+    Route::put('/doEdit/{id}', [LessonController::class, 'adminDoEdit'])->name('lesson.doEdit');
 });
 
 Route::prefix('/lesson')->group(function () {
@@ -62,10 +60,6 @@ Route::prefix('/lesson')->group(function () {
     });
 });
 
-Route::middleware('permission:admin_panel')->name('admin.')
-    ->prefix('admin')->group(function () {
-        Route::get('/', [AdminIndexController::class, 'index'])->name('index');
-    });
 
 //Admin routes
 Route::prefix('/admin')->name('admin.')->group(function () {
@@ -76,7 +70,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     Route::middleware('permission:roles_crud')->group(function () {
         Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'removePermission'])->name('roles.permission.remove');
         Route::post('/roles/{role}/permissions', [RoleController::class, 'assignPermission'])->name('roles.permission.assign');
-        Route::post('/roles/{role}/permissions',[RoleController::class, 'syncPermissions'])->name('roles.permission.sync');
+        Route::post('/roles/{role}/permissions', [RoleController::class, 'syncPermissions'])->name('roles.permission.sync');
         Route::resource('/roles', RoleController::class);
     });
 
@@ -161,7 +155,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
     });
 
     //Pricing structure routes
-    Route::middleware('permission:pricing_crud')->name('pricing.')->prefix('/pricing')->group(function (){
+    Route::middleware('permission:pricing_crud')->name('pricing.')->prefix('/pricing')->group(function () {
         Route::get('/', [PricingStructureController::class, 'index'])->name('index');
         Route::delete('/delete/{id}', [PricingStructureController::class, 'destroy'])->name('destroy');
         Route::get('/create', [PricingStructureController::class, 'create'])->name('create');
@@ -173,7 +167,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
 
 Route::get('/lang/{file}/{label}', function (string $file, string $label) {
     return response()->json([
-        "label" => __($file.'.'.$label),
+        "label" => __($file . '.' . $label),
     ]);
 });
 

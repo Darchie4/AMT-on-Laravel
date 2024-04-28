@@ -13,6 +13,7 @@
         </div>
         <div class="row">
             <div class="col mb-2">
+                @can('lessons_crud')
                 <h2>{{__('lesson.admin_index_statistics_tittle')}}</h2>
                 <b>{{__('lesson.admin_index_statistics_lessonCount')}}: </b> {{$lessons->count()}} <br>
                 @php($activeRegistrations = Registration::where('is_active', '=', true)->count())
@@ -35,7 +36,6 @@
                 }}
                 <br>
             </div>
-            @can('lessons_crud')
                 <div class="flex-sm-column d-sm-flex justify-content-sm-end col-md-3 mb-2">
                     <a class="btn btn-primary mb-2 w-100 fs-5" role="button"
                        href="{{route('admin.lesson.create')}}">{{__('lesson.admin_index_create_new')}}</a>

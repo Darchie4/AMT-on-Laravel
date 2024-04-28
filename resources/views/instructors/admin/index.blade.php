@@ -61,9 +61,12 @@
                                 <a href="{{route('admin.lesson.show',$lesson->id)}}" data-bs-toggle="tooltip" title="{{$lesson->name}}">{{$lesson->id}}</a>{{($loop->last ? '' : ', ')}}
                             @endforeach
                             </td>
+
                             <td>
+
                                 <a role="button" class="btn btn-outline-primary mb-2"
                                    href="{{route('admin.instructors.edit', $instructor->id)}}">{{__('customLabels.edit')}}</a>
+                                @can('instructors_crud')
                                 <form class="d-inline-flex" method="post"
                                       action="{{route('admin.instructors.destroy',$instructor->id)}}"
                                       onsubmit="return confirm('{{__('customLabels.confirm')}}')">
@@ -71,7 +74,9 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">{{__('customLabels.delete')}}</button>
                                 </form>
+
                             </td>
+                            @endcan
                         </tr>
                     </tbody>
                     @endforeach
