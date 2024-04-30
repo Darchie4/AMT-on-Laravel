@@ -74,9 +74,8 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">{{__('customLabels.delete')}}</button>
                                 </form>
-
+                                @endcan
                             </td>
-                            @endcan
                         </tr>
                     </tbody>
                     @endforeach
