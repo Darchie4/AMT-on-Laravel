@@ -46,8 +46,17 @@ return [
     'admin_create_toggle_visible' => 'Synlig på hjemmeside: ',
     'admin_create_toggle_signup' => 'Åben for tilmelding: ',
     'admin_create_button_submit' => 'Opret hold',
+    'admin_create_label_sortingIndex' => 'Sorterings index',
+    'admin_create_explainer_sortingIndex' => 'Sorterings index bestemmer hvor højt systemet skal prioritere denne dygtighedsgraden over andre dygtighedsgraden',
 
     'admin_edit_button_submit' => 'Rediger hold',
+    'Sunday'=>'Søndag',
+    'Monday'=>'Mandag',
+    'Tuesday'=>'Tirsdag',
+    'Wednesday'=>'Onsdag',
+    'Thursday'=>'Torsdag',
+    'Friday'=>'Fredag',
+    'Saturday'=>'Lørdag',
 
 
     // Lesson Index lang
@@ -137,5 +146,5 @@ return [
     'admin_create_link_instructor' => 'Mangler underviser?',
     'admin_create_link_priceStructure' => 'Mangler prisstruktur?',
     'admin_create_link_location' => 'Mangler lokation?',
-    '' => '',
+    'admin_create_button_removeTimeslot' => 'Slet bookning',
 ];

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lesson;
-use App\Models\PaymentStructure;
+use App\Models\PricingStructure;
 use App\Models\Registration;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
@@ -62,15 +62,14 @@ class RegistrationController extends Controller
         $isSignedUp = $user->lessons()->where('lesson_id', '=', $lesson->id)->where('is_active', '=', true)->first();
 
         if ($isSignedUp) {
-            return redirect(route('lesson.index'))->withErrors(__('registration.public_signup_errors_alreadySignedUp', ['lessonName' => $lesson->name]));
+            return redirect(route('signups.public.index'))->withErrors(__('registration.public_signup_errors_alreadySignedUp', ['lessonName' => $lesson->name]));
         }
 
         $registration = new Registration();
         $registration->user()->associate($user);
         $registration->lesson()->associate($lesson);
-        $paymentStructure = new PaymentStructure();
-        $paymentStructure->save();
-        $registration->paymentStructure()->associate($paymentStructure);
+        $paymentStructure =$lesson->pricingStructure;
+        $registration->pricingStructure()->associate($paymentStructure);
         $registration->activation_date = Date::now();
         $registration->save();
 

@@ -2,19 +2,18 @@
 @extends('layouts.admin')
 
 @section('head')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/admin/lesson/clickableRowsInTable.js') }}"></script>
 @endsection
 
 @section('admin_content')
     @include('partials._systemFeedback')
-
     <div class="container">
-        <div class="my-5 text-center">
-            <h1>{{__('lesson.admin_index_welcome')}}</h1>
+        <div class="mb-5 text-center">
+            <h2>{{__('lesson.admin_index_welcome')}}</h2>
         </div>
-        <div class="my-5 row g2">
-            <div class="col">
+        <div class="row">
+            <div class="col mb-2">
+                @can('lessons_crud')
                 <h2>{{__('lesson.admin_index_statistics_tittle')}}</h2>
                 <b>{{__('lesson.admin_index_statistics_lessonCount')}}: </b> {{$lessons->count()}} <br>
                 @php($activeRegistrations = Registration::where('is_active', '=', true)->count())
@@ -37,10 +36,8 @@
                 }}
                 <br>
             </div>
-            @can('lessons_crud')
-                <div class="col">
-                    <h2>{{__('lesson.admin_index_links')}}</h2>
-                    <a class="btn btn-primary"
+                <div class="flex-sm-column d-sm-flex justify-content-sm-end col-md-3 mb-2">
+                    <a class="btn btn-primary mb-2 w-100 fs-5" role="button"
                        href="{{route('admin.lesson.create')}}">{{__('lesson.admin_index_create_new')}}</a>
                 </div>
             @endcan
@@ -90,7 +87,7 @@
                                    href="{{route('admin.signups.lessonIndex', [$lesson->id])}}">{{$registrationsCount}}
                                     / {{$lesson->total_signup_space}}</a>
                             </td>
-                            <td class="bg-white">
+                            <td class="bg-light">
                                 <a class=" btn btn-outline-primary"
                                    href="{{route('admin.lesson.edit', [$lesson->id])}}">{{__('lesson.admin_index_button_edit')}}</a>
                             @can('admin_panel')

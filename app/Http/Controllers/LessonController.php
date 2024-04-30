@@ -15,6 +15,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use function Laravel\Prompts\error;
 
 class LessonController extends Controller
 {
@@ -37,7 +39,17 @@ class LessonController extends Controller
      */
     public function adminIndex(): Renderable
     {
-        return view('lesson/admin/index', ['lessons' => Lesson::all()]);
+        $user = Auth::user();
+        if ($user->can('lessons_crud')){
+            $lessons = Lesson::all();
+        }
+        else if ($user->instructorInfo){
+            $lessons = $user->instructorInfo->lessons;
+        }
+        else{
+            return abort(403);
+        }
+        return view('lesson/admin/index', compact('lessons'));
     }
 
     public function adminShow(int $id): Renderable
@@ -57,7 +69,7 @@ class LessonController extends Controller
      */
     public function adminCreate(): Renderable
     {
-        return view('lesson/admin/create', ['instructors' => InstructorInfo::all(), 'locations' => Location::all(), 'danceStyles' => DanceStyle::all(), 'difficulties' => Difficulty::all(), 'pricings'=>PricingStructure::all()]);
+        return view('lesson/admin/create', ['instructors' => InstructorInfo::all(), 'locations' => Location::all(), 'danceStyles' => DanceStyle::all(), 'difficulties' => Difficulty::all(), 'pricings' => PricingStructure::all()]);
     }
 
     /**
@@ -76,7 +88,7 @@ class LessonController extends Controller
             'age_max' => 'required|integer|gte:age_min',
             'season_start' => 'required|date',
             'season_end' => 'required|date|after_or_equal:season_start',
-            'pricing_structure'=>'required|exists:pricing_structures,id',
+            'pricing_structure' => 'required|exists:pricing_structures,id',
             'cover_image' => 'nullable|image|mimes:jpeg,png|max:2048',
             'danceStyle' => 'required|string',
             'total_signup_space' => 'required|integer|min:0',
@@ -98,9 +110,11 @@ class LessonController extends Controller
 
         $difficulty = Difficulty::firstOrCreate(['name' => $request->input('difficulty')], ['name' => \request('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
 
-        $uploadedFile = $request->file('cover_image');
-        $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
-        $request->file('cover_image')->storeAs('/lesson/image', $fileName, 'public');
+        if ($request->hasFile('cover_image')) {
+            $uploadedFile = $request->file('cover_image');
+            $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
+            $request->file('cover_image')->storeAs('/lesson/image', $fileName, 'public');
+        }
 
         $lesson = new Lesson();
         $lesson->name = \request("name");
@@ -114,7 +128,7 @@ class LessonController extends Controller
         $lesson->pricing_structure_id = \request("pricing_structure");
         $lesson->dance_style_id = $danceStyle->id;
         $lesson->difficulty_id = $difficulty->id;
-        $lesson->cover_img_path = 'storage/lesson/image/'.$fileName;
+        $lesson->cover_img_path = ($fileName ? 'storage/lesson/image/' . $fileName : '');
         $lesson->total_signup_space = \request("total_signup_space");
         $lesson->visible = (\request("visible") != null);
         $lesson->can_signup = (\request("can_signup") != null);
@@ -122,7 +136,6 @@ class LessonController extends Controller
         $lesson->save();
 
         $lesson->instructors()->attach(\request('instructors'));
-
 
 
         foreach ($request->input('start_times') as $index => $startTime) {
@@ -142,8 +155,9 @@ class LessonController extends Controller
     public function adminEdit(int $id): Renderable
     {
         $lesson = Lesson::findOrFail($id);
-        return view('lesson/admin/edit', ['lesson'=> $lesson,'instructors' => InstructorInfo::all(), 'locations' => Location::all(), 'danceStyles' => DanceStyle::all(), 'difficulties' => Difficulty::all(),'pricings'=>PricingStructure::all()]);
+        return view('lesson/admin/edit', ['lesson' => $lesson, 'instructors' => InstructorInfo::all(), 'locations' => Location::all(), 'danceStyles' => DanceStyle::all(), 'difficulties' => Difficulty::all(), 'pricings' => PricingStructure::all()]);
     }
+
     public function adminDoEdit(Request $request, int $lessonID): RedirectResponse
     {
         $lesson = Lesson::findOrFail($lessonID);
@@ -190,18 +204,19 @@ class LessonController extends Controller
         $danceStyle = DanceStyle::firstOrCreate(['name' => $request->input('danceStyle')]);
         $lesson->danceStyle()->associate($danceStyle);
 
-        if ($request->input('sorting_index')){
+        if ($request->input('sorting_index')) {
             $difficulty = Difficulty::updateOrCreate(['name' => $request->input('difficulty')], ['name' => $request->input('difficulty'), 'sorting_index' => $request->input('sorting_index')]);
             $lesson->difficulty()->associate($difficulty);
         }
 
         // Update cover image if provided
+        $fileName = null;
         if ($request->hasFile('cover_image')) {
             $uploadedFile = $request->file('cover_image');
             $fileName = time() . '_' . $uploadedFile->getClientOriginalName();
             $request->file('cover_image')->storeAs('/lesson/image', $fileName, 'public');
-            $lesson->cover_img_path = 'storage/lesson/image/' . $fileName;
         }
+        $lesson->cover_img_path = ($fileName ? 'storage/lesson/image/' . $fileName : '');
 
         $lesson->save();
 
@@ -222,13 +237,14 @@ class LessonController extends Controller
         return redirect()->route('admin.lesson.index')->with('success', 'Lesson updated successfully!');
     }
 
-    public function adminDelete(int $id) : RedirectResponse{
+    public function adminDelete(int $id): RedirectResponse
+    {
 
         $lesson = Lesson::findOrFail($id);
         $name = $lesson->name;
         $lesson->delete();
 
-        return back()->with('message','The lesson: '.$name. ' has been deleted');
+        return back()->with('message', 'The lesson: ' . $name . ' has been deleted');
     }
 
     public function instructorDoEdit(Request $request, Lesson $lesson): RedirectResponse

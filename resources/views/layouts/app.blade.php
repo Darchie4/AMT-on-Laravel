@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 
     <!-- Scripts -->
@@ -21,12 +22,19 @@
 </head>
 <body>
 <div id="app">
-    <nav class="shadow-sm navbar navbar-expand-md bg-primary">
+    <nav class="navbar navbar-expand-md bg-primary">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                <img
+                    id="MDB-logo"
+                    src="https://mdbcdn.b-cdn.net/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
+                    alt="MDB Logo"
+                    draggable="false"
+                    height="30"
+                />
+                {{--{{ config('app.name', 'Laravel') }}--}}
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
@@ -34,19 +42,27 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
-
+                <ul class="navbar-nav me-auto align-items-start">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
+                        <a class="nav-link mx-1 fs-5 text-bg-primary"
+                           href="{{url('/')}}">{{__('navigation.frontpage')}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-1 fs-5 text-bg-primary "
+                           href="{{route('lesson.index')}}">{{__('navigation.lessons')}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-1 fs-5 text-bg-primary " href="#">{{__('navigation.events')}}</a>
                     </li>
                     <!--About us dropdown-->
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle mx-1 fs-5 text-bg-primary" href="#"
+                           role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ __('navigation.about') }}
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ route('instructors.public.index') }}">
+                            <a class="dropdown-item " href="{{ route('instructors.public.index') }}">
                                 {{ __('navigation.instructors') }}
                             </a>
                             <a class="dropdown-item" href="{{ route('locations.public.index') }}">
@@ -56,40 +72,48 @@
                     </li>
 
 
-
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto ">
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link text-bg-primary fs-5"
+                                   href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <li class="nav-item ms-3">
+                                <a class="btn btn-secondary btn-rounded fs-5"
+                                   href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-bg-primary fs-5" href="#"
+                               role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                @can('admin_panel')
+                                @can('admin_dashboard')
                                     <a class="dropdown-item" href="{{ route('admin.index') }}">
-                                        {{ __('customLabels.admin_settings') }}
+                                        {{ __('navigation.admin_settings') }}
                                     </a>
                                 @endcan
+                                <a class="dropdown-item" href="{{route('signups.public.index')}}">
+                                    {{__('navigation.registrations')}}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('home') }}">
+                                    {{ __('navigation.home') }}
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
@@ -103,7 +127,7 @@
             </div>
         </div>
     </nav>
-@yield('nav-content')
+    @yield('nav-content')
     <main class="py-4">
         @yield('content')
     </main>
