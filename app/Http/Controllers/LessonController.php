@@ -15,6 +15,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use function Laravel\Prompts\error;
 
 class LessonController extends Controller
 {
@@ -37,7 +39,17 @@ class LessonController extends Controller
      */
     public function adminIndex(): Renderable
     {
-        return view('lesson/admin/index', ['lessons' => Lesson::all()]);
+        $user = Auth::user();
+        if ($user->can('lessons_crud')){
+            $lessons = Lesson::all();
+        }
+        else if ($user->instructorInfo){
+            $lessons = $user->instructorInfo->lessons;
+        }
+        else{
+            return abort(403);
+        }
+        return view('lesson/admin/index', compact('lessons'));
     }
 
     public function adminShow(int $id): Renderable
@@ -198,6 +210,7 @@ class LessonController extends Controller
         }
 
         // Update cover image if provided
+        $fileName = null;
         if ($request->hasFile('cover_image')) {
             $uploadedFile = $request->file('cover_image');
             $fileName = time() . '_' . $uploadedFile->getClientOriginalName();

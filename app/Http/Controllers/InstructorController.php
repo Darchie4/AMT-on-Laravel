@@ -128,16 +128,26 @@ class InstructorController extends Controller
      */
     private function InstructorIndex(Request $request, string $pathToView): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View
     {
-        $instructorsQuery = InstructorInfo::query()->with('user');
+        $user = Auth::user();
         $roles = Role::all();
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $instructorsQuery->whereHas('user', function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%');
-            })->orWhere('lname', 'like', '%' . $search . '%');
+        if ($user->can('instructors_crud')){
+            $instructorsQuery = InstructorInfo::query()->with('user');
+            if ($request->has('search')) {
+                $search = $request->input('search');
+                $instructorsQuery->whereHas('user', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%');
+                })->orWhere('lname', 'like', '%' . $search . '%');
+            }
+            $instructors = $instructorsQuery->get();
         }
-        $instructors = $instructorsQuery->get();
+        else if ($user->instructorInfo){
+            $instructors = InstructorInfo::where('user_id', $user->id)->with('user')->get();
+        }
+        else{
+            return abort(403);
+        }
+
         return view($pathToView, compact('instructors', 'roles'));
     }
 }

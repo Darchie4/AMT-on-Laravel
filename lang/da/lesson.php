@@ -48,6 +48,13 @@ return [
     'admin_create_button_submit' => 'Opret hold',
 
     'admin_edit_button_submit' => 'Rediger hold',
+    'Sunday'=>'Søndag',
+    'Monday'=>'Mandag',
+    'Tuesday'=>'Tirsdag',
+    'Wednesday'=>'Onsdag',
+    'Thursday'=>'Torsdag',
+    'Friday'=>'Fredag',
+    'Saturday'=>'Lørdag',
 
 
     // Lesson Index lang
