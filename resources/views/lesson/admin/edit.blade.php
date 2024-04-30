@@ -73,7 +73,6 @@
                             data-index="{{$difficulty->sorting_index}}">{{$difficulty->name}}</option>
                     @endforeach
                 </datalist>
-                <input class="form-control" type="hidden" id="sorting_index" name="sorting_index">
                 <label for="instructors">{{__('lesson.admin_create_instructor')}}</label> <a
                     href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
                 @can('lessons_crud')
@@ -82,6 +81,13 @@
                             name="instructors[]">
                         @foreach($instructors as $instructor)
                             <option
+                <label for="sorting_index" id="sorting_index_label" hidden="hidden"><b>{{__('lesson.admin_create_label_sortingIndex')}}</b></label>
+                <div class="input-group" id="sorting_index_container" hidden>
+                    <input class="form-control" type="number" id="sorting_index" name="sorting_index">
+                    <span class="input-group-text">
+                <i class="fas fa-question-circle" data-bs-toggle="tooltip" title="{{__('lesson.admin_create_explainer_sortingIndex')}}"></i>
+            </span>
+                </div><br>
                                 value="{{ $instructor->id }}" {{ in_array($instructor->id, $lesson->instructors->pluck('id')->toArray()) ? 'selected' : '' }}>
                                 {{ $instructor->user->name.' '.$instructor->user->fname }}
                             </option>

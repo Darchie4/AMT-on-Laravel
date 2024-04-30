@@ -70,7 +70,7 @@
 
                 <label for="difficulty"><b>{{__('lesson.admin_create_difficulty')}}</b></label><br>
                 <input class="form-control" name="difficulty" id="difficulty" list="difficulties"
-                       placeholder="{{__('lesson.admin_create_placeholder_difficulty')}}" required><br>
+                       placeholder="{{__('lesson.admin_create_placeholder_difficulty')}}" required>
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
                         <option
@@ -78,8 +78,14 @@
                             data-index="{{$difficulty->sorting_index}}">{{$difficulty->name}}</option>
                     @endforeach
                 </datalist>
+
                 <label for="sorting_index" id="sorting_index_label" hidden="hidden"><b>{{__('lesson.admin_create_label_sortingIndex')}}</b></label>
-                <input class="form-control" type="number" id="sorting_index" name="sorting_index" hidden>
+                <div class="input-group" id="sorting_index_container" hidden>
+                    <input class="form-control" type="number" id="sorting_index" name="sorting_index">
+                    <span class="input-group-text">
+                <i class="fas fa-question-circle" data-bs-toggle="tooltip" title="{{__('lesson.admin_create_explainer_sortingIndex')}}"></i>
+            </span>
+                </div><br>
 
                 <label for="instructors[]"><b>{{__('lesson.admin_create_instructor')}}</b></label> <a href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
                 <select id="choices-multiple-remove-button"

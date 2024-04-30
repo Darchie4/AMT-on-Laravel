@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var selectedOptionData = [...datalistOptions].find(option => option.value === selectedOption);
         document.getElementById('sorting_index_label').hidden = false;
-        document.getElementById('sorting_index').hidden = false;
+        document.getElementById('sorting_index_container').hidden = false;
 
         if (selectedOptionData) {
             // If an existing difficulty is selected, fill the sorting index field
