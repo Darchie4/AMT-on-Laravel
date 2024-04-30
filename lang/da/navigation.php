@@ -16,5 +16,6 @@ return [
     'events'=>'Events',
     'home'=>'Profil',
     'admin_settings'=>'Administrator dashboard',
+    'registrations'=>'Holdtilmeldinger',
 
 ];

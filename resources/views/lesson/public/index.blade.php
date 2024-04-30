@@ -2,6 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('partials._systemFeedback')
     <div class="container">
         <div class="my-5 text-center">
             <h1>{{__('lesson.public_index_welcomeTittle')}}</h1>
@@ -14,9 +15,6 @@
             </div>
         </div>
 
-        @foreach ($errors->all() as $error)
-            {{ $error }}<br/>
-        @endforeach
         <div class="row row-cols-1 row-cols-md-2 g-4">
             @foreach($lessons as $lesson)
                 @if($lesson->visible)
