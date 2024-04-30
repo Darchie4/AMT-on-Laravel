@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('head')
+    @include('partials._tinymceSetup')
+@endsection
+
 @section('admin_content')
     @include('partials._systemFeedback')
 
@@ -55,7 +59,7 @@
                         <div>
                             <label for="long_description"
                                    class="form-label">{{ __('customLabels.instructor_edit_long_description') }}</label>
-                            <textarea class="form-control" name="long_description" rows="4" required
+                            <textarea class="form-control" name="long_description" id="tinymce" rows="4" required
                                       autocomplete="long_description">@if(old('long_description', isset($instructor) ? $instructor->long_description : null))
                                     {{ old('long_description', $instructor->long_description) }}
                                 @endif</textarea>

@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('head')
+    @include('partials._tinymceSetup')
+@endsection
+
 @section('admin_content')
     @include('partials._systemFeedback')
 
