@@ -46,6 +46,8 @@ return [
     'admin_create_toggle_visible' => 'Synlig på hjemmeside: ',
     'admin_create_toggle_signup' => 'Åben for tilmelding: ',
     'admin_create_button_submit' => 'Opret hold',
+    'admin_create_label_sortingIndex' => 'Sorterings index',
+    'admin_create_explainer_sortingIndex' => 'Sorterings index bestemmer hvor højt systemet skal prioritere denne dygtighedsgraden over andre dygtighedsgraden',
 
     'admin_edit_button_submit' => 'Rediger hold',
 
