@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+@include('partials._systemFeedback')
     <div class="container">
         <div>
             <h1 class="text-center text-primary">{{__('registration.public_index_tittle_welcome')}}</h1>
@@ -40,7 +40,11 @@
                             - {{$lessonTimeLocation->end_time}} <br>
                         @endforeach
                     </td>
-                    <td>{{$lesson->price}}</td>
+                    <td>@if(isset($lesson->pricingStructure->name)){{$lesson->pricingStructure->price.' '. __('pricing.currency').' - '.
+__('pricing.'.$lesson->pricingStructure->payment_frequency)}}
+                        @else
+                            {{__('pricing.does_not_exist')}}
+                        @endif</td>
                     <td><a href="{{route('lesson.show', ['id'=> $lesson->id])}}">{{$lesson->name}}</a></td>
                 </tr>
             @endforeach
