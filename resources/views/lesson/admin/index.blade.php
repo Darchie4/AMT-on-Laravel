@@ -87,7 +87,7 @@
                                    href="{{route('admin.signups.lessonIndex', [$lesson->id])}}">{{$registrationsCount}}
                                     / {{$lesson->total_signup_space}}</a>
                             </td>
-                            <td class="bg-white">
+                            <td class="bg-light">
                                 <a class=" btn btn-outline-primary"
                                    href="{{route('admin.lesson.edit', [$lesson->id])}}">{{__('lesson.admin_index_button_edit')}}</a>
                             @can('admin_panel')
