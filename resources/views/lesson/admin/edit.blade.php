@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
+    @include('partials._tinymceSetup')
+
     <script>
         $(document).ready(function () {
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
@@ -261,8 +264,8 @@
                        accept="image/png, image/jpeg">
             </div>
             <label for="long_description">{{__('lesson.admin_create_LongDescription')}}</label><br>
-            <textarea id="long_description" name="long_description"
-                      required>{{ $lesson->long_description }}</textarea><br>
+            <textarea id="tinymce" name="long_description"
+                      required>{!! $lesson->long_description !!}</textarea><br>
             <button class="btn btn-success" onclick="submitForm()"
                     value="Submit">{{__('lesson.admin_edit_button_submit')}}</button>
         </form>

@@ -5,7 +5,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    @include('partials._tinymceSetup')
     <script>
         $(document).ready(function () {
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
@@ -189,7 +189,7 @@
             </div>
 
             <label for="long_description"><b>{{__('lesson.admin_create_LongDescription')}}</b></label><br>
-            <textarea id="long_description" name="long_description" required></textarea><br>
+            <textarea id="tinymce" name="long_description" required></textarea><br>
 
             <button class="btn btn-success" type="submit"
                     value="Submit">{{__('lesson.admin_create_button_submit')}}</button>

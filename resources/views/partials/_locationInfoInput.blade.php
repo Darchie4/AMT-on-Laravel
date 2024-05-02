@@ -44,7 +44,7 @@
 <div class="mt-2">
     <label for="long_description"
            class="form-label">{{ __('location.create_long_description') }}</label>
-    <textarea class="form-control" name="long_description" rows="4" required
+    <textarea class="form-control" name="long_description" id="tinymce" rows="4" required
               autocomplete="long_description">@if(old('long_description', isset($location) ? $location->long_description : null))
             {{old('long_description', $location->long_description ?? '')}}
         @endif</textarea>
