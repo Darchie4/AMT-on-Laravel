@@ -1,17 +1,27 @@
 <div class="col-md-6 mb-2">
-    <label for="name" class="form-label">{{__('pricing.name')}}</label>
-    <input type="text" name="name" class="form-control" value="{{old('name', $pricingStructure->name ?? '')}}"
+    <label for="name" class="form-label ">{{__('pricing.name')}}</label>
+    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name', $pricingStructure->name ?? '')}}"
            required autocomplete="name">
+    @error('name')
+    <span class="invalid-feedback">
+                                        {{__('pricing.name_required')}}
+                                    </span>
+    @enderror
 </div>
 <div class="col-md-6 mb-2">
     <label for="price" class="form-label">{{__('pricing.price')}}</label>
-    <input type="text" name="price" class="form-control" value="{{old('price', $pricingStructure->price ?? '')}}"
+    <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" value="{{old('price', $pricingStructure->price ?? '')}}"
            required autocomplete="price">
+    @error('price')
+    <span class="invalid-feedback">
+                                        {{__('pricing.price_required')}}
+                                    </span>
+    @enderror
 </div>
 <div class="row row-cols-2">
     <div class="col-md-6 mb-2">
         <label for="payment_frequency" class="form-label">{{__('pricing.frequency')}}</label>
-        <select class="form-select" name="payment_frequency">
+        <select required class="form-select @error('payment_frequency') is-invalid @enderror" name="payment_frequency">
             @php
                 $selectedFrequency = old('payment_frequency', $pricingStructure->payment_frequency ?? null);
             @endphp
@@ -27,6 +37,11 @@
             <option
                 value="annually" {{ $selectedFrequency == 'annually' ? 'selected' : '' }}>{{__('pricing.annually')}}</option>
         </select>
+        @error('payment_frequency')
+        <span class="invalid-feedback">
+                                        {{__('pricing.payment_frequency_required')}}
+                                    </span>
+        @enderror
     </div>
 </div>
 <div class="row">

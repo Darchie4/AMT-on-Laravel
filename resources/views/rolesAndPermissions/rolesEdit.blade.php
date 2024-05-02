@@ -24,11 +24,11 @@
         </div>
         <div class="row justify-content-center">
             <div class="card">
-                <form method="POST" action="{{route('admin.roles.update',$role)}}">
+                <form method="POST" action="{{route('admin.roles.update',$role)}}" novalidate>
                     @csrf
                     @method('PUT')
                     <label for="name">{{__('customLabels.role_name')}}</label>
-                    <input type="text" class="form-control" name="name" value="{{$role->name}}" required @error('name') is-invalid @enderror>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{$role->name}}" required >
                     @error('name')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
                 <form method="POST" action="{{route('admin.roles.permission.sync',$role->id)}}">
                     @csrf
                     <label for="permissions">{{__('customLabels.permissions')}}</label>
-                    <select class="form-select mb-2" name="permissions[]" multiple
+                    <select class="form-select mb-2 @error('permissions') is-invalid @enderror" name="permissions[]" multiple
                             id="choices-multiple-remove-button" >
                         @foreach($permissions as $permission)
                             <option value="{{ $permission->name }}" {{ in_array($permission->name, $role->permissions->pluck('name')->toArray()) ? 'selected' : '' }}>{{$permission->name}}</option>

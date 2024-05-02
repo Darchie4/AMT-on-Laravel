@@ -147,4 +147,18 @@ return [
     'admin_create_link_priceStructure' => 'Mangler prisstruktur?',
     'admin_create_link_location' => 'Mangler lokation?',
     'admin_create_button_removeTimeslot' => 'Slet bookning',
+
+    //Feedback/validation
+    'total_signup_space_required'=>'Max antal tilmeldinger påkrævet',
+    'season_end_required'=>'Sæsonslut påkrævet',
+    'season_start_required'=>'Sæsonstart påkrævet',
+    'pricing_structure_required'=>'Betalingsstruktur påkrævet',
+    'age_max_required'=>'Maks alder påkrævet',
+    'age_min_required'=>'Min alder påkrævet',
+    'instructors_required'=>'Undervisere påkrævet',
+    'difficulty_required'=>'Digtighedsgrad påkrævet',
+    'danceStyle_required'=>'Stilart påkrævet',
+    'small_description_required'=>'Kort beskrivelse påkrævet',
+    'name_required'=>'Navn påkrævet',
+    'long_description_required'=>'Lang beskrivelse påkrævet'
 ];

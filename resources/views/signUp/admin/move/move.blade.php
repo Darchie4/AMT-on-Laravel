@@ -20,7 +20,7 @@
             </div>
             <div class="col">
                 <form action="{{route("admin.registrations.DoMove")}}" method="post"
-                      enctype="multipart/form-data">
+                      enctype="multipart/form-data" novalidate>
                     @csrf
                     <input type="text" name="fromLessonId" value="{{$fromLesson->id}}" hidden/>
                     <input type="hidden" name="users" value="{{ implode(',', array_map(function($user) {
@@ -29,8 +29,13 @@
                     ">
 
                     <label for="toLesson">{{__('registration.admin_move_newLesson')}}</label><br>
-                    <input class="form-control" name="toLesson" list="toLessons"
-                           placeholder="{{__('registration.admin_move_placeholder_newLesson')}}" required><br>
+                    <input class="form-control @error('toLesson') is-invalid @enderror" name="toLesson" list="toLessons"
+                           placeholder="{{__('registration.admin_move_placeholder_newLesson')}}" required>
+                    @error('toLesson')
+                    <span class="invalid-feedback">
+                                        {{$message}}
+                                    </span>
+                    @enderror<br>
                     <datalist id="toLessons">
                         @foreach($lessons as $lesson)
                             @if($lesson->id == $fromLesson->id)

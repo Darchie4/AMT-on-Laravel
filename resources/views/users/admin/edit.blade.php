@@ -17,7 +17,7 @@
                     {{__('customLabels.users')}}
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{route('admin.users.update',$user->id)}}">
+                    <form method="POST" action="{{route('admin.users.update',$user->id)}}" novalidate>
                         @csrf
                         @method('PUT')
                         <p class="card-text">

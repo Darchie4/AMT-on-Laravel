@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('admin.locations.store')}}"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" novalidate>
                         @csrf
                         @include('partials._locationInfoInput')
                         <button type="submit"

@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('admin.locations.update',['id'=>$location->id])}}"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" novalidate>
                         @csrf
                         @method('PUT')
                         @include('partials._locationInfoInput')

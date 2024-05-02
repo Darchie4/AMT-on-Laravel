@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('admin.pricing.store')}}"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" novalidate>
                         @csrf
                         @include('partials._pricingStructureInput')
                         <button type="submit"

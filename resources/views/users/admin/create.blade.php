@@ -16,7 +16,7 @@
                     {{__('customLabels.users')}}
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{route('admin.users.store')}}">
+                    <form method="POST" action="{{route('admin.users.store')}}" novalidate>
                         @csrf
                         <p class="card-text">
 
