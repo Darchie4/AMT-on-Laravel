@@ -30,4 +30,9 @@ return [
     'admin_deleted_successfully' => 'Sletningen af \':name\' blve gennemført!', // :name = Name of pricingstructure
 
 
+    //Feedback/validation
+    'name_required'=>'Navn påkrævet',
+    'price_required'=>'Pris påkrævet',
+    'payment_frequency_required'=>'Betalingsfrekvens påkrævet',
+
 ];

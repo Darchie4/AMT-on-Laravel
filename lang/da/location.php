@@ -27,4 +27,9 @@ return [
 
     'location_index_admin'=>'Lokationer',
     'location'=>'Lokation',
+
+    //Feedback/validation
+    'long_description_required'=>'Lang beskrivelse påkrævet',
+    'short_description_required'=>'Kort beskrivelse påkrævet',
+    'name_required'=>'Navn påkrævet',
 ];

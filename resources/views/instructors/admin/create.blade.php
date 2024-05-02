@@ -22,7 +22,8 @@
                     {{__('customLabels.instructor_instructor')}}
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{route('admin.instructors.store')}}"
+                    <form class="needs-validation" novalidate method="POST"
+                          action="{{route('admin.instructors.store')}}"
                           enctype="multipart/form-data">
                         @csrf
                         <p class="card-text">
@@ -30,10 +31,11 @@
                             <!--Choose user-->
                             <div class="col-6">
                                 <label for="user">{{__('customLabels.instructor_choose_user')}}</label>
-                                <select class="form-select" type="text" name="user_id">
+                                <select class="form-select @error('user_id') is-invalid @enderror" type="text"
+                                        name="user_id" required>
                                     @foreach($users as $user)
                                         @unless($user->instructor)
-                                        <option value="{{$user->id}}">{{$user->email}}</option>
+                                            <option value="{{$user->id}}" {{ old('user_id') == $user->id ? 'selected' : '' }}>{{$user->email}}</option>
                                         @endunless
                                     @endforeach
                                 </select>
@@ -51,27 +53,27 @@
                             <div class="mt-2">
                                 <label for="short_description"
                                        class="form-label">{{ __('customLabels.instructor_edit_short_description') }}</label>
-                                <input class="form-control" type="text" name="short_description"
-                                       autocomplete="short_description" autofocus
-                                       @error('short_description') is-invalid @enderror>
+                                <input class="form-control @error('short_description') is-invalid @enderror" type="text"
+                                       name="short_description"
+                                       value="{{old('short_description')}}" required>
                                 @error('short_description')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                <span class="invalid-feedback">
+                                        {{__('instructor.small_description_required')}}
                                     </span>
                                 @enderror
                             </div>
 
                         </div>
                         <div>
-                            <label for="long_description"
+                            <label for="tinymce"
                                    class="form-label">{{ __('customLabels.instructor_edit_long_description') }}</label>
-                            <textarea class="form-control" name="long_description" id="tinymce" rows="4" required
-                                      autocomplete="long_description">
+                            <textarea class="form-control @error('long_description') is-invalid @enderror" name="long_description" id="tinymce" rows="4" required
+                                      >
                             </textarea>
                             <br>
                             @error('long_description')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                            <span class="invalid-feedback">
+                                        {{__('instructor.long_description_required')}}
                                     </span>
                             @enderror
 

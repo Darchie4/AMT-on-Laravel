@@ -27,15 +27,6 @@
 @section('admin_content')
     @include('partials._systemFeedback')
     <div class="container">
-        @if($errors->any())
-            <b class="textRed">Der er fejl!</b>
-            <ul>
-                @foreach($errors->keys() as $key)
-                    <li>{{$key}}: {{implode(', ', $errors->get($key))}}</li>
-                @endforeach
-
-            </ul>
-        @endif
             <div class="my-5 text-center">
                 <h1>{{__('lesson.admin_create_title')}}</h1>
             </div>
@@ -47,30 +38,52 @@
                    href="javascript:history.back()">{{__('customLabels.back')}}</a>
             </div>
         <hr class="hr">
-        <form class="row g-3" action="{{route("admin.lesson.doCreate")}}" method="post"
+        <form class="row g-3" novalidate action="{{route("admin.lesson.doCreate")}}" method="post"
               enctype="multipart/form-data">
             @csrf
             @method('post')
 
             <div class="col form-group">
                 <label for="name"><b>{{__('lesson.admin_create_Name')}}</b></label> <br>
-                <input class="form-control" id="name" name="name" type="text" required> <br>
+                <input value="{{old('name')}}" class="form-control @error('name') is-invalid @enderror" id="name" name="name" type="text" required>
+                @error('name')
+                <span class="invalid-feedback">
+                                        {{__('lesson.name_required')}}
+                                    </span>
+                @enderror
+                <br>
 
                 <label for="short_description"><b>{{__('lesson.admin_create_shortDescription')}}</b></label><br>
-                <input class="form-control" id="short_description" name="short_description" type="text" maxlength="65" required> <br>
+                <input value="{{old('short_description')}}" class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description" type="text" maxlength="65" required>
+                @error('short_description')
+                <span class="invalid-feedback">
+                                        {{__('lesson.small_description_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="danceStyle"><b>{{__('lesson.admin_create_danceStyle')}}</b></label><br>
-                <input class="form-control" name="danceStyle" list="danceStyles"
+                <input value="{{old('danceStyle')}}" class="form-control @error('dance_Style') is-invalid @enderror" name="danceStyle" list="danceStyles"
                        placeholder="{{__('lesson.admin_create_placeholder_danceStyle')}}" required><br>
+                @error('danceStyle')
+                <span class="invalid-feedback">
+                                        {{__('lesson.danceStyle_required')}}
+                                    </span>
+                @enderror
                 <datalist id="danceStyles">
                     @foreach($danceStyles as $style)
                         <option value="{{$style->name}}">{{$style->name}}</option>
                     @endforeach
                 </datalist>
 
+
                 <label for="difficulty"><b>{{__('lesson.admin_create_difficulty')}}</b></label><br>
-                <input class="form-control" name="difficulty" id="difficulty" list="difficulties"
+                <input value="{{old('difficulty')}}" class="form-control @error('difficulty') is-invalid @enderror" name="difficulty" id="difficulty" list="difficulties"
                        placeholder="{{__('lesson.admin_create_placeholder_difficulty')}}" required>
+                @error('danceStyle')
+                <span class="invalid-feedback">
+                                        {{__('lesson.difficulty_required')}}
+                                    </span>
+                @enderror
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
                         <option
@@ -81,7 +94,7 @@
 
                 <label for="sorting_index" id="sorting_index_label" hidden="hidden"><b>{{__('lesson.admin_create_label_sortingIndex')}}</b></label>
                 <div class="input-group" id="sorting_index_container" hidden>
-                    <input class="form-control" type="number" id="sorting_index" name="sorting_index">
+                    <input value="{{old('sorting_index')}}" class="form-control" type="number" id="sorting_index" name="sorting_index">
                     <span class="input-group-text">
                 <i class="fas fa-question-circle" data-bs-toggle="tooltip" title="{{__('lesson.admin_create_explainer_sortingIndex')}}"></i>
             </span>
@@ -91,32 +104,52 @@
                 <select id="choices-multiple-remove-button"
                         placeholder="{{__('lesson.admin_create_placeholder_selectInstructor')}}" multiple
                         id="instructor"
-                        name="instructors[]">
+                        name="instructors[]" required>
                     @foreach($instructors as $instructor)
                         <option
-                            value={{$instructor -> id}}>{{$instructor->user->name.' '.$instructor->user->lname}}</option>
+                            value={{$instructor -> id}} >{{$instructor->user->name.' '.$instructor->user->lname}}</option>
                     @endforeach
                 </select>
+                @error('instructors')
+                <span class="invalid-feedback">
+                                        {{__('lesson.instructors_required')}}
+                                    </span>
+                @enderror
             </div>
 
             <div class="vr mx-3 p-0"></div>
 
             <div class="col form-group">
                 <label for="age_min"><b>{{__('lesson.admin_create_ageMin')}}</b></label><br>
-                <input class="form-control" id="age_min" name="age_min" type="number" required><br>
+                <input value="{{old('age_min')}}" class="form-control @error('age_min') is-invalid @enderror" id="age_min" name="age_min" type="number" required>
+                @error('age_min')
+                <span class="invalid-feedback">
+                                        {{__('lesson.age_min_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="age_max"><b>{{__('lesson.admin_create_ageMax')}}</b></label><br>
-                <input class="form-control" id="age_max" name="age_max" type="number" required><br>
+                <input value="{{old('age_max')}}" class="form-control @error('short_description') is-invalid @enderror" id="age_max" name="age_max" type="number" required>
+                @error('age_max')
+                <span class="invalid-feedback">
+                                        {{__('lesson.age_max_required')}}
+                                    </span>
+                @enderror<br>
 
 
                 <label for="pricing_structure"><b>{{__('lesson.admin_create_price')}}</b></label> <a href="{{route("admin.pricing.create")}}">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
-                <select class="form-control form-select" id="pricing_structure" name="pricing_structure" required>
+                <select class="form-control form-select @error('pricing_structure') is-invalid @enderror" id="pricing_structure" name="pricing_structure" required>
                     <option disabled selected>{{ __('pricing.choose')}}</option>
                     @foreach($pricings as $pricing)
                         <option
-                            value="{{$pricing->id}}">{{$pricing->name .' ('. $pricing->price.' '.__('pricing.currency').' - '}} {{__('pricing.' . $pricing->payment_frequency) . ')'}}</option>
+                            value="{{$pricing->id}}" {{ old('pricing_structure') == $pricing->id ? 'selected' : '' }}>{{$pricing->name .' ('. $pricing->price.' '.__('pricing.currency').' - '}} {{__('pricing.' . $pricing->payment_frequency) . ')'}}</option>
                     @endforeach
-                </select><br>
+                </select>
+                @error('pricing_structure')
+                <span class="invalid-feedback">
+                                        {{__('lesson.pricing_structure_required')}}
+                                    </span>
+                @enderror<br>
 
 
                 <div class="form-control">
@@ -168,14 +201,30 @@
 
             <div class="col form-group">
                 <label for="season_start"><b>{{__('lesson.admin_create_seasonStart')}}</b></label><br>
-                <input class="form-control" id="season_start" name="season_start" type="date" required><br>
+                <input value="{{old('season_start')}}" class="form-control @error('season_start') is-invalid @enderror" id="season_start" name="season_start" type="date" required>
+                @error('season_start')
+                <span class="invalid-feedback">
+                                        {{__('lesson.season_start_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="season_end"><b>{{__('lesson.admin_create_seasonEnd')}}</b></label><br>
-                <input class="form-control" id="season_end" name="season_end" type="date" required><br>
+                <input value="{{old('season_end')}}" class="form-control @error('season_end') is-invalid @enderror" id="season_end" name="season_end" type="date" required>
+                @error('season_end')
+                <span class="invalid-feedback">
+                                        {{__('lesson.season_end_required')}}
+                                    </span>
+                @enderror
+                <br>
 
                 <label for="total_signup_space"><b>{{__('lesson.admin_create_totalSignupSpaces')}}</b></label><br>
-                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number"
-                       required><br>
+                <input value="{{old('total_signup_space')}}" class="form-control @error('total_signup_space') is-invalid @enderror" id="total_signup_space" name="total_signup_space" type="number"
+                       required>
+                @error('total_signup_space')
+                <span class="invalid-feedback">
+                                        {{__('lesson.total_signup_space_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="visible"><b>{{__('lesson.admin_create_toggle_visible')}}</b></label>
                 <input class="form-check-input" type="checkbox" id="visible" name="visible" checked><br><br>
@@ -189,7 +238,13 @@
             </div>
 
             <label for="long_description"><b>{{__('lesson.admin_create_LongDescription')}}</b></label><br>
-            <textarea id="tinymce" name="long_description" required></textarea><br>
+            <textarea id="tinymce" class="@error('long_description') is-invalid @enderror" name="long_description" required></textarea>
+            @error('long_description')
+            <span class="invalid-feedback">
+                                        {{__('lesson.long_description_required')}}
+                                    </span>
+            @enderror
+            <br>
 
             <button class="btn btn-success" type="submit"
                     value="Submit">{{__('lesson.admin_create_button_submit')}}</button>
