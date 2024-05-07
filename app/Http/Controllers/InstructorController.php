@@ -14,6 +14,9 @@ class InstructorController extends Controller
 {
     //FOR PUBLIC
     public function publicIndex(Request $request){
+        if (Auth::user()==null){
+            return view('instructors.public.index',['instructors'=>InstructorInfo::all()]);
+        }
         return $this->InstructorIndex($request,'instructors.public.index');
     }
 
