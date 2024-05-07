@@ -26,11 +26,11 @@
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img
-                    id="MDB-logo"
-                    src="https://mdbcdn.b-cdn.net/wp-content/uploads/2018/06/logo-mdb-jquery-small.png"
-                    alt="MDB Logo"
+                    id="AMT-logo"
+                    src="{{asset('logo.png')}}"
+                    alt="AMT Logo"
                     draggable="false"
-                    height="30"
+                    height="40"
                 />
                 {{--{{ config('app.name', 'Laravel') }}--}}
             </a>
