@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
+    @include('partials._tinymceSetup')
+
     <script>
         $(document).ready(function () {
             var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
@@ -37,23 +40,38 @@
         <form class="row g-3"
               action="{{route((Auth::user()->can('lessons_crud') ? 'admin.lesson.doEdit' : 'instructor.lesson.doEdit') , ['id'=>$lesson->id])}}"
               method="post"
-              enctype="multipart/form-data" id="lessonForm">
+              enctype="multipart/form-data" id="lessonForm" novalidate>
             @csrf
             @method('PUT')
             <input type="hidden" id="timeslotsToDeleteInput" name="timeslotsToDeleteInput" value="">
 
             <div class="col form-group">
                 <label for="name">{{__('lesson.admin_create_Name')}}</label> <br>
-                <input class="form-control" id="name" name="name" type="text" value="{{$lesson->name}}" required> <br>
+                <input class="form-control @error('name') is-invalid @enderror" id="name" name="name" type="text" value="{{$lesson->name}}" required>
+                @error('name')
+                <span class="invalid-feedback">
+                                        {{__('lesson.name_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="short_description">{{__('lesson.admin_create_shortDescription')}}</label><br>
-                <input class="form-control" id="short_description" name="short_description"
-                       value="{{$lesson->short_description}}" type="text" required> <br>
+                <input class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description"
+                       value="{{$lesson->short_description}}" type="text" required>
+                @error('short_description')
+                <span class="invalid-feedback">
+                                        {{__('lesson.small_description_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="danceStyle">{{__('lesson.admin_create_danceStyle')}}</label><br>
-                <input class="form-control" name="danceStyle" list="danceStyles"
+                <input class="form-control @error('danceStyle') is-invalid @enderror" name="danceStyle" list="danceStyles"
                        placeholder="{{__('lesson.admin_create_placeholder_danceStyle')}}"
-                       value="{{ $lesson->danceStyle->name }}" required><br>
+                       value="{{ $lesson->danceStyle->name }}" required>
+                @error('danceStyle')
+                <span class="invalid-feedback">
+                                        {{__('lesson.danceStyle_required')}}
+                                    </span>
+                @enderror<br>
                 <datalist id="danceStyles">
                     @foreach($danceStyles as $style)
                         <option
@@ -62,9 +80,14 @@
                 </datalist>
 
                 <label for="difficulty">{{__('lesson.admin_create_difficulty')}}</label><br>
-                <input class="form-control" name="difficulty" id="difficulty" list="difficulties"
+                <input class="form-control @error('difficulty') is-invalid @enderror" name="difficulty" id="difficulty" list="difficulties"
                        placeholder="{{__('lesson.admin_create_placeholder_difficulty')}}"
-                       value="{{ $lesson->difficulty->name }}" required><br>
+                       value="{{ $lesson->difficulty->name }}" required>
+                @error('difficulty')
+                <span class="invalid-feedback">
+                                        {{__('lesson.difficulty_required')}}
+                                    </span>
+                @enderror<br>
                 <datalist id="difficulties">
                     @foreach($difficulties as $difficulty)
                         <option
@@ -73,14 +96,7 @@
                             data-index="{{$difficulty->sorting_index}}">{{$difficulty->name}}</option>
                     @endforeach
                 </datalist>
-                <label for="instructors">{{__('lesson.admin_create_instructor')}}</label> <a
-                    href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
-                @can('lessons_crud')
-                    <select id="choices-multiple-remove-button"
-                            placeholder="{{__('lesson.admin_create_placeholder_selectInstructor')}}" multiple
-                            name="instructors[]">
-                        @foreach($instructors as $instructor)
-                            <option
+
                 <label for="sorting_index" id="sorting_index_label" hidden="hidden"><b>{{__('lesson.admin_create_label_sortingIndex')}}</b></label>
                 <div class="input-group" id="sorting_index_container" hidden>
                     <input class="form-control" type="number" id="sorting_index" name="sorting_index">
@@ -88,11 +104,26 @@
                 <i class="fas fa-question-circle" data-bs-toggle="tooltip" title="{{__('lesson.admin_create_explainer_sortingIndex')}}"></i>
             </span>
                 </div><br>
-                                value="{{ $instructor->id }}" {{ in_array($instructor->id, $lesson->instructors->pluck('id')->toArray()) ? 'selected' : '' }}>
+
+                <label for="instructors">{{__('lesson.admin_create_instructor')}}</label> <a
+                    href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
+
+            @can('lessons_crud')
+                    <select id="choices-multiple-remove-button"
+                            placeholder="{{__('lesson.admin_create_placeholder_selectInstructor')}}" multiple
+                            name="instructors[]" required
+                    class="@error('instructors') is-invalid @enderror">
+                        @foreach($instructors as $instructor)
+                            <option value="{{ $instructor->id }}" {{ in_array($instructor->id, $lesson->instructors->pluck('id')->toArray()) ? 'selected' : '' }}>
                                 {{ $instructor->user->name.' '.$instructor->user->fname }}
                             </option>
                         @endforeach
                     </select>
+                    @error('instructors')
+                    <span class="invalid-feedback">
+                                        {{__('lesson.instructors_required')}}
+                                    </span>
+                    @enderror
                 @else
                     @foreach($lesson->instructors as $instructor)
                         <input value="{{$instructor->id}}" name="instructors[]"
@@ -103,16 +134,26 @@
             <div class="vr mx-3 p-0"></div>
 
             <div class="col form-group">
-                <label for="age_min">{{__('lesson.admin_create_ageMin')}}</label><br>
-                <input class="form-control" id="age_min" name="age_min" type="number" value="{{ $lesson-> age_min}}"
-                       required><br>
+                <label for="age_min"><b>{{__('lesson.admin_create_ageMin')}}</b></label><br>
+                <input value="{{ $lesson-> age_min}}" class="form-control @error('age_min') is-invalid @enderror" id="age_min" name="age_min" type="number" required>
+                @error('age_min')
+                <span class="invalid-feedback">
+                                        {{__('lesson.age_min_required')}}
+                                    </span>
+                @enderror
 
-                <label for="age_max">{{__('lesson.admin_create_ageMax')}}</label><br>
-                <input class="form-control" id="age_max" name="age_max" value="{{ $lesson-> age_max}}" type="number"
-                       required><br>
+                <label for="age_max"><b>{{__('lesson.admin_create_ageMax')}}</b></label><br>
+                <input class="form-control @error('age_max') is-invalid @enderror" id="age_max" name="age_max" value="{{ $lesson-> age_max}}" type="number"
+                       required>
+                @error('age_max')
+                <span class="invalid-feedback">
+                                        {{__('lesson.age_max_required')}}
+                                    </span>
+                @enderror
+                <br>
                 <label for="pricing_structure">{{__('lesson.admin_create_price')}}</label> <a
                     href="{{route("admin.pricing.create")}}">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
-                    <select class="form-control form-select" id="pricing_structure" name="pricing_structure"
+                    <select class="form-control form-select @error('pricing_structure') is-invalid @enderror" id="pricing_structure" name="pricing_structure"
                             {{ Auth::user()->can('lessons_crud') ? '' : 'hidden' }}  required>
                         @php
                             $selectedPricing = old('pricing_structure_id', $lesson->pricing_structure_id ?? null);
@@ -123,6 +164,11 @@
                                 value="{{$pricingOption->id}}" {{ $selectedPricing == $pricingOption->id ? 'selected' : '' }}>{{$pricingOption->name .' ('. $pricingOption->price.' '.__('pricing.currency').' - '}} {{__('pricing.' . $pricingOption->payment_frequency) . ')'}}</option>
                         @endforeach
                     </select>
+                @error('pricing_structure')
+                <span class="invalid-feedback">
+                                        {{__('lesson.pricing_structure_required')}}
+                                    </span>
+                @enderror
                 @cannot('lessons_crud')
                     <span
                         class="badge fs-5 bg-primary text-white">{{ $lesson->pricingStructure->name .' ('. $lesson->pricingStructure->price.' '.__('pricing.currency').' - '}} {{__('pricing.' . $lesson->pricingStructure->payment_frequency) . ')' }}</span><br>
@@ -220,22 +266,37 @@
 
             <div class="col form-group">
                 <label for="season_start">{{__('lesson.admin_create_seasonStart')}}</label><br>
-                <input class="form-control" id="season_start" name="season_start" type="date"
+                <input class="form-control @error('season_start') is-invalid @enderror" id="season_start" name="season_start" type="date"
                        value="{{Carbon::parse($lesson->season_start)->format("Y-m-d")}}"
                     {{ Auth::user()->can('lessons_crud
-') ? 'required' : 'readonly' }} ><br>
+') ? 'required' : 'readonly' }} >
+                @error('season_start')
+                <span class="invalid-feedback">
+                                        {{__('lesson.season_start_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="season_end">{{__('lesson.admin_create_seasonEnd')}}</label><br>
-                <input class="form-control" id="season_end" name="season_end" type="date"
+                <input class="form-control @error('season_end') is-invalid @enderror" id="season_end" name="season_end" type="date"
                        value="{{Carbon::parse($lesson->season_end)->format("Y-m-d")}}"
                     {{ Auth::user()->can('lessons_crud
-') ? 'required' : 'readonly' }} ><br>
+') ? 'required' : 'readonly' }} >
+                @error('season_end')
+                <span class="invalid-feedback">
+                                        {{__('lesson.season_end_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="total_signup_space">{{__('lesson.admin_create_totalSignupSpaces')}}</label><br>
-                <input class="form-control" id="total_signup_space" name="total_signup_space" type="number"
+                <input class="form-control @error('total_signup_space') is-invalid @enderror" id="total_signup_space" name="total_signup_space" type="number"
                        value="{{ $lesson->total_signup_space }}"
                     {{ Auth::user()->can('lessons_crud
-') ? 'required' : 'readonly' }}><br>
+') ? 'required' : 'readonly' }}>
+                @error('total_signup_space')
+                <span class="invalid-feedback">
+                                        {{__('lesson.total_signup_space_required')}}
+                                    </span>
+                @enderror<br>
 
                 <label for="visible">{{__('lesson.admin_create_toggle_visible')}}</label>
                 @cannot('lessons_crud')
@@ -261,8 +322,8 @@
                        accept="image/png, image/jpeg">
             </div>
             <label for="long_description">{{__('lesson.admin_create_LongDescription')}}</label><br>
-            <textarea id="long_description" name="long_description"
-                      required>{{ $lesson->long_description }}</textarea><br>
+            <textarea id="tinymce" name="long_description"
+                      required>{!! $lesson->long_description !!}</textarea><br>
             <button class="btn btn-success" onclick="submitForm()"
                     value="Submit">{{__('lesson.admin_edit_button_submit')}}</button>
         </form>

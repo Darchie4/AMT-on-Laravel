@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('head')
+    @include('partials._tinymceSetup')
+@endsection
+
 @section('admin_content')
     @include('partials._systemFeedback')
 
@@ -20,7 +24,7 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('admin.instructors.update', ['id'=>$instructor->id])}}"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" novalidate>
                         @csrf
                         @method('PUT')
                         <p class="card-text">
@@ -28,13 +32,12 @@
                             <div class="col-6">
                                 <label for="name"
                                        class="form-label">{{ __('customLabels.instructor_edit_short_description') }}</label>
-                                <input class="form-control" type="text" name="short_description"
+                                <input class="form-control @error('short_description') is-invalid @enderror" type="text" name="short_description"
                                        value="{{old('short_description', $instructor->short_description ?? '')}}"
-                                       autocomplete="short_description" autofocus
-                                       @error('short_description') is-invalid @enderror>
+                                       autocomplete="short_description" required>
                                 @error('short_description')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                <span class="invalid-feedback">
+                                        {{__('instructor.small_description_required')}}
                                     </span>
                                 @enderror
                             </div>
@@ -55,19 +58,18 @@
                         <div>
                             <label for="long_description"
                                    class="form-label">{{ __('customLabels.instructor_edit_long_description') }}</label>
-                            <textarea class="form-control" name="long_description" rows="4" required
+                            <textarea required class="form-control @error('long_description') is-invalid @enderror" name="long_description" id="tinymce" rows="4" required
                                       autocomplete="long_description">@if(old('long_description', isset($instructor) ? $instructor->long_description : null))
                                     {{ old('long_description', $instructor->long_description) }}
                                 @endif</textarea>
                             <br>
                             @error('long_description')
                             <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{__('instructor.long_description_required')}}
                                     </span>
                             @enderror
 
                         </div>
-                        </p>
                         @php
                             $user = $instructor->user
                         @endphp

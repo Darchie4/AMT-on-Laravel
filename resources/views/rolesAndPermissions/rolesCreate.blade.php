@@ -22,10 +22,10 @@
                href="{{route('admin.roles.index')}}">{{__('customLabels.roles')}}</a>
         </div>
         <div class="row justify-content-center">
-            <form method="POST" action="{{route('admin.roles.store')}}">
+            <form method="POST" action="{{route('admin.roles.store')}}" novalidate>
                 @csrf
                 <label for="name">{{__('customLabels.role_name')}}</label>
-                <input type="text" name="name" id="name" class="form-control mb-2" required @error('name') is-invalid @enderror>
+                <input type="text" name="name" id="name" class="@error('name') is-invalid @enderror form-control mb-2" required >
                 @error('name')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -3,11 +3,11 @@
     <!--Name-->
     <div class="col-6">
         <label for="name" class="form-label">{{ __('location.name') }}</label>
-        <input class="form-control" type="text" name="name" value="{{old('name', $location->name ?? '')}}"
-               required autocomplete="name" autofocus @error('name') is-invalid @enderror>
+        <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" value="{{old('name', $location->name ?? '')}}"
+               required autocomplete="name" autofocus>
         @error('name')
-        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+        <span class="invalid-feedback">
+                                        {{__('location.name_required')}}
                                     </span>
         @enderror
     </div>
@@ -31,12 +31,12 @@
 <!--Short description-->
 <div class="mt-2">
     <label for="short_description" class="form-label">{{ __('location.create_short_description') }}</label>
-    <input class="form-control" type="text" name="short_description"
+    <input class="form-control @error('short_description') is-invalid @enderror" type="text" name="short_description"
            value="{{old('short_description', $location->short_description ?? '')}}"
-           required autocomplete="short_description" @error('short_description') is-invalid @enderror>
+           required autocomplete="short_description" >
     @error('short_description')
     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{__('location.short_description_required')}}
                                     </span>
     @enderror
 </div>
@@ -44,14 +44,14 @@
 <div class="mt-2">
     <label for="long_description"
            class="form-label">{{ __('location.create_long_description') }}</label>
-    <textarea class="form-control" name="long_description" rows="4" required
+    <textarea class="form-control @error('long_description') is-invalid @enderror" name="long_description" id="tinymce" rows="4" required
               autocomplete="long_description">@if(old('long_description', isset($location) ? $location->long_description : null))
             {{old('long_description', $location->long_description ?? '')}}
         @endif</textarea>
     <br>
     @error('long_description')
     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{__('location.long_description_required')}}
                                     </span>
     @enderror
 

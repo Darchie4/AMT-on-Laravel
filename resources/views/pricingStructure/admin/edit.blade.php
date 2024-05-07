@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('admin.pricing.update',['id'=>$pricingStructure->id])}}"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" novalidate>
                         @csrf
                         @method('PUT')
                         @include('partials._pricingStructureInput')

@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('head')
+    @include('partials._tinymceSetup')
+@endsection
+
 @section('admin_content')
     @include('partials._systemFeedback')
 
@@ -19,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{route('admin.locations.store')}}"
-                          enctype="multipart/form-data">
+                          enctype="multipart/form-data" novalidate>
                         @csrf
                         @include('partials._locationInfoInput')
                         <button type="submit"
