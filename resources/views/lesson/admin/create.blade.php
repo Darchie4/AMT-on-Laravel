@@ -38,13 +38,16 @@
                    href="javascript:history.back()">{{__('customLabels.back')}}</a>
             </div>
         <hr class="hr">
+
+        <b class="text-danger">{{__('lesson.admin_create_attentionShort')}}</b> {{__('lesson.admin_create_fieldsMandatory')}}<br><br>
+
         <form class="row g-3" novalidate action="{{route("admin.lesson.doCreate")}}" method="post"
               enctype="multipart/form-data">
             @csrf
             @method('post')
 
             <div class="col form-group">
-                <label for="name"><b>{{__('lesson.admin_create_Name')}}</b></label> <br>
+                <label for="name"><b>{{__('lesson.admin_create_Name')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('name')}}" class="form-control @error('name') is-invalid @enderror" id="name" name="name" type="text" required>
                 @error('name')
                 <span class="invalid-feedback">
@@ -53,7 +56,7 @@
                 @enderror
                 <br>
 
-                <label for="short_description"><b>{{__('lesson.admin_create_shortDescription')}}</b></label><br>
+                <label for="short_description"><b>{{__('lesson.admin_create_shortDescription')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('short_description')}}" class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description" type="text" maxlength="65" required>
                 @error('short_description')
                 <span class="invalid-feedback">
@@ -61,7 +64,7 @@
                                     </span>
                 @enderror<br>
 
-                <label for="danceStyle"><b>{{__('lesson.admin_create_danceStyle')}}</b></label><br>
+                <label for="danceStyle"><b>{{__('lesson.admin_create_danceStyle')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('danceStyle')}}" class="form-control @error('dance_Style') is-invalid @enderror" name="danceStyle" list="danceStyles"
                        placeholder="{{__('lesson.admin_create_placeholder_danceStyle')}}" required><br>
                 @error('danceStyle')
@@ -76,7 +79,7 @@
                 </datalist>
 
 
-                <label for="difficulty"><b>{{__('lesson.admin_create_difficulty')}}</b></label><br>
+                <label for="difficulty"><b>{{__('lesson.admin_create_difficulty')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('difficulty')}}" class="form-control @error('difficulty') is-invalid @enderror" name="difficulty" id="difficulty" list="difficulties"
                        placeholder="{{__('lesson.admin_create_placeholder_difficulty')}}" required>
                 @error('danceStyle')
@@ -100,7 +103,7 @@
             </span>
                 </div><br>
 
-                <label for="instructors[]"><b>{{__('lesson.admin_create_instructor')}}</b></label> <a href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
+                <label for="instructors[]"><b>{{__('lesson.admin_create_instructor')}}</b> <b class="text-danger">*</b></label>  <a href="{{route('admin.instructors.create')}}">{{__('lesson.admin_create_link_instructor')}}</a><br>
                 <select id="choices-multiple-remove-button"
                         placeholder="{{__('lesson.admin_create_placeholder_selectInstructor')}}" multiple
                         id="instructor"
@@ -120,7 +123,7 @@
             <div class="vr mx-3 p-0"></div>
 
             <div class="col form-group">
-                <label for="age_min"><b>{{__('lesson.admin_create_ageMin')}}</b></label><br>
+                <label for="age_min"><b>{{__('lesson.admin_create_ageMin')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('age_min')}}" class="form-control @error('age_min') is-invalid @enderror" id="age_min" name="age_min" type="number" required>
                 @error('age_min')
                 <span class="invalid-feedback">
@@ -128,7 +131,7 @@
                                     </span>
                 @enderror<br>
 
-                <label for="age_max"><b>{{__('lesson.admin_create_ageMax')}}</b></label><br>
+                <label for="age_max"><b>{{__('lesson.admin_create_ageMax')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('age_max')}}" class="form-control @error('short_description') is-invalid @enderror" id="age_max" name="age_max" type="number" required>
                 @error('age_max')
                 <span class="invalid-feedback">
@@ -137,7 +140,7 @@
                 @enderror<br>
 
 
-                <label for="pricing_structure"><b>{{__('lesson.admin_create_price')}}</b></label> <a href="{{route("admin.pricing.create")}}">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
+                <label for="pricing_structure"><b>{{__('lesson.admin_create_price')}}</b> <b class="text-danger">*</b> </label> <a href="{{route("admin.pricing.create")}}">{{__('lesson.admin_create_link_priceStructure')}}</a><br>
                 <select class="form-control form-select @error('pricing_structure') is-invalid @enderror" id="pricing_structure" name="pricing_structure" required>
                     <option disabled selected>{{ __('pricing.choose')}}</option>
                     @foreach($pricings as $pricing)
@@ -158,17 +161,17 @@
 
                         <div class="row g-2">
                             <div class="col">
-                                <label for="start_time_0"><b>{{__('lesson.admin_create_startTime')}}</b></label>
+                                <label for="start_time_0"><b>{{__('lesson.admin_create_startTime')}}</b> <b class="text-danger">*</b></label>
                                 <input class="form-control" type="time" id="start_time_0" name="start_times[]" required>
                             </div>
                             <div class="col">
-                                <label for="end_time_0"><b>{{__('lesson.admin_create_endTime')}}</b></label>
+                                <label for="end_time_0"><b>{{__('lesson.admin_create_endTime')}}</b> <b class="text-danger">*</b></label>
                                 <input class="form-control" type="time" id="end_time_0" name="end_times[]" required>
                             </div>
                         </div>
                         <div class="row g-2">
                             <div class="col">
-                                <label for="day_0"><b>{{__('lesson.admin_create_weekDay_title')}}</b></label>
+                                <label for="day_0"><b>{{__('lesson.admin_create_weekDay_title')}}</b> <b class="text-danger">*</b></label>
                                 <select class="form-control" id="day_0" name="days[]" required>
                                     <option value="0">{{__('lesson.admin_create_weekDay_monday')}}</option>
                                     <option value="1">{{__('lesson.admin_create_weekDay_tuesday')}}</option>
@@ -180,7 +183,7 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <label for="location_0"><b>{{__('lesson.admin_create_location')}}</b> <a href="{{route('admin.locations.create')}}">{{__('lesson.admin_create_link_location')}}</a></label>
+                                <label for="location_0"><b>{{__('lesson.admin_create_location')}}</b> <b class="text-danger">*</b><a href="{{route('admin.locations.create')}}">{{__('lesson.admin_create_link_location')}}</a></label>
                                 <select class="form-control" id="location_0" name="locations[]" required>
                                     @foreach($locations as $location)
                                         <option value="{{ $location->id }}">{{ $location->name }}</option>
@@ -200,7 +203,7 @@
             <div class="vr mx-3 p-0"></div>
 
             <div class="col form-group">
-                <label for="season_start"><b>{{__('lesson.admin_create_seasonStart')}}</b></label><br>
+                <label for="season_start"><b>{{__('lesson.admin_create_seasonStart')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('season_start')}}" class="form-control @error('season_start') is-invalid @enderror" id="season_start" name="season_start" type="date" required>
                 @error('season_start')
                 <span class="invalid-feedback">
@@ -208,7 +211,7 @@
                                     </span>
                 @enderror<br>
 
-                <label for="season_end"><b>{{__('lesson.admin_create_seasonEnd')}}</b></label><br>
+                <label for="season_end"><b>{{__('lesson.admin_create_seasonEnd')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('season_end')}}" class="form-control @error('season_end') is-invalid @enderror" id="season_end" name="season_end" type="date" required>
                 @error('season_end')
                 <span class="invalid-feedback">
@@ -217,7 +220,7 @@
                 @enderror
                 <br>
 
-                <label for="total_signup_space"><b>{{__('lesson.admin_create_totalSignupSpaces')}}</b></label><br>
+                <label for="total_signup_space"><b>{{__('lesson.admin_create_totalSignupSpaces')}}</b> <b class="text-danger">*</b></label><br>
                 <input value="{{old('total_signup_space')}}" class="form-control @error('total_signup_space') is-invalid @enderror" id="total_signup_space" name="total_signup_space" type="number"
                        required>
                 @error('total_signup_space')
@@ -232,12 +235,12 @@
                 <label for="can_signup"><b>{{__('lesson.admin_create_toggle_signup')}}</b></label>
                 <input class="form-check-input" type="checkbox" id="can_signup" name="can_signup"><br><br>
 
-                <label for="cover_image"><b>{{__('lesson.admin_create_coverImage')}}</b></label><br>
+                <label for="cover_image"><b>{{__('lesson.admin_create_coverImage')}}</b> <b class="text-danger">*</b></label><br>
                 <input class="form-control" id="cover_image" name="cover_image" type="file"
                        accept="image/png, image/jpeg"><br>
             </div>
 
-            <label for="long_description"><b>{{__('lesson.admin_create_LongDescription')}}</b></label><br>
+            <label for="long_description"><b>{{__('lesson.admin_create_LongDescription')}}</b> <b class="text-danger">*</b></label><br>
             <textarea id="tinymce" class="@error('long_description') is-invalid @enderror" name="long_description" required></textarea>
             @error('long_description')
             <span class="invalid-feedback">
