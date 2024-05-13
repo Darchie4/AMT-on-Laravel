@@ -162,5 +162,15 @@ return [
     'danceStyle_required'=>'Stilart påkrævet',
     'small_description_required'=>'Kort beskrivelse påkrævet',
     'name_required'=>'Navn påkrævet',
-    'long_description_required'=>'Lang beskrivelse påkrævet'
+    'long_description_required'=>'Lang beskrivelse påkrævet',
+
+    'create_error_end_or_startime_reverse' => 'Slut tidspunkt skal være før start',
+    'create_error_timeslot_overlap' => 'Det angivende tidsrum overlapper med andre tider',
+    'create_error_sortingIndexInUse' => 'Dette sorting index er allerede i brug',
+    'create_error_season_endBeforeStart' => 'Sæson slut skal være efter start',
+    'create_error_season_startAfterEnd' => 'Sæson start skal være før slut',
+    'create_error_age_minLargerThanMax' => 'Mindste alder skal være mindre end eller lig med højeste alder',
+    'create_error_age_maxSmallerThanMin' => 'Højeste alder skal være større end eller lig med mindste alder',
+    'create_error_valueCannotBeLesThanZero' => 'Denne værdi kan ikke være under 0',
+
 ];
