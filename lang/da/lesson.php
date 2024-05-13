@@ -48,6 +48,8 @@ return [
     'admin_create_button_submit' => 'Opret hold',
     'admin_create_label_sortingIndex' => 'Sorterings index',
     'admin_create_explainer_sortingIndex' => 'Sorterings index bestemmer hvor højt systemet skal prioritere denne dygtighedsgraden over andre dygtighedsgraden',
+    'admin_create_attentionShort' => 'OBS',
+    'admin_create_fieldsMandatory' => 'Alle felter er obligatoriske',
 
     'admin_edit_button_submit' => 'Rediger hold',
     'Sunday'=>'Søndag',
