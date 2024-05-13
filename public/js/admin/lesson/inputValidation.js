@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 var start = new Date('1970-01-01T' + startTime);
                 var end = new Date('1970-01-01T' + endTime);
                 if (start >= end) {
-                    return await getLabel('customlabels', 'lesson_create_error_end_or_startime_reverse');
+                    return await getLabel('lesson', 'create_error_end_or_startime_reverse');
                 }
                 for (var j = i + 1; j < startTimes.length; j++) {
                     var nextStartTime = startTimes[j];
                     var nextEndTime = endTimes[j];
                     var nextDay = days[j];
                     if (day === nextDay && ((startTime <= nextStartTime && nextStartTime < endTime) || (startTime < nextEndTime && nextEndTime <= endTime))) {
-                        return await getLabel('customlabels', 'lesson_create_error_timeslot_overlap');
+                        return await getLabel('lesson', 'create_error_timeslot_overlap');
                     }
                 }
             }
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var seasonStart = this.value;
         var seasonEnd = document.getElementById('season_end').value;
         if (!validateDateFields(seasonStart, seasonEnd)) {
-            alert(await getLabel('customlabels', 'lesson_create_error_season_endBeforeStart'));
+            alert(await getLabel('lesson', 'create_error_season_endBeforeStart'));
             this.value = "";
         }
     });
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var seasonStart = document.getElementById('season_start').value;
         var seasonEnd = this.value;
         if (!validateDateFields(seasonStart, seasonEnd)) {
-            alert(await getLabel('customlabels', 'lesson_create_error_season_startAfterEnd'));
+            alert(await getLabel('lesson', 'create_error_season_startAfterEnd'));
             this.value = "";
         }
     });
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var ageMin = parseInt(this.value);
         var ageMax = parseInt(document.getElementById('age_max').value);
         if (!validateNumberFields(ageMin, ageMax)) {
-            alert(await getLabel('customlabels', 'lesson_create_error_age_minLargerThanMax'));
+            alert(await getLabel('lesson', 'create_error_age_minLargerThanMax'));
             this.value = "";
         }
     });
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var ageMin = parseInt(document.getElementById('age_min').value);
         var ageMax = parseInt(this.value);
         if (!validateNumberFields(ageMin, ageMax)) {
-            alert(await getLabel('customlabels', 'lesson_create_error_age_maxSmallerThanMin'));
+            alert(await getLabel('lesson', 'create_error_age_maxSmallerThanMin'));
             this.value = "";
         }
     });
@@ -96,14 +96,14 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('sorting_index').addEventListener('change', async function () {
         var sortingIndex = parseInt(this.value);
         if (!validateNegativeValue(sortingIndex)) {
-            alert(await getLabel('customlabels', 'lesson_create_error_valueCannotBeLesThanZero'));
+            alert(await getLabel('lesson', 'create_error_valueCannotBeLesThanZero'));
             this.value = "";
         }
     });
 
     document.getElementById('total_signup_space').addEventListener('change', async function () {
         if (!validateNegativeValue(parseFloat(this.value))) {
-            alert(await getLabel('customlabels', 'lesson_create_error_valueCannotBeLesThanZero'));
+            alert(await getLabel('lesson', 'create_error_valueCannotBeLesThanZero'));
             this.value = "";
         }
     });
